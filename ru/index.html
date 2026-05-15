@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Persona Lens — Каждое сообщение раскрывает, кто вы</title>
 <meta name="description" content="Persona Lens превращает ваши реальные переписки в WhatsApp и Telegram в красиво оформленный психологический портрет. Шесть линз. 61 модуль. Приватность с самого начала." />
+<meta property="og:title" content="Persona Lens — Каждое сообщение раскрывает, кто вы" />
+<meta property="og:description" content="Психологический портрет, построенный на ваших реальных переписках. Шесть линз. 61 модуль. Ваши данные остаются на вашем iPhone." />
+<meta property="og:image" content="https://persona-lens.com/assets/appicon.png" />
+<meta property="og:type" content="website" />
 <meta name="theme-color" content="#25375B" />
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico?v=20260515" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png?v=20260515" />
@@ -21,39 +25,371 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/ru/"><img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
-    <div class="lang-picker">
-      <a class="lang-flag flag-en" href="/" aria-label="English"></a>
-      <a class="lang-flag flag-fr" href="/fr/" aria-label="Français"></a>
-      <a class="lang-flag flag-es" href="/es/" aria-label="Español"></a>
-      <span class="lang-flag flag-ru active" aria-label="Русский"></span>
-    </div>
-    <a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать</a>
+    <a class="brand" href="/ru/">
+      <img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark" />
+      <span class="brand-name">Persona Lens</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#lenses">Линзы</a>
+      <a href="#how">Как это работает</a>
+      <a href="science.html">Наука</a><a href="testimonials.html">Отзывы</a>
+      <a href="pricing.html">Цены</a>
+      <a href="#privacy">Приватность</a>
+    </nav>
+    <div class="lang-picker"><a class="lang-flag flag-en" href="/" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать</a>
   </div>
 </header>
 
 <main>
-  <section class="hero" style="padding: 100px 0;">
-    <div class="container container-narrow" style="text-align: center;">
-      <p class="eyebrow center">Русская версия</p>
-      <h1 class="display section-title">Скоро.</h1>
-      <p class="lede" style="margin: 20px auto;">Полный перевод на русский язык появится очень скоро. А пока приложение для iOS уже доступно, и сайт можно посмотреть на английском языке.</p>
-      <div style="margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <a class="btn btn-primary" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать в App Store</a>
-        <a class="btn btn-ghost" href="/">Открыть сайт на английском →</a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Для iPhone · iOS 17+</p>
+        <h1 class="display">Каждое сообщение<br/>раскрывает, кто вы.</h1>
+        <p class="lede">Persona Lens читает переписки, которые у вас уже есть — в WhatsApp, в Telegram, или вставленные откуда угодно — и выдаёт красиво оформленный психологический портрет через шесть разных линз на вашу жизнь.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать в App Store</a>
+          <a class="btn btn-ghost" href="#how">Посмотреть, как это работает</a>
+        </div>
+        <p class="hero-meta">Первый анализ бесплатно · Аккаунт не нужен · Отчёты остаются зашифрованными на вашем iPhone</p>
+      </div>
+      <div class="hero-visual">
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <span class="persona-card-tag">Карта Персоны · Линза Романтика</span>
+          </div>
+          <div class="persona-card-title">Преданный Стратег</div>
+          <div class="persona-card-trait-row">
+            <div class="trait-pill">Теплота · 86</div>
+            <div class="trait-pill">Любознательность · 72</div>
+            <div class="trait-pill">Устойчивость · 81</div>
+          </div>
+          <p class="persona-card-quote">«Вы ведёте с заботой, но решаете по паттернам. Они чувствуют себя выбранными — не случайно, а вашим вниманием.»</p>
+          <div class="persona-card-footer">
+            <img src="/assets/lens-romantic.png" alt="" class="persona-card-lens-icon"/>
+            <span>Линза Романтика · 9 из 11 модулей</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- LENSES -->
+  <section id="lenses" class="section section-lenses">
+    <div class="container">
+      <p class="eyebrow center">Шесть линз · 61 модуль</p>
+      <h2 class="section-title">Один вы. Шесть перспектив.</h2>
+      <p class="section-lede">Одни и те же слова звучат по-разному в любви и на работе. Persona Lens заставляет вас сначала выбрать линзу — и подстраивает весь анализ под этот контекст.</p>
+
+      <div class="lens-grid">
+        <a class="lens-card" style="--lens: #6BA7B3;" href="lens-self.html">
+          <img src="/assets/lens-self.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВАС САМИХ</p>
+          <h3>Я</h3>
+          <p>Читает только ваши собственные сообщения. Ценности, нарративные арки, ваша манера говорить с собой — и план того, что развивать дальше.</p>
+          <span class="more">Изучить линзу Я →</span>
+        </a>
+        <a class="lens-card" style="--lens: #D78377;" href="lens-romantic.html">
+          <img src="/assets/lens-romantic.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВАШЕГО ПАРТНЁРА и ВАШУ РОМАНТИЧЕСКУЮ ДИНАМИКУ</p>
+          <h3>Романтика</h3>
+          <p>Читает другого человека (партнёра, свидание, бывшего) и динамику отношений между вами. Стиль привязанности, сигналы интереса, паттерны восстановления, куда всё это движется.</p>
+          <span class="more">Изучить линзу Романтика →</span>
+        </a>
+        <a class="lens-card" style="--lens: #FBB35F;" href="lens-friendship.html">
+          <img src="/assets/lens-friendship.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВАШЕГО ДРУГА и ДИНАМИКУ ОТНОШЕНИЙ</p>
+          <h3>Дружба</h3>
+          <p>Читает вашего друга и динамику дружбы между вами. Сигналы лояльности, баланс взаимного обмена, ритм подколок, внутренние шутки, которые ещё работают.</p>
+          <span class="more">Изучить линзу Дружба →</span>
+        </a>
+        <a class="lens-card" style="--lens: #A783D7;" href="lens-professional.html">
+          <img src="/assets/lens-professional.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВАШЕГО КОЛЛЕГУ и РАБОЧУЮ ДИНАМИКУ</p>
+          <h3>Работа</h3>
+          <p>Читает вашего коллегу и рабочую динамику между вами. Его архетип, как ему презентовать идею, как возражать, что означает его время ответа.</p>
+          <span class="more">Изучить линзу Работа →</span>
+        </a>
+        <a class="lens-card" style="--lens: #83B3E3;" href="lens-family.html">
+          <img src="/assets/lens-family.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВАШИ СЕМЕЙНЫЕ ОТНОШЕНИЯ</p>
+          <h3>Семья</h3>
+          <p>Читает вас обоих — вас и конкретного родственника — через призму семейных систем. Унаследованные сценарии, старые роли, фразы ваших родителей, которые вы теперь пишете в сообщениях.</p>
+          <span class="more">Изучить линзу Семья →</span>
+        </a>
+        <a class="lens-card" style="--lens: #FB775F;" href="lens-group.html">
+          <img src="/assets/lens-group.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Анализирует ВСЮ ГРУППУ</p>
+          <h3>Группа</h3>
+          <p>Читает всю группу как маленькое общество. Состав Персонажей. Карта Власти. Альянсы. Церемония Наград — самая расшариваемая линза, которую мы сделали.</p>
+          <span class="more">Изучить линзу Группа →</span>
+        </a>
+      </div>
+
+      <p class="lens-footnote">У каждой линзы свой цвет, свой набор модулей и свой нарративный голос. Всего 61 модуль — и их становится больше.</p>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" class="section section-how">
+    <div class="container">
+      <p class="eyebrow center">Как это работает</p>
+      <h2 class="section-title">Три шага. Примерно три минуты.</h2>
+
+      <div class="how-grid">
+        <div class="how-step">
+          <span class="how-num">01</span>
+          <div class="how-sources">
+            <img src="/assets/icon-whatsapp.png" alt="WhatsApp"/>
+            <img src="/assets/icon-telegram.png" alt="Telegram"/>
+            <img src="/assets/icon-copypaste.png" alt="Copy &amp; Paste"/>
+          </div>
+          <h3>Принесите переписку</h3>
+          <p>Экспортируйте чат WhatsApp или Telegram, войдите в Telegram один раз, или просто вставьте любой текст откуда угодно — iMessage, Signal, Discord, LinkedIn. Никаких аккаунтов привязывать не нужно, никакого сбора данных из соцсетей.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">02</span>
+          <div class="how-lensrow">
+            <img src="/assets/lens-self.png" alt=""/>
+            <img src="/assets/lens-romantic.png" alt=""/>
+            <img src="/assets/lens-friendship.png" alt=""/>
+            <img src="/assets/lens-professional.png" alt=""/>
+            <img src="/assets/lens-family.png" alt=""/>
+            <img src="/assets/lens-group.png" alt=""/>
+          </div>
+          <h3>Выберите линзу</h3>
+          <p>Выберите интересующую вас перспективу — Я, Романтика, Дружба, Работа, Семья или Группа. Одни и те же слова читаются по-разному. Линза Романтика не задаёт тех же вопросов, что и линза Работа.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">03</span>
+          <div class="how-output">
+            <div class="mini-card">
+              <div class="mini-card-pills">
+                <div class="mini-card-pill"></div>
+                <div class="mini-card-pill"></div>
+                <div class="mini-card-pill"></div>
+              </div>
+            </div>
+          </div>
+          <h3>Получите свой портрет</h3>
+          <p>Многосекционный отчёт: фирменная Карта Персоны, модули выбранной линзы, Церемония Наград, письменный портрет голосом линзы и одна шарабельная картинка для Stories.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE -->
+  <section id="sample" class="section section-sample">
+    <div class="container sample-inner">
+      <div class="sample-copy">
+        <p class="eyebrow">Пример портрета</p>
+        <h2 class="section-title left">Не стена текста.<br/>Памятная вещь.</h2>
+        <p>Каждый портрет свёрстан так, как сверстал бы дизайнер. Карта Персоны, которую вы реально захотите скриншотнуть. Церемония Наград, которая находит в чате самые «ваши» моменты. И язык, который звучит как точный друг, а не как клиницист.</p>
+        <ul class="check-list">
+          <li>Карта Персоны — архетип, три фирменных черты, одна определяющая цитата</li>
+          <li>Церемония Наград — выбирает ваши самые смешные, самые добрые, самые острые реплики</li>
+          <li>Письменный портрет голосом выбранной линзы</li>
+          <li>Одна шарабельная картинка, готовая для Instagram Stories или группового чата</li>
+        </ul>
+      </div>
+      <div class="sample-visual">
+        <div class="awards">
+          <p class="awards-title">Церемония Наград · Линза Группа</p>
+          <div class="award">
+            <span class="award-label">Самая обезоруживающая фраза</span>
+            <p class="award-quote">«Подожди — повтори эту часть. Я хочу услышать медленно.»</p>
+          </div>
+          <div class="award">
+            <span class="award-label">Самое острое закрытие</span>
+            <p class="award-quote">«Если честно, мы всё решили два сообщения назад.»</p>
+          </div>
+          <div class="award">
+            <span class="award-label">Тихая преданность</span>
+            <p class="award-quote">«Я буду там. Даже не спрашивай дважды.»</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS PREVIEW -->
+  <section class="section section-testimonials">
+    <div class="container">
+      <p class="eyebrow center">Реакции читателей</p>
+      <h2 class="section-title">«Он прочёл меня так, будто я вёл дневник, который сам не знал, что веду.»</h2>
+      <p class="section-lede">Несколько отзывов от настоящих пользователей после одной линзы.</p>
+
+      <div class="testi-grid">
+        <div class="testi-card" style="--lens: #D78377;">
+          <span class="testi-lens-tag">Линза Романтика</span>
+          <p class="testi-quote">«Он сказал, что он склонен к тревожной привязанности, а я девять месяцев гонюсь за его амбивалентностью. Потом процитировал мне три его сообщения в доказательство. Я закрыла приложение и позвонила терапевту.»</p>
+          <div class="testi-person">
+            <div class="testi-avatar">JM</div>
+            <div class="testi-meta"><strong>Juliette M.</strong><br/>Лион · 28</div>
+          </div>
+        </div>
+        <div class="testi-card" style="--lens: #FB775F;">
+          <span class="testi-lens-tag">Линза Группа</span>
+          <p class="testi-quote">«Запустила на чате подружек невесты. Церемония Наград прибила каждую из нас. Пия получила «Самая вероятная отправить голосовые в час ночи», и вся группа повалилась со смеху. Мы заскринили всё.»</p>
+          <div class="testi-person">
+            <div class="testi-avatar">SP</div>
+            <div class="testi-meta"><strong>Sara P.</strong><br/>Мадрид · 31</div>
+          </div>
+        </div>
+        <div class="testi-card" style="--lens: #83B3E3;">
+          <span class="testi-lens-tag">Линза Семья</span>
+          <p class="testi-quote">«Археология Коммуникации вытащила фразу, которую говорит моя мама — «не заставляй меня спрашивать дважды» — и показала, что я теперь пишу её брату. Я просидела с этим час.»</p>
+          <div class="testi-person">
+            <div class="testi-avatar">DK</div>
+            <div class="testi-meta"><strong>Daria K.</strong><br/>Тбилиси · 34</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top: 40px;">
+        <a class="btn btn-ghost" href="testimonials.html">Читать больше отзывов →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" class="section section-privacy">
+    <div class="container">
+      <p class="eyebrow center">Приватность по умолчанию</p>
+      <h2 class="section-title">Ваши переписки — ваши.</h2>
+      <p class="section-lede">Persona Lens создан для самого личного, что у вас есть — ваших слов. Поэтому мы построили его единственным способом, которому доверяли бы сами: минимум данных, максимум прозрачности.</p>
+
+      <div class="privacy-grid">
+        <div class="privacy-card">
+          <h3>Никакого хранения сообщений на сервере</h3>
+          <p>Данные переписки обрабатываются на лету и удаляются. Мы не храним ваши сообщения на наших серверах, и точка.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Отчёты остаются на вашем iPhone</h3>
+          <p>Ваши прошлые портреты живут в зашифрованном локальном хранилище на устройстве, не в облачном аккаунте. Облачного аккаунта вообще нет.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Удаление одним касанием</h3>
+          <p>Сотрите всю свою историю из приложения одним действием, в любое время, без обращения в поддержку.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Никакого трекинга. Никакой рекламы. Никакой продажи данных.</h3>
+          <p>Бизнес-модель прямая: подписка и пакеты кредитов. Мы спроектировали так, чтобы исключить второй источник дохода, который требовал бы продавать вас.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING PREVIEW -->
+  <section id="pricing" class="section section-pricing">
+    <div class="container">
+      <p class="eyebrow center">Цены</p>
+      <h2 class="section-title">Один бесплатный анализ. Потом кредиты или подписка.</h2>
+      <p class="section-lede">Каждый новый пользователь получает один бесплатный анализ при первом запуске — без карты, без аккаунта. Дальше: три пакета кредитов (плати за то, что используешь) или два уровня подписки (безлимитно).</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <p class="price-eyebrow">Первый запуск</p>
+          <p class="price-amount">Бесплатно</p>
+          <p class="price-line">1 кредит на анализ, выдаётся при первом запуске.</p>
+          <ul>
+            <li>Одна полная Карта Персоны</li>
+            <li>Выбирайте любую из шести линз</li>
+            <li>Все модули этой линзы</li>
+            <li>Шарабельная картинка включена</li>
+          </ul>
+          <a class="btn btn-ghost" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Открыть приложение →</a>
+        </div>
+        <div class="price-card price-featured">
+          <p class="price-eyebrow">Подписка</p>
+          <p class="price-amount">$8.33<span>/мес</span></p>
+          <p class="price-line">$99.99/год — или $9.99/месяц. Два месяца бесплатно при годовой подписке.</p>
+          <ul>
+            <li>Безлимитные анализы, все шесть линз</li>
+            <li>Библиотека Инсайтов — фильтровать, сортировать, исследовать</li>
+            <li>Копировать, экспортировать и делиться отчётами</li>
+            <li>Скачать отчёты в PDF</li>
+            <li>Ранний доступ к новым линзам</li>
+          </ul>
+          <a class="btn btn-lightcream" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Подписаться →</a>
+        </div>
+        <div class="price-card">
+          <p class="price-eyebrow">Пакеты кредитов</p>
+          <p class="price-amount">от $2.99</p>
+          <p class="price-line">3 размера пакетов · кредиты никогда не сгорают.</p>
+          <ul>
+            <li>1 анализ · $2.99</li>
+            <li>5 анализов · $12.99 <em>(экономия 13%)</em></li>
+            <li>10 анализов · $22.99 <em>(экономия 23%)</em></li>
+            <li>Идеально для одного бывшего, одного босса, одной групповой переписки</li>
+          </ul>
+          <a class="btn btn-ghost" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Купить кредиты →</a>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top: 36px;">
+        <a class="btn btn-ghost" href="pricing.html">Полная разбивка цен и FAQ →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download" class="section section-download">
+    <div class="container download-inner">
+      <h2 class="section-title white">Прочтите себя — мягко.</h2>
+      <p class="section-lede white">Persona Lens создан для iPhone. Закиньте чат, выберите линзу, получите портрет того, кто вы прямо сейчас.</p>
+      <a class="btn btn-lightcream" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать в App Store</a>
+      <p class="hero-meta white">Уже доступно в App Store · iPhone, iOS 17+.</p>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-col footer-brand-col"><div class="footer-brand"><img src="/assets/appicon.png" alt="" class="footer-mark"/><p class="footer-name">Persona Lens</p></div><p class="footer-tag">Каждое сообщение раскрывает, кто вы.</p></div>
-      <div class="footer-col"><h4>Языки</h4><ul><li><a href="/">English</a></li><li><a href="/fr/">Français</a></li><li><a href="/es/">Español</a></li><li><a href="/ru/">Русский</a></li></ul></div>
-      <div class="footer-col"></div>
+      <div class="footer-col footer-brand-col">
+        <div class="footer-brand">
+          <img src="/assets/appicon.png" alt="" class="footer-mark"/>
+          <p class="footer-name">Persona Lens</p>
+        </div>
+        <p class="footer-tag">Каждое сообщение раскрывает, кто вы.<br/>Шесть линз. 61 модуль. Создано приватно для iPhone.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Линзы</h4>
+        <ul>
+          <li><a href="lens-self.html">Я</a></li>
+          <li><a href="lens-romantic.html">Романтика</a></li>
+          <li><a href="lens-friendship.html">Дружба</a></li>
+          <li><a href="lens-professional.html">Работа</a></li>
+          <li><a href="lens-family.html">Семья</a></li>
+          <li><a href="lens-group.html">Группа</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Продукт</h4>
+        <ul>
+          <li><a href="#how">Как это работает</a></li>
+          <li><a href="pricing.html">Цены</a></li><li><a href="science.html">Наука</a></li>
+          <li><a href="testimonials.html">Отзывы</a></li>
+          <li><a href="#privacy">Подход к приватности</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Юридическое</h4>
+        <ul>
+          <li><a href="privacy.html">Политика приватности</a></li>
+          <li><a href="terms.html">Условия использования</a></li>
+          
+        </ul>
+      </div>
     </div>
-    <div class="container footer-bottom"><span>© 2026 Persona Lens. Сделано с заботой, чтобы помочь.</span><span>Это инсайты от ИИ, а не диагноз.</span></div>
+    <div class="container footer-bottom">
+      <span>© 2026 Persona Lens. Сделано с заботой, чтобы помочь.</span>
+      <span>Это инсайты от ИИ, а не диагноз.</span>
+    </div>
   </div>
 </footer>
 

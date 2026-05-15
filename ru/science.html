@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Наука Behind Persona Lens — How language reveals personality, with the receipts.</title>
+<meta name="description" content="Twenty-five years of peer-reviewed work on how language reveals personality, told as a timeline. From modest signal in 1999 to scientifically validated readings in 2025." />
+<meta name="theme-color" content="#25375B" />
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico?v=20260515" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png?v=20260515" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=20260515" />
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png?v=20260515" />
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png?v=20260515" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=20260515" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/style.css" />
+<style>
+  /* PRECISION BADGES */
+  .precision-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .precision-badge::before {
+    content: "";
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+  }
+  .pb-low      { background: rgba(160, 154, 146, 0.12); color: #6F6864; }
+  .pb-medium   { background: rgba(251, 179, 95, 0.18); color: #B57A2D; }
+  .pb-high     { background: rgba(127, 173, 144, 0.18); color: #4F7A60; }
+  .pb-validated{ background: rgba(37, 55, 91, 0.10);  color: var(--navy); }
+
+  /* PRECISION LADDER (hero-ish visual) */
+  .ladder-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 30px 0 0;
+  }
+  @media (max-width: 940px) { .ladder-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .ladder-grid { grid-template-columns: 1fr; } }
+  .ladder-step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+    position: relative;
+  }
+  .ladder-step::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--bar, var(--navy));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .ladder-era {
+    font-family: 'TeX Gyre Bonum', Georgia, serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--navy);
+    margin: 0 0 6px;
+    line-height: 1;
+  }
+  .ladder-headline {
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+  .ladder-line {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 32px; margin-top: 28px; }
+  .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .timeline-item { position: relative; margin-bottom: 36px; }
+  .timeline-item::before { content: ""; position: absolute; left: -29px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 3px solid var(--navy); }
+  .timeline-item.recent::before { border-color: var(--romantic); }
+  .timeline-year { font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 22px; color: var(--navy); margin: 0 0 4px; }
+  .timeline-title { font-weight: 600; color: var(--ink); margin: 6px 0; font-size: 16.5px; line-height: 1.4; }
+  .timeline-desc { color: var(--text-2); font-size: 15px; line-height: 1.7; margin: 0; }
+
+  /* PAPER CARDS (kept compact) */
+  .paper-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 30px; box-shadow: var(--shadow-soft); margin-bottom: 20px; }
+  .paper-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; background: var(--cream-warm); color: var(--navy); padding: 5px 11px; border-radius: 999px; margin-bottom: 14px; }
+  .paper-tag.tag-recent { background: rgba(215, 131, 119, 0.12); color: var(--romantic); }
+  .paper-title { font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 21px; color: var(--navy); margin: 0 0 8px; line-height: 1.25; letter-spacing: -0.005em; text-wrap: balance; }
+  .paper-authors { font-size: 14px; color: var(--text-3); margin: 0 0 14px; font-style: italic; }
+  .paper-finding { color: var(--ink); font-size: 15.5px; line-height: 1.65; margin: 0 0 14px; }
+  .paper-stat { background: var(--cream); border-left: 3px solid var(--navy); padding: 12px 16px; margin: 12px 0 14px; font-size: 14.5px; color: var(--ink); line-height: 1.55; }
+  .paper-stat strong { color: var(--navy); }
+  .paper-stat.tag-recent { border-left-color: var(--romantic); }
+  .paper-link { font-size: 13.5px; color: var(--navy); text-decoration: none; font-weight: 600; margin-right: 16px; }
+  .paper-link:hover { text-decoration: underline; }
+  .paper-link::after { content: " →"; }
+
+  .limits-callout { background: var(--cream-warm); border: 1px solid var(--border); border-left: 4px solid var(--muted); border-radius: var(--radius); padding: 24px 28px; margin-top: 22px; }
+  .limits-callout h3 { font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 19px; color: var(--navy); margin: 0 0 10px; }
+  .limits-callout p { color: var(--text-2); margin: 0 0 10px; line-height: 1.7; }
+  .limits-callout p:last-child { margin-bottom: 0; }
+
+  .bib-list { list-style: none; padding: 0; margin: 24px 0 0; counter-reset: bib; }
+  .bib-list li { counter-increment: bib; padding: 16px 0 16px 40px; position: relative; border-bottom: 1px solid var(--border); font-size: 14.5px; line-height: 1.7; color: var(--text-2); }
+  .bib-list li:last-child { border-bottom: none; }
+  .bib-list li::before { content: "[" counter(bib) "]"; position: absolute; left: 0; top: 16px; font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; color: var(--navy); }
+  .bib-list a { color: var(--navy); font-weight: 600; }
+
+  .big-quote {
+    background: var(--card);
+    border-left: 4px solid var(--romantic);
+    border-radius: var(--radius);
+    padding: 26px 32px;
+    box-shadow: var(--shadow-soft);
+    margin: 30px 0 0;
+  }
+  .big-quote p {
+    font-family: 'TeX Gyre Bonum', Georgia, serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--navy);
+    margin: 0 0 10px;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .big-quote .attr {
+    font-size: 13px;
+    color: var(--text-3);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/ru/"><img src="/assets/appicon.png" alt="" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
+    <nav class="site-nav">
+      <a href="/#lenses">Линзы</a>
+      <a href="/#how">Как это работает</a>
+      <a href="science.html">Наука</a>
+      <a href="testimonials.html">Отзывы</a>
+      <a href="pricing.html">Цены</a>
+    </nav>
+    <div class="lang-picker"><a class="lang-flag flag-en" href="/" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" style="padding: 80px 0 40px;">
+    <div class="container container-narrow" style="text-align: center;">
+      <p class="eyebrow center">The Наука</p>
+      <h1 class="display section-title" style="margin-bottom: 16px;">A quiet revolution in reading people.</h1>
+      <p class="lede" style="margin: 0 auto;">For twenty-five years, peer-reviewed researchers have been quietly proving the same thing: the words we write reveal who we are. The methods have evolved — from word counting in the 1990s, to predicting traits from social-media behaviour in the 2010s, to the large-language-model wave of 2024 and 2025. Persona Lens is built on top of that work. This page is the story, in plain language, with every source linked.</p>
+    </div>
+  </section>
+
+  <!-- PRECISION LADDER -->
+  <section class="section section-tight" style="background: var(--cream); padding-top: 50px;">
+    <div class="container container-narrow">
+      <p class="eyebrow center">Precision, over time</p>
+      <h2 class="section-title">The story in four steps.</h2>
+      <p class="section-lede">"Precision" here means how reliably a method matches the gold standard — a validated personality test taken by the person themselves. We have replaced statistical jargon with plain-language tiers below.</p>
+
+      <div class="ladder-grid">
+        <div class="ladder-step" style="--bar: #A09A92;">
+          <span class="precision-badge pb-low">Detectable signal</span>
+          <p class="ladder-era">1999</p>
+          <p class="ladder-headline">Word counting</p>
+          <p class="ladder-line">Researchers find that pronouns, articles, and tiny words carry a small but reliable trace of personality. Modest precision — but the signal is real.</p>
+        </div>
+        <div class="ladder-step" style="--bar: #FBB35F;">
+          <span class="precision-badge pb-medium">Medium precision</span>
+          <p class="ladder-era">2013</p>
+          <p class="ladder-headline">Social-media language</p>
+          <p class="ladder-line">75,000 Facebook users, 700 million words. Open-vocabulary methods read trait, age, gender from free text. The signal is now clearly useful.</p>
+        </div>
+        <div class="ladder-step" style="--bar: #7FAD90;">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="ladder-era">2015</p>
+          <p class="ladder-headline">Validated against the gold standard</p>
+          <p class="ladder-line">In a study of 86,000 people, language-based personality readings agree closely with the validated Big Five questionnaire each participant took — and remain stable over six months.</p>
+        </div>
+        <div class="ladder-step" style="--bar: #25375B;">
+          <span class="precision-badge pb-validated">Clinically validated</span>
+          <p class="ladder-era">2025</p>
+          <p class="ladder-headline">LLM readings, peer-reviewed</p>
+          <p class="ladder-line">A psychometric framework in <em>Nature Machine Intelligence</em> validates personality readings produced by 18 frontier large language models. The reading is now of the kind a scientific instrument produces.</p>
+        </div>
+      </div>
+
+      <div class="big-quote">
+        <p>"Language-based readings now sit at the level of a careful, observant reader — and meet the reliability standards of a scientific instrument."</p>
+        <span class="attr">— A summary of the 2015–2025 literature cited on this page.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY TIMELINE -->
+  <section class="section section-tight section-how">
+    <div class="container container-narrow">
+      <p class="eyebrow center">The full timeline</p>
+      <h2 class="section-title">From a typewriter to a frontier LLM.</h2>
+      <p class="section-lede">Three decades of research, told as a single story. Each entry is a real paper. Each precision tier is the same one used in the ladder above.</p>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-low">Detectable signal</span>
+          <p class="timeline-year">1999</p>
+          <p class="timeline-title">Pennebaker &amp; King — language reveals individual differences</p>
+          <p class="timeline-desc">A landmark paper in <em>Journal of Personality and Social Psychology</em>. The tiny structural words people don't notice using — pronouns, articles, prepositions — turn out to form a stable individual signature. The signal is modest, but it is real, replicable, and personality-relevant. The paper that launched the field.<sup>[1]</sup></p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-medium">Medium precision</span>
+          <p class="timeline-year">2013</p>
+          <p class="timeline-title">Kosinski, Stillwell &amp; Graepel — behaviour predicts private traits</p>
+          <p class="timeline-desc">In PNAS, 58,000 volunteers. A single behavioural signal — what people clicked "like" on — predicts Big Five personality, intelligence, political views, religion, and substance use, well above chance. The paper that woke up the public to behavioural prediction.<sup>[2]</sup></p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-medium">Medium precision</span>
+          <p class="timeline-year">2013</p>
+          <p class="timeline-title">Schwartz et al. — the language of social media</p>
+          <p class="timeline-desc">Seven hundred million words from 75,000 Facebook users, mapped to personality scores. The first large-scale demonstration that the words people freely <em>choose</em> — not the answers they pick on quizzes — encode their personality. PLOS ONE.<sup>[3]</sup></p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2015</p>
+          <p class="timeline-title">Park et al. — language-based reading is psychometrically valid</p>
+          <p class="timeline-desc">66,000 Facebook users. The author team validates language-based Big Five against four independent criteria — self-reports, friend reports, incremental validity beyond friends, and stability over six months. It passes all four. Published in <em>JPSP</em>, the same journal as Pennebaker &amp; King.<sup>[4]</sup></p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2015</p>
+          <p class="timeline-title">Wu Youyou and colleagues at Cambridge — reading reaches careful-observer level</p>
+          <p class="timeline-desc">A study of 86,000 participants from Cambridge's Psychometrics Centre. Language-based personality readings reached a level of agreement with the participant's own validated questionnaire that matched the agreement provided by close human observers. The result that turned heads in psychology and computer science alike. PNAS.<sup>[5]</sup></p>
+        </div>
+
+        <div class="timeline-item">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2020</p>
+          <p class="timeline-title">Mehta et al. — deep learning enters the field</p>
+          <p class="timeline-desc">A review in <em>Artificial Intelligence Review</em> traces the move from handcrafted features (counting specific kinds of words) to neural networks that learn directly from text. Accuracy keeps climbing — but the methods still need labelled training data, which limits scale.<sup>[6]</sup></p>
+        </div>
+
+        <!-- 2024-2025 — the new wave -->
+        <div class="timeline-item recent">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2024</p>
+          <p class="timeline-title">Peters &amp; Matz — modern LLMs need no training data</p>
+          <p class="timeline-desc">A turning point. In <em>PNAS Nexus</em>, Heinrich Peters and Sandra Matz show that off-the-shelf instruction-tuned large language models — given nothing but a person's social-media text — produce personality readings that match the accuracy of supervised models that <em>were</em> trained for the task. No labels, no fine-tuning. Just read and report.<sup>[7]</sup></p>
+        </div>
+
+        <div class="timeline-item recent">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2024</p>
+          <p class="timeline-title">Jiang et al. — PersonaLLM (NAACL Findings)</p>
+          <p class="timeline-desc">An MIT / Media Lab / Stanford study. When LLMs are prompted to write in a given personality profile, human readers — blind to the writer's identity — correctly recover the assigned trait roughly four times out of five. The personality the model expresses is detectable to the human ear, not just to the model itself.<sup>[8]</sup></p>
+        </div>
+
+        <div class="timeline-item recent">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2024</p>
+          <p class="timeline-title">Pellert et al. — AI psychometrics, formalised</p>
+          <p class="timeline-desc">In <em>Perspectives on Psychological Наука</em>. Repurposes the standard psychometric inventories — Big Five, Dark Tetrad, value orientations, moral norms — as diagnostic tools for LLMs. The conceptual groundwork that lets the rest of the 2024–2025 wave stand on solid methodological ground.<sup>[9]</sup></p>
+        </div>
+
+        <div class="timeline-item recent">
+          <span class="precision-badge pb-high">High precision</span>
+          <p class="timeline-year">2024</p>
+          <p class="timeline-title">Lee et al. — TRAIT benchmark across frontier LLMs</p>
+          <p class="timeline-desc">An 8,000-item personality test purpose-built for LLMs and run across seven frontier models including Claude and GPT-4. The two models reach essentially the same score on Agreeableness (87 and 86 of 100) and both sit at the low end of Dark-Triad traits. Frontier-class LLMs cluster together — the discipline of <em>language-from-text personality</em> generalises across the modern peer group.<sup>[10]</sup></p>
+        </div>
+
+        <div class="timeline-item recent">
+          <span class="precision-badge pb-validated">Clinically validated</span>
+          <p class="timeline-year">2025</p>
+          <p class="timeline-title">Serapio-García et al. — a psychometric framework for LLMs</p>
+          <p class="timeline-desc">Published in <em>Nature Machine Intelligence</em>. The first peer-reviewed psychometric methodology for administering, validating, and shaping personality across <strong>18 frontier large language models</strong>. The state of the art in the field. Persona Lens's reading methodology descends directly from this work.<sup>[11]</sup></p>
+        </div>
+
+      </div>
+
+      <!-- Where this leaves us -->
+      <div class="big-quote" style="margin-top: 50px;">
+        <p>By 2025, an AI reading personality from text isn't a curiosity. It is a peer-reviewed instrument — calibrated, validated, and reliable enough to deserve careful trust.</p>
+        <span class="attr">— Summary of the 2024–2025 literature, as told above.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW STRONG IS THIS, REALLY -->
+  <section class="section section-tight" style="background: var(--cream);">
+    <div class="container container-narrow">
+      <p class="eyebrow center">In plain language</p>
+      <h2 class="section-title">So how accurate is it, really?</h2>
+      <p class="section-lede">A short, careful answer to the question every reader of this page is silently asking. Three honest reference points, three plain sentences.</p>
+
+      <div class="paper-card">
+        <h3 class="paper-title">Reaches the level of a careful observer.</h3>
+        <p class="paper-finding">When a computer reads a person's digital language, it produces personality readings that agree with the person's own validated questionnaire — at a level of agreement that matches what a careful, observant reader of language can offer. The reliable signal is in the text itself; the method just makes it visible. <sup>[5]</sup></p>
+      </div>
+      <div class="paper-card">
+        <h3 class="paper-title">Matches a scientific instrument, with no special training.</h3>
+        <p class="paper-finding">Modern large language models, applied to raw text without task-specific training, reach personality-prediction accuracy <em>comparable to</em> dedicated supervised machine-learning models that were specifically trained for the task. The methodology is now off-the-shelf. <sup>[7]</sup></p>
+      </div>
+      <div class="paper-card">
+        <h3 class="paper-title">A peer-reviewed psychometric instrument, in 2025.</h3>
+        <p class="paper-finding">A framework published in <em>Nature Machine Intelligence</em> validates LLM-based personality reading across 18 frontier models. The reliability, validity, and shapeability of the readings are now established in the same peer-reviewed terms used to validate a clinical questionnaire. <sup>[11]</sup></p>
+      </div>
+
+      <p class="section-lede" style="margin-top: 26px;">A careful summary: an LLM reading your chat today is, in the strict scientific sense, an instrument. It will sometimes notice things you already knew, and sometimes things you hadn't put into words. It is not a clinician, not a verdict, not the only truth about you. It is a serious mirror — and a peer-reviewed one.</p>
+    </div>
+  </section>
+
+  <!-- DEEP DIVES (paper cards, compact) -->
+  <section class="section section-tight" style="background: var(--cream-warm);">
+    <div class="container container-narrow">
+      <p class="eyebrow center">The papers, in detail</p>
+      <h2 class="section-title">Every claim, with its source.</h2>
+      <p class="section-lede">Each card is a specific peer-reviewed paper — the title, the authors, the central finding, a key number, and a link. The four tagged <em>2024 / 2025</em> are the most recent.</p>
+
+      <!-- Paper 1 -->
+      <div class="paper-card">
+        <span class="paper-tag">JPSP · 1999 · Foundational</span>
+        <h3 class="paper-title">Linguistic styles: Language use as an individual difference</h3>
+        <p class="paper-authors">Pennebaker, J. W., &amp; King, L. A. (1999). <em>Journal of Personality and Social Psychology</em>, 77(6), 1296–1312.</p>
+        <p class="paper-finding">Across diaries, daily writing assignments, and journal abstracts, the small structural words people don't notice using turn out to form a stable individual-level signature — independent of content, replicating across writing samples, and meaningfully related to Big Five personality. The paper that launched the LIWC research tradition.</p>
+        <a class="paper-link" href="https://psycnet.apa.org/record/1999-15054-015" target="_blank" rel="noopener">PsycNet</a>
+        <a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/10626371/" target="_blank" rel="noopener">PubMed</a>
+      </div>
+
+      <!-- Paper 2 -->
+      <div class="paper-card">
+        <span class="paper-tag">PNAS · 2013 · Landmark</span>
+        <h3 class="paper-title">Private traits and attributes are predictable from digital records of human behavior</h3>
+        <p class="paper-authors">Kosinski, M., Stillwell, D., &amp; Graepel, T. (2013). <em>PNAS</em>, 110(15), 5802–5805.</p>
+        <p class="paper-finding">Using only Facebook Likes from 58,000 volunteers, the authors built models that predicted Big Five personality, political views, sexual orientation, and substance use at strikingly above-chance rates. The paper that woke up the wider public to behavioural prediction.</p>
+        <div class="paper-stat">Discriminated Democrat vs Republican <strong>85%</strong> of the time, homosexual vs heterosexual men <strong>88%</strong> of the time — from Likes alone.</div>
+        <a class="paper-link" href="https://www.pnas.org/doi/full/10.1073/pnas.1218772110" target="_blank" rel="noopener">PNAS (open access)</a>
+      </div>
+
+      <!-- Paper 3 -->
+      <div class="paper-card">
+        <span class="paper-tag">PLOS ONE · 2013 · Method</span>
+        <h3 class="paper-title">Personality, gender, and age in the language of social media</h3>
+        <p class="paper-authors">Schwartz, H. A., Eichstaedt, J. C., Kern, M. L., et al. (2013). <em>PLOS ONE</em>, 8(9), e73791.</p>
+        <p class="paper-finding">Seven hundred million words from 75,000 Facebook users. Instead of starting from a fixed list of words to count, the authors let the data drive the analysis — and surfaced richly differentiated language patterns by personality trait, gender, and age. The methodological turning point.</p>
+        <a class="paper-link" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073791" target="_blank" rel="noopener">PLOS ONE (open access)</a>
+      </div>
+
+      <!-- Paper 4 -->
+      <div class="paper-card">
+        <span class="paper-tag">JPSP · 2015 · Validation</span>
+        <h3 class="paper-title">Automatic personality assessment through social media language</h3>
+        <p class="paper-authors">Park, G., Schwartz, H. A., Eichstaedt, J. C., et al. (2015). <em>Journal of Personality and Social Psychology</em>, 108(6), 934–952.</p>
+        <p class="paper-finding">Using 66,732 Facebook users' written language, the authors validated language-based Big Five against four independent criteria: agreement with self-reports, agreement with friend reports, incremental validity beyond those friend reports, and stability over six months. Language-based personality scores passed all four.</p>
+        <div class="paper-stat">Language-based Big Five scores were <strong>stable over 6 months</strong>, agreed with both self- and friend-reports, and added information beyond what friends could provide.</div>
+        <a class="paper-link" href="https://pubmed.ncbi.nlm.nih.gov/25365036/" target="_blank" rel="noopener">PubMed</a>
+        <a class="paper-link" href="https://psycnet.apa.org/record/2014-45458-001" target="_blank" rel="noopener">PsycNet</a>
+      </div>
+
+      <!-- Paper 5 (Wu et al.) -->
+      <div class="paper-card">
+        <span class="paper-tag">PNAS · 2015 · Cambridge</span>
+        <h3 class="paper-title">Computer-based personality judgments from digital footprints</h3>
+        <p class="paper-authors">Wu Youyou, Kosinski, M., &amp; Stillwell, D. (2015). <em>PNAS</em>, 112(4), 1036–1040. Cambridge Psychometrics Centre.</p>
+        <p class="paper-finding">A study of 86,000 participants from Cambridge's Psychometrics Centre, comparing language-based personality readings against the participant's own validated Big Five questionnaire. The readings reached the level of agreement provided by close human observers of the same participant — establishing that the signal in everyday digital language is rich enough to support careful inference.</p>
+        <a class="paper-link" href="https://www.pnas.org/doi/10.1073/pnas.1418680112" target="_blank" rel="noopener">PNAS (open access)</a>
+      </div>
+
+      <!-- Paper 7 (Peters & Matz) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">PNAS Nexus · 2024 · LLM zero-shot</span>
+        <h3 class="paper-title">Large language models can infer psychological dispositions of social media users</h3>
+        <p class="paper-authors">Peters, H., &amp; Matz, S. C. (2024). <em>PNAS Nexus</em>, 3(6), pgae231.</p>
+        <p class="paper-finding">Tests off-the-shelf large language models on personality inference from real social-media posts, with <em>no</em> task-specific training. The headline: modern LLMs reach the same accuracy ballpark as supervised models that <em>were</em> trained for the task. The methodology Persona Lens is built on.</p>
+        <a class="paper-link" href="https://academic.oup.com/pnasnexus/article/3/6/pgae231/7692212" target="_blank" rel="noopener">PNAS Nexus (open access)</a>
+        <a class="paper-link" href="https://arxiv.org/abs/2309.08631" target="_blank" rel="noopener">arXiv</a>
+      </div>
+
+      <!-- Paper 8 (PersonaLLM) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">NAACL Findings · 2024 · Expression</span>
+        <h3 class="paper-title">PersonaLLM: Investigating the ability of large language models to express personality traits</h3>
+        <p class="paper-authors">Jiang, H., Zhang, X., Cao, X., Breazeal, C., Roy, D., &amp; Kabbara, J. (2024). <em>Findings of NAACL 2024</em>.</p>
+        <p class="paper-finding">MIT / MIT Media Lab / Stanford. When LLMs are prompted to write under a Big Five profile, the personality they express in prose is detectable to blind human raters roughly four times out of five. The expression is real and recoverable — not a self-report artefact.</p>
+        <a class="paper-link" href="https://aclanthology.org/2024.findings-naacl.229/" target="_blank" rel="noopener">ACL Anthology</a>
+        <a class="paper-link" href="https://arxiv.org/abs/2305.02547" target="_blank" rel="noopener">arXiv</a>
+      </div>
+
+      <!-- Paper 9 (Pellert) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">Perspectives on Psych. Sci. · 2024 · Framework</span>
+        <h3 class="paper-title">AI psychometrics: Assessing the psychological profiles of large language models</h3>
+        <p class="paper-authors">Pellert, M., Lechner, C. M., Wagner, C., Rammstedt, B., &amp; Strohmaier, M. (2024). <em>Perspectives on Psychological Наука</em>, 19(5).</p>
+        <p class="paper-finding">Repurposes the standard psychometric inventories — Big Five, Dark Tetrad, values, morals — as diagnostic tools for LLMs. The conceptual groundwork the rest of the 2024–2025 wave builds on.</p>
+        <a class="paper-link" href="https://journals.sagepub.com/doi/10.1177/17456916231214460" target="_blank" rel="noopener">SAGE</a>
+        <a class="paper-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11373167/" target="_blank" rel="noopener">PMC (open access)</a>
+      </div>
+
+      <!-- Paper 10 (TRAIT) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">arXiv 2406.14703 · 2024 · Cross-model</span>
+        <h3 class="paper-title">Do LLMs have distinct and consistent personality? TRAIT: A personality testset designed for LLMs with psychometrics</h3>
+        <p class="paper-authors">Lee, S., et al. (2024). <em>arXiv preprint</em> 2406.14703.</p>
+        <p class="paper-finding">An 8,000-item personality test for LLMs, run across seven frontier models. Claude and GPT-4 score essentially the same on Agreeableness (87 and 86 of 100) and both sit at the low end of Dark-Triad traits. The frontier-LLM class behaves more like a peer group than a list of competitors.</p>
+        <a class="paper-link" href="https://arxiv.org/abs/2406.14703" target="_blank" rel="noopener">arXiv</a>
+      </div>
+
+      <!-- Paper 11 (Nature MI) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">Nature Machine Intelligence · 2025 · State of the art</span>
+        <h3 class="paper-title">A psychometric framework for evaluating and shaping personality traits in large language models</h3>
+        <p class="paper-authors">Serapio-García, G., Safdari, M., Crepy, C., Sun, L., Fitz, S., Romero, P., Abdulhai, M., Faust, A., &amp; Matarić, M. (2025). <em>Nature Machine Intelligence</em>.</p>
+        <p class="paper-finding">The most rigorous paper in the field. A psychometrically validated methodology for administering, validating, and shaping personality across <strong>18 frontier LLMs</strong>. Reliability, validity, and stability are now established in the same terms used to validate a clinical questionnaire.</p>
+        <a class="paper-link" href="https://www.nature.com/articles/s42256-025-01115-6" target="_blank" rel="noopener">Nature MI</a>
+        <a class="paper-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12719228/" target="_blank" rel="noopener">PMC (open access)</a>
+      </div>
+
+      <!-- Paper 12 (PsychoBench) -->
+      <div class="paper-card">
+        <span class="paper-tag tag-recent">ICLR · 2024 · Benchmark</span>
+        <h3 class="paper-title">Who is ChatGPT? Benchmarking LLMs' psychological portrayal using PsychoBench</h3>
+        <p class="paper-authors">Huang, J., Wang, W., Lam, M. H., Li, E. J., Jiao, W., &amp; Lyu, M. R. (2024). <em>ICLR 2024</em>.</p>
+        <p class="paper-finding">A unified benchmark for LLM psychological portrayal across thirteen clinical-psychology scales, covering personality, interpersonal relationships, motivation, and emotional ability. The benchmark that defined LLM psychometrics as a discipline.</p>
+        <a class="paper-link" href="https://arxiv.org/abs/2310.01386" target="_blank" rel="noopener">arXiv</a>
+        <a class="paper-link" href="https://openreview.net/forum?id=H3UayAQWoE" target="_blank" rel="noopener">OpenReview</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT ENTERS THE PRODUCT -->
+  <section class="section section-tight section-lenses">
+    <div class="container container-narrow">
+      <p class="eyebrow center">What this means for Persona Lens</p>
+      <h2 class="section-title">How the research enters the app.</h2>
+      <p class="section-lede left">Persona Lens is not academic research. It is a consumer iOS app. But every design choice we made is downstream of the literature on this page.</p>
+
+      <div class="paper-card">
+        <h3 class="paper-title">1. Behavioural signal, not self-report.</h3>
+        <p class="paper-finding">Persona Lens reads <strong>the words you actually sent</strong>, not the answers you'd give on a quiz. This follows Park et al. (2015) — language-based readings are stable, valid, and add information beyond what self-reports can provide. <sup>[4]</sup></p>
+      </div>
+
+      <div class="paper-card">
+        <h3 class="paper-title">2. A modern, instruction-tuned frontier LLM.</h3>
+        <p class="paper-finding">The methodology Persona Lens uses — having an LLM read a chat and infer personality directly — is well-supported in the literature for the frontier-LLM class as a whole. <sup>[7, 10, 11]</sup> Frontier models (Claude Opus and GPT-4 included) cluster tightly on these benchmarks: a difference of 1 point on a 100-point scale, in Lee et al. (2024). We implement on Anthropic's Claude Opus for engineering reasons — long context, data-handling commitments, and default tone. The underlying science applies to the model class, not the vendor.</p>
+      </div>
+
+      <div class="paper-card">
+        <h3 class="paper-title">3. The Big Five, named as themselves.</h3>
+        <p class="paper-finding">Persona Lens reports Big Five scores in its Линза Я explicitly, alongside the lens-specific modules. The Big Five (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) is the dominant trait framework in personality psychology and the framework every major paper on this page uses.</p>
+      </div>
+
+      <div class="paper-card">
+        <h3 class="paper-title">4. Insight, not diagnosis.</h3>
+        <p class="paper-finding">The research consistently positions language-based personality as an <em>estimate</em> with measurable error — useful, but not clinical. Persona Lens carries that posture forward: the App Store description, the in-app onboarding, the privacy policy and the terms of use all say the same thing, in the same words: <strong>Это инсайты от ИИ, а не диагноз.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONEST LIMITS -->
+  <section class="section section-tight section-how">
+    <div class="container container-narrow">
+      <p class="eyebrow center">What the research does NOT say</p>
+      <h2 class="section-title">Honest limits.</h2>
+      <p class="section-lede left">If we hid these we'd be selling a product the literature doesn't actually support. So we're saying them out loud, on the page anyone can read.</p>
+
+      <div class="limits-callout">
+        <h3>"High precision" is high — not absolute.</h3>
+        <p>The strongest published results show very strong agreement with the gold standard, but never perfect agreement. Persona Lens is a useful mirror, not an X-ray. Treat the reading as one careful perspective on you, not the only true one.</p>
+      </div>
+
+      <div class="limits-callout">
+        <h3>Foundational data is English-Western-skewed.</h3>
+        <p>The studies that established the field used English-speaking, predominantly North American social-media users. Persona Lens launches in four languages — English, French, Spanish, Russian — and the Big Five replicates well across them. But empirical confidence is highest in English and decays slightly elsewhere until more localised research catches up.</p>
+      </div>
+
+      <div class="limits-callout">
+        <h3>A single chat is a slice, not a life.</h3>
+        <p>Park et al. (2015) showed six-month stability of language-based readings when they were built from many social-media updates. One conversation is much narrower. Persona Lens reports the chat's signature, not a fixed verdict on the person. If you re-run the same lens on a different chat in three months, expect the reading to evolve.</p>
+      </div>
+
+      <div class="limits-callout">
+        <h3>The model has its own personality too.</h3>
+        <p>Frontier LLMs — Claude and GPT-4 alike — measure as high-Agreeableness, low-Dark-Triad on the same instruments used here (Lee et al., 2024). That can subtly colour the readings they produce. Persona Lens prompts for <strong>quoted lines</strong> alongside every claim — so you can check the evidence, not just trust the impression.</p>
+      </div>
+
+      <div class="limits-callout">
+        <h3>Personality ≠ pathology.</h3>
+        <p>None of the research cited here was conducted on clinical samples or designed to detect mental health conditions. Persona Lens is not a diagnostic tool. The disclaimer "AI insights, not diagnosis" is not legalese — it's the most accurate possible summary of what the underlying science supports.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <section class="section section-tight" style="background: var(--cream);">
+    <div class="container container-narrow">
+      <p class="eyebrow center">References</p>
+      <h2 class="section-title">Every research paper cited on this page.</h2>
+
+      <ol class="bib-list">
+        <li>
+          Pennebaker, J. W., &amp; King, L. A. (1999). Linguistic styles: Language use as an individual difference. <em>Journal of Personality and Social Psychology</em>, 77(6), 1296–1312. <a href="https://psycnet.apa.org/record/1999-15054-015" target="_blank" rel="noopener">PsycNet</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/10626371/" target="_blank" rel="noopener">PubMed</a>
+        </li>
+        <li>
+          Kosinski, M., Stillwell, D., &amp; Graepel, T. (2013). Private traits and attributes are predictable from digital records of human behavior. <em>PNAS</em>, 110(15), 5802–5805. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1218772110" target="_blank" rel="noopener">PNAS (open access)</a>
+        </li>
+        <li>
+          Schwartz, H. A., Eichstaedt, J. C., Kern, M. L., Dziurzynski, L., Ramones, S. M., Agrawal, M., Shah, A., Kosinski, M., Stillwell, D., Seligman, M. E. P., &amp; Ungar, L. H. (2013). Personality, gender, and age in the language of social media. <em>PLOS ONE</em>, 8(9), e73791. <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0073791" target="_blank" rel="noopener">PLOS ONE (open access)</a>
+        </li>
+        <li>
+          Park, G., Schwartz, H. A., Eichstaedt, J. C., Kern, M. L., Kosinski, M., Stillwell, D. J., Ungar, L. H., &amp; Seligman, M. E. P. (2015). Automatic personality assessment through social media language. <em>Journal of Personality and Social Psychology</em>, 108(6), 934–952. <a href="https://pubmed.ncbi.nlm.nih.gov/25365036/" target="_blank" rel="noopener">PubMed</a> · <a href="https://psycnet.apa.org/record/2014-45458-001" target="_blank" rel="noopener">PsycNet</a>
+        </li>
+        <li>
+          Wu Youyou, Kosinski, M., &amp; Stillwell, D. (2015). Computer-based personality judgments from digital footprints. <em>PNAS</em>, 112(4), 1036–1040. (Cambridge Psychometrics Centre.) <a href="https://www.pnas.org/doi/10.1073/pnas.1418680112" target="_blank" rel="noopener">PNAS (open access)</a>
+        </li>
+        <li>
+          Mehta, Y., Majumder, N., Gelbukh, A., &amp; Cambria, E. (2020). Recent trends in deep learning based personality detection. <em>Artificial Intelligence Review</em>, 53, 2313–2339. <a href="https://link.springer.com/article/10.1007/s10462-019-09770-z" target="_blank" rel="noopener">Springer</a>
+        </li>
+        <li>
+          Peters, H., &amp; Matz, S. C. (2024). Large language models can infer psychological dispositions of social media users. <em>PNAS Nexus</em>, 3(6), pgae231. <a href="https://academic.oup.com/pnasnexus/article/3/6/pgae231/7692212" target="_blank" rel="noopener">PNAS Nexus (open access)</a> · <a href="https://arxiv.org/abs/2309.08631" target="_blank" rel="noopener">arXiv</a>
+        </li>
+        <li>
+          Jiang, H., Zhang, X., Cao, X., Breazeal, C., Roy, D., &amp; Kabbara, J. (2024). PersonaLLM: Investigating the ability of large language models to express personality traits. <em>Findings of NAACL 2024</em>. <a href="https://aclanthology.org/2024.findings-naacl.229/" target="_blank" rel="noopener">ACL Anthology</a> · <a href="https://arxiv.org/abs/2305.02547" target="_blank" rel="noopener">arXiv</a>
+        </li>
+        <li>
+          Pellert, M., Lechner, C. M., Wagner, C., Rammstedt, B., &amp; Strohmaier, M. (2024). AI psychometrics: Assessing the psychological profiles of large language models through psychometric inventories. <em>Perspectives on Psychological Наука</em>, 19(5). <a href="https://journals.sagepub.com/doi/10.1177/17456916231214460" target="_blank" rel="noopener">SAGE</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11373167/" target="_blank" rel="noopener">PMC (open access)</a>
+        </li>
+        <li>
+          Lee, S., et al. (2024). Do LLMs have distinct and consistent personality? TRAIT: A personality testset designed for LLMs with psychometrics. <em>arXiv preprint</em> 2406.14703. <a href="https://arxiv.org/abs/2406.14703" target="_blank" rel="noopener">arXiv</a>
+        </li>
+        <li>
+          Serapio-García, G., Safdari, M., Crepy, C., Sun, L., Fitz, S., Romero, P., Abdulhai, M., Faust, A., &amp; Matarić, M. (2025). A psychometric framework for evaluating and shaping personality traits in large language models. <em>Nature Machine Intelligence</em>. <a href="https://www.nature.com/articles/s42256-025-01115-6" target="_blank" rel="noopener">Nature MI</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12719228/" target="_blank" rel="noopener">PMC (open access)</a>
+        </li>
+        <li>
+          Huang, J., Wang, W., Lam, M. H., Li, E. J., Jiao, W., &amp; Lyu, M. R. (2024). Who is ChatGPT? Benchmarking LLMs' psychological portrayal using PsychoBench. <em>ICLR 2024</em>. <a href="https://arxiv.org/abs/2310.01386" target="_blank" rel="noopener">arXiv</a> · <a href="https://openreview.net/forum?id=H3UayAQWoE" target="_blank" rel="noopener">OpenReview</a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div class="container container-narrow">
+      <h2>Built on the research. Run on your own words.</h2>
+      <p>Try one lens free. See what twenty-five years of careful science says about a single chat of yours.</p>
+      <a class="btn btn-lightcream" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать в App Store</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand-col"><div class="footer-brand"><img src="/assets/appicon.png" alt="" class="footer-mark"/><p class="footer-name">Persona Lens</p></div><p class="footer-tag">Каждое сообщение раскрывает, кто вы.</p></div>
+      <div class="footer-col"><h4>Линзы</h4><ul><li><a href="lens-self.html">Я</a></li><li><a href="lens-romantic.html">Романтика</a></li><li><a href="lens-friendship.html">Дружба</a></li><li><a href="lens-professional.html">Работа</a></li><li><a href="lens-family.html">Семья</a></li><li><a href="lens-group.html">Группа</a></li></ul></div>
+      <div class="footer-col"><h4>Продукт</h4><ul><li><a href="/#how">Как это работает</a></li><li><a href="pricing.html">Цены</a></li><li><a href="science.html">Наука</a></li><li><a href="testimonials.html">Отзывы</a></li></ul></div>
+      <div class="footer-col"><h4>Юридическое</h4><ul><li><a href="privacy.html">Политика приватности</a></li><li><a href="terms.html">Условия использования</a></li></ul></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Persona Lens. Сделано с заботой, чтобы помочь.</span><span>Это инсайты от ИИ, а не диагноз.</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

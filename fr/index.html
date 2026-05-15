@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Persona Lens — Chaque message révèle qui vous êtes</title>
 <meta name="description" content="Persona Lens transforme vos vraies conversations WhatsApp et Telegram en un portrait psychologique élégamment conçu. Six lentilles. 61 modules. Privé par conception." />
+<meta property="og:title" content="Persona Lens — Chaque message révèle qui vous êtes" />
+<meta property="og:description" content="Un portrait psychologique construit à partir de vos vraies conversations. Six lentilles. 61 modules. Vos données restent sur votre iPhone." />
+<meta property="og:image" content="https://persona-lens.com/assets/appicon.png" />
+<meta property="og:type" content="website" />
 <meta name="theme-color" content="#25375B" />
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico?v=20260515" />
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png?v=20260515" />
@@ -21,39 +25,371 @@
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/fr/"><img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
-    <div class="lang-picker">
-      <a class="lang-flag flag-en" href="/" aria-label="English"></a>
-      <span class="lang-flag flag-fr active" aria-label="Français"></span>
-      <a class="lang-flag flag-es" href="/es/" aria-label="Español"></a>
-      <a class="lang-flag flag-ru" href="/ru/" aria-label="Русский"></a>
-    </div>
-    <a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Télécharger</a>
+    <a class="brand" href="/fr/">
+      <img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark" />
+      <span class="brand-name">Persona Lens</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#lenses">Les lentilles</a>
+      <a href="#how">Comment ça marche</a>
+      <a href="science.html">Science</a><a href="testimonials.html">Témoignages</a>
+      <a href="pricing.html">Tarifs</a>
+      <a href="#privacy">Confidentialité</a>
+    </nav>
+    <div class="lang-picker"><a class="lang-flag flag-en" href="/" aria-label="English"></a><span class="lang-flag flag-fr active" aria-label="Français"></span><a class="lang-flag flag-es" href="/es/" aria-label="Español"></a><a class="lang-flag flag-ru" href="/ru/" aria-label="Русский"></a></div><a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Télécharger</a>
   </div>
 </header>
 
 <main>
-  <section class="hero" style="padding: 100px 0;">
-    <div class="container container-narrow" style="text-align: center;">
-      <p class="eyebrow center">Version française</p>
-      <h1 class="display section-title">Bientôt disponible.</h1>
-      <p class="lede" style="margin: 20px auto;">La traduction française complète arrive très prochainement. En attendant, l'application iOS est disponible dès aujourd'hui — et le site est consultable dans sa version anglaise.</p>
-      <div style="margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <a class="btn btn-primary" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Télécharger sur l'App Store</a>
-        <a class="btn btn-ghost" href="/">Voir le site en anglais →</a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Pour iPhone · iOS 17+</p>
+        <h1 class="display">Chaque message<br/>révèle qui vous êtes.</h1>
+        <p class="lede">Persona Lens lit les conversations que vous avez déjà — sur WhatsApp, sur Telegram, ou collées depuis n'importe où — et vous offre un portrait psychologique magnifiquement conçu, à travers six lentilles différentes de votre vie.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Télécharger sur l'App Store</a>
+          <a class="btn btn-ghost" href="#how">Voir comment ça marche</a>
+        </div>
+        <p class="hero-meta">Première analyse gratuite · Aucun compte requis · Les rapports restent chiffrés sur votre iPhone</p>
+      </div>
+      <div class="hero-visual">
+        <div class="persona-card">
+          <div class="persona-card-header">
+            <span class="persona-card-tag">Carte Persona · Lentille Romantique</span>
+          </div>
+          <div class="persona-card-title">Le Stratège Dévoué</div>
+          <div class="persona-card-trait-row">
+            <div class="trait-pill">Chaleur · 86</div>
+            <div class="trait-pill">Curiosité · 72</div>
+            <div class="trait-pill">Constance · 81</div>
+          </div>
+          <p class="persona-card-quote">« Vous menez avec attention, mais vous décidez avec des patterns. Ils se sentent choisis — non par hasard, mais par votre attention. »</p>
+          <div class="persona-card-footer">
+            <img src="/assets/lens-romantic.png" alt="" class="persona-card-lens-icon"/>
+            <span>Lentille Romantique · 9 sur 11 modules</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- LENSES -->
+  <section id="lenses" class="section section-lenses">
+    <div class="container">
+      <p class="eyebrow center">Six lentilles · 61 modules</p>
+      <h2 class="section-title">Un seul vous. Six perspectives.</h2>
+      <p class="section-lede">Les mêmes mots ne sonnent pas pareil en amour qu'au travail. Persona Lens vous oblige à choisir la lentille d'abord — et adapte toute l'analyse à ce cadre.</p>
+
+      <div class="lens-grid">
+        <a class="lens-card" style="--lens: #6BA7B3;" href="lens-self.html">
+          <img src="/assets/lens-self.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse VOUS-MÊME</p>
+          <h3>Soi</h3>
+          <p>Lit uniquement vos propres messages. Valeurs, arcs narratifs, votre manière de vous parler à vous-même — et une feuille de route pour ce que vous pouvez cultiver ensuite.</p>
+          <span class="more">Explorer la lentille Soi →</span>
+        </a>
+        <a class="lens-card" style="--lens: #D78377;" href="lens-romantic.html">
+          <img src="/assets/lens-romantic.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse VOTRE PARTENAIRE &amp; VOTRE DYNAMIQUE AMOUREUSE</p>
+          <h3>Romantique</h3>
+          <p>Lit l'autre personne (partenaire, rendez-vous, ex) et la dynamique relationnelle entre vous. Style d'attachement, signaux d'intérêt, patterns de réparation, où cela mène.</p>
+          <span class="more">Explorer la lentille Romantique →</span>
+        </a>
+        <a class="lens-card" style="--lens: #FBB35F;" href="lens-friendship.html">
+          <img src="/assets/lens-friendship.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse VOTRE AMI(E) &amp; LA DYNAMIQUE RELATIONNELLE</p>
+          <h3>Amitié</h3>
+          <p>Lit votre ami(e) et la dynamique d'amitié entre vous. Signaux de loyauté, équilibre des échanges, rythme des taquineries, les blagues internes qui fonctionnent encore.</p>
+          <span class="more">Explorer la lentille Amitié →</span>
+        </a>
+        <a class="lens-card" style="--lens: #A783D7;" href="lens-professional.html">
+          <img src="/assets/lens-professional.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse VOTRE COLLÈGUE &amp; VOTRE DYNAMIQUE DE TRAVAIL</p>
+          <h3>Professionnel</h3>
+          <p>Lit votre collègue et la dynamique de travail entre vous. Son archétype, comment lui présenter une idée, comment objecter, ce que ses temps de réponse signifient.</p>
+          <span class="more">Explorer la lentille Professionnelle →</span>
+        </a>
+        <a class="lens-card" style="--lens: #83B3E3;" href="lens-family.html">
+          <img src="/assets/lens-family.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse VOS RELATIONS FAMILIALES</p>
+          <h3>Famille</h3>
+          <p>Lit vous deux — vous et un membre spécifique de la famille — à travers une lentille systémique familiale. Scripts hérités, anciens rôles, les phrases de vos parents que vous envoyez désormais par texto.</p>
+          <span class="more">Explorer la lentille Famille →</span>
+        </a>
+        <a class="lens-card" style="--lens: #FB775F;" href="lens-group.html">
+          <img src="/assets/lens-group.png" alt="" class="lens-icon"/>
+          <p class="lens-target">Analyse TOUT LE GROUPE</p>
+          <h3>Groupe</h3>
+          <p>Lit le groupe entier comme une petite société. Distribution des Personnages. Carte du Pouvoir. Alliances. Cérémonie des Prix — la lentille la plus partagée que nous ayons construite.</p>
+          <span class="more">Explorer la lentille Groupee →</span>
+        </a>
+      </div>
+
+      <p class="lens-footnote">Chaque lentille a sa propre couleur, son propre ensemble de modules, et sa propre voix narrative. 61 modules au total — et le nombre grandit.</p>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" class="section section-how">
+    <div class="container">
+      <p class="eyebrow center">Comment ça marche</p>
+      <h2 class="section-title">Trois étapes. Environ trois minutes.</h2>
+
+      <div class="how-grid">
+        <div class="how-step">
+          <span class="how-num">01</span>
+          <div class="how-sources">
+            <img src="/assets/icon-whatsapp.png" alt="WhatsApp"/>
+            <img src="/assets/icon-telegram.png" alt="Telegram"/>
+            <img src="/assets/icon-copypaste.png" alt="Copy &amp; Paste"/>
+          </div>
+          <h3>Apportez une conversation</h3>
+          <p>Exportez un chat WhatsApp ou Telegram, connectez-vous à Telegram une seule fois, ou collez simplement du texte brut depuis n'importe où — iMessage, Signal, Discord, LinkedIn. Aucun compte à lier, aucune exploration de réseau social.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">02</span>
+          <div class="how-lensrow">
+            <img src="/assets/lens-self.png" alt=""/>
+            <img src="/assets/lens-romantic.png" alt=""/>
+            <img src="/assets/lens-friendship.png" alt=""/>
+            <img src="/assets/lens-professional.png" alt=""/>
+            <img src="/assets/lens-family.png" alt=""/>
+            <img src="/assets/lens-group.png" alt=""/>
+          </div>
+          <h3>Choisissez une lentille</h3>
+          <p>Choisissez la perspective qui vous intéresse — Soi, Romantique, Amitié, Professionnelle, Famille, ou Groupee. Les mêmes mots sont lus différemment. La lentille Romantique ne pose pas les mêmes questions que la Professionnelle.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-num">03</span>
+          <div class="how-output">
+            <div class="mini-card">
+              <div class="mini-card-pills">
+                <div class="mini-card-pill"></div>
+                <div class="mini-card-pill"></div>
+                <div class="mini-card-pill"></div>
+              </div>
+            </div>
+          </div>
+          <h3>Recevez votre portrait</h3>
+          <p>Un rapport multi-sections : Carte Persona signature, les modules de la lentille choisie, une Cérémonie des Prix, un portrait écrit dans la voix de la lentille, et une image partageable à déposer dans vos Stories.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE -->
+  <section id="sample" class="section section-sample">
+    <div class="container sample-inner">
+      <div class="sample-copy">
+        <p class="eyebrow">Un aperçu de lecture</p>
+        <h2 class="section-title left">Pas un mur de texte.<br/>Un souvenir.</h2>
+        <p>Chaque lecture est mise en page comme le ferait un designer. Une Carte Persona que vous voudriez vraiment capturer. Une Cérémonie des Prix qui repère les moments les plus « vous » du chat. Et un langage qui sonne comme un ami perspicace, pas comme un clinicien.</p>
+        <ul class="check-list">
+          <li>Une Carte Persona — archétype, trois traits signature, une citation déterminante</li>
+          <li>Une Cérémonie des Prix — qui choisit vos lignes les plus drôles, les plus bienveillantes, les plus tranchantes</li>
+          <li>Un portrait écrit dans la voix de la lentille choisie</li>
+          <li>Une image partageable, prête pour Instagram Stories ou un groupe de discussion</li>
+        </ul>
+      </div>
+      <div class="sample-visual">
+        <div class="awards">
+          <p class="awards-title">Cérémonie des Prix · Lentille Groupee</p>
+          <div class="award">
+            <span class="award-label">Phrase la plus désarmante</span>
+            <p class="award-quote">« Attends — redis-le, je veux l'entendre doucement. »</p>
+          </div>
+          <div class="award">
+            <span class="award-label">Conclusion la plus fine</span>
+            <p class="award-quote">« Soyons honnêtes, on a déjà décidé il y a deux messages. »</p>
+          </div>
+          <div class="award">
+            <span class="award-label">Loyauté silencieuse</span>
+            <p class="award-quote">« Je serai là. Ne demande même pas deux fois. »</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS PREVIEW -->
+  <section class="section section-testimonials">
+    <div class="container">
+      <p class="eyebrow center">Réactions de lecteurs</p>
+      <h2 class="section-title">« Il m'a lue comme si j'avais écrit un journal que j'ignorais tenir. »</h2>
+      <p class="section-lede">Quelques retours de vrais utilisateurs, après une seule lentille.</p>
+
+      <div class="testi-grid">
+        <div class="testi-card" style="--lens: #D78377;">
+          <span class="testi-lens-tag">Lentille Romantique</span>
+          <p class="testi-quote">« Il m'a dit qu'il était plutôt anxieux et que je courais après son ambivalence depuis neuf mois. Puis il m'a renvoyé trois de ses messages pour le prouver. J'ai fermé l'app et appelé ma thérapeute. »</p>
+          <div class="testi-person">
+            <div class="testi-avatar">JM</div>
+            <div class="testi-meta"><strong>Juliette M.</strong><br/>Lyon · 28 ans</div>
+          </div>
+        </div>
+        <div class="testi-card" style="--lens: #FB775F;">
+          <span class="testi-lens-tag">Lentille Groupee</span>
+          <p class="testi-quote">« Lancé sur le chat de mes demoiselles d'honneur. La Cérémonie des Prix a clouée chacune de nous. Pia a eu « La plus susceptible d'envoyer des vocaux à 1h du matin » et tout le groupe a éclaté. On a tout capturé en screenshot. »</p>
+          <div class="testi-person">
+            <div class="testi-avatar">SP</div>
+            <div class="testi-meta"><strong>Sara P.</strong><br/>Madrid · 31 ans</div>
+          </div>
+        </div>
+        <div class="testi-card" style="--lens: #83B3E3;">
+          <span class="testi-lens-tag">Lentille Famille</span>
+          <p class="testi-quote">« L'Archéologie de la Communication a sorti une phrase que dit ma mère — « ne me fais pas demander deux fois » — et m'a montré que je la textote maintenant à mon frère. Je suis restée avec ça pendant une heure. »</p>
+          <div class="testi-person">
+            <div class="testi-avatar">DK</div>
+            <div class="testi-meta"><strong>Daria K.</strong><br/>Tbilissi · 34 ans</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top: 40px;">
+        <a class="btn btn-ghost" href="testimonials.html">Lire plus de réactions →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" class="section section-privacy">
+    <div class="container">
+      <p class="eyebrow center">Privé par conception</p>
+      <h2 class="section-title">Vos conversations vous appartiennent.</h2>
+      <p class="section-lede">Persona Lens est conçu pour ce que vous avez de plus personnel — vos mots. Nous l'avons donc construit de la seule manière à laquelle nous nous ferions confiance : minimum de données, maximum de transparence.</p>
+
+      <div class="privacy-grid">
+        <div class="privacy-card">
+          <h3>Aucun stockage de messages côté serveur</h3>
+          <p>Les données de conversation sont traitées au vol puis supprimées. Nous ne gardons pas vos messages sur nos serveurs, point final.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Vos rapports restent sur votre iPhone</h3>
+          <p>Vos lectures passées vivent dans un stockage local chiffré sur l'appareil, pas dans un compte cloud. Il n'y a pas de compte cloud.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Suppression en un geste</h3>
+          <p>Effacez tout votre historique de l'app en une seule action, à tout moment, sans contacter le support.</p>
+        </div>
+        <div class="privacy-card">
+          <h3>Aucun tracking. Aucune pub. Aucune donnée vendue.</h3>
+          <p>Le modèle économique est direct : abonnement et packs de crédits. Nous avons éliminé la seconde source de revenus qui exigerait de vous vendre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING PREVIEW -->
+  <section id="pricing" class="section section-pricing">
+    <div class="container">
+      <p class="eyebrow center">Tarifs</p>
+      <h2 class="section-title">Une analyse gratuite. Puis crédits ou abonnement.</h2>
+      <p class="section-lede">Chaque nouvel utilisateur reçoit une analyse gratuite au premier lancement — sans carte, sans compte. Ensuite : trois packs de crédits (paiement à l'usage), ou deux niveaux d'abonnement (illimité).</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <p class="price-eyebrow">Premier lancement</p>
+          <p class="price-amount">Gratuit</p>
+          <p class="price-line">1 crédit d'analyse, accordé au premier lancement.</p>
+          <ul>
+            <li>Une Carte Persona complète</li>
+            <li>Choisissez n'importe laquelle des six lentilles</li>
+            <li>Tous les modules de cette lentille</li>
+            <li>Image partageable incluse</li>
+          </ul>
+          <a class="btn btn-ghost" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Ouvrir l'app →</a>
+        </div>
+        <div class="price-card price-featured">
+          <p class="price-eyebrow">Abonnement</p>
+          <p class="price-amount">8,33 $<span>/mois</span></p>
+          <p class="price-line">99,99 $/an — ou 9,99 $/mois. Deux mois gratuits à l'année.</p>
+          <ul>
+            <li>Analyses illimitées, six lentilles</li>
+            <li>Bibliothèque d'Insights — filtrer, trier, explorer</li>
+            <li>Copier, exporter et partager vos rapports</li>
+            <li>Télécharger les rapports en PDF</li>
+            <li>Accès anticipé aux nouvelles lentilles</li>
+          </ul>
+          <a class="btn btn-lightcream" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">S'abonner →</a>
+        </div>
+        <div class="price-card">
+          <p class="price-eyebrow">Packs de crédits</p>
+          <p class="price-amount">dès 2,99 $</p>
+          <p class="price-line">3 tailles de pack · les crédits n'expirent jamais.</p>
+          <ul>
+            <li>1 analyse · 2,99 $</li>
+            <li>5 analyses · 12,99 $ <em>(13% d'économie)</em></li>
+            <li>10 analyses · 22,99 $ <em>(23% d'économie)</em></li>
+            <li>Idéal pour un ex, un boss, un groupe de discussion</li>
+          </ul>
+          <a class="btn btn-ghost" style="width: 100%; margin-top: 4px;" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Acheter des crédits →</a>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top: 36px;">
+        <a class="btn btn-ghost" href="pricing.html">Détail complet des tarifs &amp; FAQ →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download" class="section section-download">
+    <div class="container download-inner">
+      <h2 class="section-title white">Lisez-vous, doucement.</h2>
+      <p class="section-lede white">Persona Lens est conçu pour iPhone. Déposez un chat, choisissez une lentille, recevez un portrait de qui vous êtes maintenant.</p>
+      <a class="btn btn-lightcream" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Télécharger sur l'App Store</a>
+      <p class="hero-meta white">Disponible maintenant sur l'App Store · iPhone, iOS 17+.</p>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-col footer-brand-col"><div class="footer-brand"><img src="/assets/appicon.png" alt="" class="footer-mark"/><p class="footer-name">Persona Lens</p></div><p class="footer-tag">Chaque message révèle qui vous êtes.</p></div>
-      <div class="footer-col"><h4>Langues</h4><ul><li><a href="/">English</a></li><li><a href="/fr/">Français</a></li><li><a href="/es/">Español</a></li><li><a href="/ru/">Русский</a></li></ul></div>
-      <div class="footer-col"></div>
+      <div class="footer-col footer-brand-col">
+        <div class="footer-brand">
+          <img src="/assets/appicon.png" alt="" class="footer-mark"/>
+          <p class="footer-name">Persona Lens</p>
+        </div>
+        <p class="footer-tag">Chaque message révèle qui vous êtes.<br/>Six lentilles. 61 modules. Construit en privé pour iPhone.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Les lentilles</h4>
+        <ul>
+          <li><a href="lens-self.html">Soi</a></li>
+          <li><a href="lens-romantic.html">Romantique</a></li>
+          <li><a href="lens-friendship.html">Amitié</a></li>
+          <li><a href="lens-professional.html">Professionnel</a></li>
+          <li><a href="lens-family.html">Famille</a></li>
+          <li><a href="lens-group.html">Groupe</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <ul>
+          <li><a href="#how">Comment ça marche</a></li>
+          <li><a href="pricing.html">Tarifs</a></li><li><a href="science.html">La science</a></li>
+          <li><a href="testimonials.html">Témoignages</a></li>
+          <li><a href="#privacy">Approche de confidentialité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="privacy.html">Politique de confidentialité</a></li>
+          <li><a href="terms.html">Conditions d'utilisation</a></li>
+          
+        </ul>
+      </div>
     </div>
-    <div class="container footer-bottom"><span>© 2026 Persona Lens. Fait avec soin, pour aider.</span><span>Aperçus IA, pas un diagnostic.</span></div>
+    <div class="container footer-bottom">
+      <span>© 2026 Persona Lens. Fait avec soin, pour aider.</span>
+      <span>Aperçus IA, pas un diagnostic.</span>
+    </div>
   </div>
 </footer>
 
