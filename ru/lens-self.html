@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/style.css" />
+<script src="/menu.js" defer></script>
 <style>
   :root { --lens: #6BA7B3; --lens-tint: rgba(107, 167, 179, 0.12); }
   .section-self { background: var(--cream); }
@@ -37,8 +38,18 @@
       <a href="pricing.html">Цены</a>
     </nav>
     <div class="lang-picker"><a class="lang-flag flag-en" href="/" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать</a>
-  </div>
+  <button class="nav-toggle" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button></div>
 </header>
+
+<nav class="mobile-nav" aria-label="Мобильная навигация">
+  <a href="/#lenses">Линзы</a>
+  <a href="/#how">Как это работает</a>
+  <a href="science.html">Наука</a>
+  <a href="testimonials.html">Отзывы</a>
+  <a href="pricing.html">Цены</a>
+  <a href="/#privacy">Приватность</a>
+  <a class="mobile-cta" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Скачать</a>
+</nav>
 
 <main>
 
