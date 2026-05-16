@@ -307,11 +307,19 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 420px) {
-  .header-inner { padding: 10px 12px; gap: 8px; }
-  .brand-name { display: none; }
-  .brand-mark { width: 30px; height: 30px; }
-  .lang-flag { width: 20px; height: 14px; }
-  .lang-picker { gap: 5px; }
+  .header-inner { padding: 10px 10px; gap: 6px; }
+  .brand { gap: 6px; }
+  .brand-name { font-size: 14px; }
+  .brand-mark { width: 28px; height: 28px; }
+  .lang-flag { width: 18px; height: 12px; }
+  .lang-picker { gap: 4px; margin-left: 4px; }
+  .nav-toggle { width: 34px; height: 34px; }
+}
+
+@media (max-width: 360px) {
+  .brand-name { font-size: 13px; }
+  .lang-flag { width: 16px; height: 11px; }
+  .lang-picker { gap: 3px; }
 }
 
 /* ========================================================
