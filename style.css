@@ -314,6 +314,139 @@ img { max-width: 100%; display: block; }
   .lang-picker { gap: 5px; }
 }
 
+/* ========================================================
+   MOBILE LAYOUT FIXES — pricing page, tables, grids
+   ======================================================== */
+
+/* Pricing grid — 2-col variant collapses cleanly on mobile */
+.pricing-grid-2col { grid-template-columns: 1fr 1fr; }
+@media (max-width: 880px) {
+  /* Beat any inline grid-template-columns override */
+  .pricing-grid,
+  .pricing-grid-2col {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  .price-card.price-featured { transform: none; }
+  .price-card { padding: 26px 22px; }
+  .price-amount { font-size: 38px; }
+}
+
+/* Tables — make readable on mobile via card layout */
+@media (max-width: 720px) {
+  /* Credit table: stack rows as cards, hide column headers */
+  .credit-table { display: block; border: none; background: transparent; box-shadow: none; }
+  .credit-table thead { display: none; }
+  .credit-table tbody { display: block; }
+  .credit-table tr {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-soft);
+  }
+  .credit-table tr.best { background: rgba(127, 173, 144, 0.08); }
+  .credit-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(43, 38, 34, 0.06);
+    text-align: left !important;
+    font-size: 15px;
+    gap: 10px;
+  }
+  .credit-table td:last-child { border-bottom: none; padding-top: 10px; }
+  .credit-table td.right { text-align: right !important; }
+  .credit-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-3);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  /* The first cell in each row contains the pack name (a strong) — show it as a heading */
+  .credit-table td:first-child {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+    font-family: 'TeX Gyre Bonum', Georgia, serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--navy);
+  }
+  .credit-table td:first-child::before { content: none; }
+  .credit-table td:first-child strong { font-weight: 700; }
+
+  /* Compare table: also stack as cards */
+  .compare-table { display: block; border: none; background: transparent; box-shadow: none; }
+  .compare-table thead { display: none; }
+  .compare-table tbody { display: block; }
+  .compare-table tr {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-soft);
+  }
+  .compare-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(43, 38, 34, 0.06);
+    text-align: left;
+    font-size: 14.5px;
+    gap: 12px;
+  }
+  .compare-table td:first-child {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+    font-family: 'TeX Gyre Bonum', Georgia, serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+  }
+  .compare-table td:not(:first-child)::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-3);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .compare-table td:last-child { border-bottom: none; }
+}
+
+/* Hide desktop nav CTA on mobile properly (override inline classes) */
+@media (max-width: 920px) {
+  .site-header .header-cta { display: none !important; }
+}
+
+/* Hero/section title text overflow safety on mobile */
+@media (max-width: 640px) {
+  .section-title, .display, h1, h2 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  /* Prevent FAQ example-card padding from overflowing */
+  .example-card { padding: 22px 20px !important; }
+  .example-card h3 { font-size: 16.5px !important; }
+  .legal-page .container { padding: 0 18px; }
+  /* Section padding tighter on mobile */
+  .section, .section-tight { padding: 56px 0; }
+}
+
 /* ---------- Phones: typography + spacing ---------- */
 @media (max-width: 640px) {
   body { font-size: 16px; }
