@@ -1,21 +1,33 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Generate SEO landing pages from a structured spec.
+Outputs to /guides/<slug>.html with full schema markup + brand chrome.
+"""
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+GUIDES_DIR = ROOT / "guides"
+GUIDES_DIR.mkdir(exist_ok=True)
+
+HEADER = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Reading between the lines: a guide to detecting unspoken emotions in messages</title>
-<meta name="description" content="Most of the emotional content of a message is in the things not said — the gaps, the timing, the word choices. Here's a structured guide to reading it." />
-<meta name="keywords" content="reading between the lines, how to tell what someone is really saying, decode text messages, hidden meaning in texts" />
-<link rel="canonical" href="https://persona-lens.com/guides/reading-between-lines.html" />
-<meta property="og:title" content="Reading between the lines: a guide to detecting unspoken emotions in messages" />
-<meta property="og:description" content="Most of the emotional content of a message is in the things not said — the gaps, the timing, the word choices. Here's a structured guide to reading it." />
+<title>{title}</title>
+<meta name="description" content="{description}" />
+<meta name="keywords" content="{keywords}" />
+<link rel="canonical" href="https://persona-lens.com/guides/{slug}.html" />
+<meta property="og:title" content="{title}" />
+<meta property="og:description" content="{description}" />
 <meta property="og:image" content="https://persona-lens.com/assets/appicon.png" />
-<meta property="og:url" content="https://persona-lens.com/guides/reading-between-lines.html" />
+<meta property="og:url" content="https://persona-lens.com/guides/{slug}.html" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Persona Lens" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Reading between the lines: a guide to detecting unspoken emotions in messages" />
-<meta name="twitter:description" content="Most of the emotional content of a message is in the things not said — the gaps, the timing, the word choices. Here's a structured guide to reading it." />
+<meta name="twitter:title" content="{title}" />
+<meta name="twitter:description" content="{description}" />
 <meta name="twitter:image" content="https://persona-lens.com/assets/appicon.png" />
 <meta name="theme-color" content="#25375B" />
 <link rel="icon" type="image/x-icon" href="/assets/favicon.ico?v=20260515" />
@@ -27,22 +39,21 @@
 <link rel="stylesheet" href="/style.css" />
 <script src="/menu.js" defer></script>
 <script type="application/ld+json">
-{
+{{
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Reading between the lines: a guide to detecting unspoken emotions in messages",
-  "description": "Most of the emotional content of a message is in the things not said — the gaps, the timing, the word choices. Here's a structured guide to reading it.",
+  "headline": "{title_clean}",
+  "description": "{description}",
   "image": "https://persona-lens.com/assets/appicon.png",
-  "author": { "@type": "Organization", "name": "Persona Lens", "url": "https://persona-lens.com/" },
-  "publisher": { "@type": "Organization", "name": "Persona Lens", "url": "https://persona-lens.com/", "logo": { "@type": "ImageObject", "url": "https://persona-lens.com/assets/appicon.png" } },
+  "author": {{ "@type": "Organization", "name": "Persona Lens", "url": "https://persona-lens.com/" }},
+  "publisher": {{ "@type": "Organization", "name": "Persona Lens", "url": "https://persona-lens.com/", "logo": {{ "@type": "ImageObject", "url": "https://persona-lens.com/assets/appicon.png" }} }},
   "datePublished": "2026-05-17",
   "dateModified": "2026-05-17",
-  "mainEntityOfPage": "https://persona-lens.com/guides/reading-between-lines.html",
+  "mainEntityOfPage": "https://persona-lens.com/guides/{slug}.html",
   "inLanguage": "en"
-}
+}}
 </script>
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Persona Lens", "item": "https://persona-lens.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://persona-lens.com/guides/"}, {"@type": "ListItem", "position": 3, "name": "Reading between the lines — detecting unspoken emotions in messages", "item": "https://persona-lens.com/guides/reading-between-lines.html"}]}</script>
+{faq_schema}
 </head>
 <body>
 
@@ -66,37 +77,31 @@
 <main class="legal-page">
   <div class="container">
     <p class="legal-meta"><a href="/" style="color: var(--text-3);">← Persona Lens</a> &nbsp;·&nbsp; Guide &nbsp;·&nbsp; Updated May 2026</p>
-    <h1>Reading between the lines</h1>
-    <p style="font-size: 19px; line-height: 1.6; color: var(--text-2); margin-bottom: 30px;">About 70% of the emotional content of a text message lives in what's <em>not</em> there — the response that took six hours when it usually takes ten minutes, the period that wasn't there yesterday but is today, the suddenly-formal greeting on a chat that usually opens with "hey." This guide gives you a structured way to read those gaps.</p>
+    <h1>{h1}</h1>
+    <p style="font-size: 19px; line-height: 1.6; color: var(--text-2); margin-bottom: 30px;">{intro}</p>
+"""
 
-    <h2>The four signals to track</h2>
-
-    <h3>1. Tempo deviation</h3>
-    <p>Compare a message's reply time to that person's <em>baseline</em>. The deviation matters more than the absolute number. A 30-minute reply from someone who normally answers in 30 seconds is louder than a 4-hour reply from someone who normally answers in 6.</p>
-
-    <h3>2. Punctuation shift</h3>
-    <p>When someone who never uses periods suddenly starts, something changed. When someone who always uses exclamation marks drops them for a week, something changed. Punctuation is one of the most reliable mood barometers in text.</p>
-
-    <h3>3. Lexical formality</h3>
-    <p>A chat that usually opens with "hey lol" suddenly opens with "Hi." That's a signal. Formality goes up when distance goes up.</p>
-
-    <h3>4. Length compression</h3>
-    <p>Their messages are shorter than usual. They're answering questions but not asking them. Length is a proxy for engagement.</p>
-
-    <h2>What to do with the signal</h2>
-    <ul>
-      <li>Don't react to a single deviation — wait for a pattern across 5–7 messages.</li>
-      <li>Name what you observe, not what you fear: "You've been a bit shorter than usual this week, everything OK?" beats "Are you mad at me?"</li>
-      <li>Don't fill the silence — give them room to use the opening you've offered.</li>
-    </ul>
-
+CTA = """
     <div style="background: var(--cream-warm); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 26px; margin: 36px 0;">
       <p class="eyebrow" style="margin-bottom: 8px;">Read your own situation</p>
-      <h3 style="font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 22px; color: var(--navy); margin: 0 0 10px;">Get the gap analysis automatically.</h3>
-      <p style="margin: 0 0 18px; color: var(--text-2); line-height: 1.55;">Persona Lens reads tempo deviation, punctuation shift, and length compression across every message in the chat — and tells you which signals are noise and which are real. Free first reading.</p>
+      <h3 style="font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 22px; color: var(--navy); margin: 0 0 10px;">{cta_title}</h3>
+      <p style="margin: 0 0 18px; color: var(--text-2); line-height: 1.55;">{cta_body}</p>
       <a class="btn btn-primary" href="https://apps.apple.com/be/app/persona-lens/id6759287207" target="_blank" rel="noopener">Try Persona Lens free →</a>
     </div>
+"""
 
+FAQ_OPEN = """
+    <h2>Frequently asked questions</h2>
+"""
+
+FAQ_ITEM = """
+    <div style="margin-bottom: 22px;">
+      <h3 style="font-family: 'TeX Gyre Bonum', Georgia, serif; font-weight: 700; font-size: 19px; color: var(--navy); margin: 0 0 8px;">{q}</h3>
+      <p style="margin: 0; color: var(--text-2); line-height: 1.6;">{a}</p>
+    </div>
+"""
+
+FOOTER = """
 
     <div style="margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-3); font-size: 14px;">
       <p><strong>About this guide.</strong> Written by the Persona Lens team. We build software that does the same kind of reading at scale — Persona Lens is an iOS app that takes a real conversation and returns a structured psychological reading across six relationship lenses. Every reading takes about three minutes. The first one is free.</p>
@@ -134,3 +139,89 @@
 
 </body>
 </html>
+"""
+
+
+def render_section(section):
+    """A section is {h2, paragraphs (list), optional list (bullets)}."""
+    out = [f'\n    <h2>{section["h2"]}</h2>\n']
+    for p in section.get("paragraphs", []):
+        out.append(f'    <p>{p}</p>\n')
+    if section.get("list"):
+        out.append('    <ul>\n')
+        for item in section["list"]:
+            out.append(f'      <li>{item}</li>\n')
+        out.append('    </ul>\n')
+    if section.get("subsections"):
+        for sub in section["subsections"]:
+            out.append(f'\n    <h3>{sub["h3"]}</h3>\n')
+            for p in sub.get("paragraphs", []):
+                out.append(f'    <p>{p}</p>\n')
+            if sub.get("list"):
+                out.append('    <ul>\n')
+                for item in sub["list"]:
+                    out.append(f'      <li>{item}</li>\n')
+                out.append('    </ul>\n')
+    return "".join(out)
+
+
+def build_faq_schema(faqs):
+    """Generate FAQPage JSON-LD schema."""
+    if not faqs:
+        return ""
+    items = []
+    for f in faqs:
+        items.append({
+            "@type": "Question",
+            "name": f["q"],
+            "acceptedAnswer": {"@type": "Answer", "text": f["a"]}
+        })
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": items
+    }
+    return f'<script type="application/ld+json">\n{json.dumps(schema, ensure_ascii=False, indent=2)}\n</script>'
+
+
+def build_page(spec):
+    title_clean = spec["title"].replace('"', '\\"')
+    faq_schema = build_faq_schema(spec.get("faqs", []))
+    html = HEADER.format(
+        title=spec["title"],
+        title_clean=title_clean,
+        description=spec["description"],
+        keywords=spec["keywords"],
+        slug=spec["slug"],
+        h1=spec["h1"],
+        intro=spec["intro"],
+        faq_schema=faq_schema,
+    )
+    # Sections (split CTA after section 3)
+    sections = spec["sections"]
+    for i, sec in enumerate(sections):
+        html += render_section(sec)
+        if i == 2 and spec.get("cta"):
+            html += CTA.format(**spec["cta"])
+    # Final CTA before FAQ
+    if spec.get("cta"):
+        html += CTA.format(**spec["cta"])
+    # FAQ
+    if spec.get("faqs"):
+        html += FAQ_OPEN
+        for f in spec["faqs"]:
+            html += FAQ_ITEM.format(**f)
+    html += FOOTER
+    out_path = GUIDES_DIR / f"{spec['slug']}.html"
+    out_path.write_text(html, encoding="utf-8")
+    return out_path
+
+
+if __name__ == "__main__":
+    import sys
+    spec_file = sys.argv[1] if len(sys.argv) > 1 else "guide_specs.json"
+    specs = json.load(open(spec_file, encoding="utf-8"))
+    for spec in specs:
+        p = build_page(spec)
+        print(f"  ✓ {p.name}  ({p.stat().st_size:,} bytes)")
+    print(f"\nGenerated {len(specs)} guide pages.")

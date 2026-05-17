@@ -1,0 +1,434 @@
+[
+  {
+    "slug": "therapy-alternatives-2026",
+    "title": "Therapy alternatives in 2026: 11 apps and what they actually do",
+    "h1": "Therapy alternatives in 2026: 11 apps and what they actually do",
+    "description": "An honest comparison of 11 apps and tools positioned as alternatives to traditional therapy — what each one does well, where each falls short, and which use cases each is right for.",
+    "keywords": "therapy alternatives, alternatives to therapy, ai therapy, online therapy app, mental health app, app like betterhelp, free therapy alternative",
+    "intro": "Therapy is irreplaceable for serious mental-health work. It's also slow, expensive, often unavailable, and not what every life moment needs. Over the last few years a generation of apps has tried to fill the gap — for relationships, self-understanding, family dynamics, communication patterns, and the kind of insight that doesn't require a full clinical relationship. This guide is an honest survey of eleven of them.",
+    "sections": [
+      {
+        "h2": "What we're comparing",
+        "paragraphs": [
+          "Not all therapy alternatives do the same thing. Some are AI conversation partners. Some are personality and relationship analysers. Some are journaling tools. Some are guided programmes. They overlap in tone but serve different use cases. We've grouped them by what they actually do."
+        ]
+      },
+      {
+        "h2": "Relationship analysis (decode what's actually going on)",
+        "subsections": [
+          { "h3": "Persona Lens", "paragraphs": ["iOS app that takes any real conversation (WhatsApp, Telegram, paste) and returns a psychological reading across six lenses — partner, parent, friend, boss, family, group. Strong for understanding a specific relationship quickly. First reading free. Backed by Big Five + attachment research."] },
+          { "h3": "Lasting", "paragraphs": ["Couples-focused. Structured exercises and assessments, designed to be used by both partners together. Better for long-form couples work than one-shot diagnosis."] },
+          { "h3": "Paired", "paragraphs": ["Daily couples questions and conversation prompts. Habit-forming, low intensity. Not designed for diagnosis."] }
+        ]
+      },
+      {
+        "h2": "Self-understanding (personality, identity, patterns)",
+        "subsections": [
+          { "h3": "Co–Star", "paragraphs": ["Astrology-based daily insights. Strong design, weak empirical basis. Useful for self-reflection if you read it as metaphor, not measurement."] },
+          { "h3": "The Pattern", "paragraphs": ["Similar genre to Co–Star but with longer-form readings. Same caveats."] },
+          { "h3": "16 Personalities", "paragraphs": ["Free MBTI-style quiz. Engaging UI; MBTI as a framework has serious empirical limitations but the experience is polished."] }
+        ]
+      },
+      {
+        "h2": "AI conversation (chatbot-style support)",
+        "subsections": [
+          { "h3": "Woebot", "paragraphs": ["CBT-based AI chatbot. Best for daily check-ins and reframing exercises. Limited depth."] },
+          { "h3": "Wysa", "paragraphs": ["Similar to Woebot, with optional human therapist add-on."] },
+          { "h3": "Pi", "paragraphs": ["Inflection's empathetic AI. Conversational, soothing, not clinically structured. Useful for unloading; less useful for actionable insight."] }
+        ]
+      },
+      {
+        "h2": "Online human therapy (the closest substitute)",
+        "subsections": [
+          { "h3": "BetterHelp", "paragraphs": ["Subscription-based access to licensed therapists, mostly via text + scheduled video. Privacy concerns around data have been raised; verify their current policy."] },
+          { "h3": "Talkspace", "paragraphs": ["Similar to BetterHelp, often covered by insurance in the US."] }
+        ]
+      },
+      {
+        "h2": "Which one is right for you?",
+        "list": [
+          "<strong>You want to understand a specific person or relationship quickly:</strong> Persona Lens",
+          "<strong>You want to do long-term couples work together:</strong> Lasting",
+          "<strong>You want a daily reflective ritual:</strong> Co–Star or Pi",
+          "<strong>You want CBT exercises:</strong> Woebot or Wysa",
+          "<strong>You want a licensed therapist:</strong> BetterHelp / Talkspace / a local provider"
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Try the relationship-analysis side first.",
+      "cta_body": "Persona Lens gives you a structured psychological reading of any one relationship in three minutes — free for your first reading. The fastest way to know if this kind of tool works for you."
+    },
+    "faqs": [
+      { "q": "Does any app replace therapy?", "a": "No. Therapy is uniquely valuable for sustained mental-health work, trauma, and crisis. Apps cover use cases therapy doesn't (one-off diagnosis, partner-specific analysis, micro-reflection)." }
+    ]
+  },
+  {
+    "slug": "personality-apps-compared",
+    "title": "Co–Star vs The Pattern vs Persona Lens: which personality app is right for you?",
+    "h1": "Co–Star vs The Pattern vs Persona Lens",
+    "description": "Three of the most-downloaded personality apps, three different approaches. What each does, where each is strong, where each falls short.",
+    "keywords": "co star alternative, the pattern alternative, best personality app, personality app comparison",
+    "intro": "Co–Star, The Pattern, and Persona Lens are often grouped together as \"personality apps,\" but they do quite different things. This guide walks through each, where they're strong, where they're weak, and which one is right for which moment.",
+    "sections": [
+      { "h2": "Co–Star",
+        "paragraphs": [
+          "Astrology-based, with a famously stark design and viral one-liners. Pulls real-time NASA ephemeris data to generate transit-based daily updates. Strong daily ritual. Strong meme culture. Weak empirical basis — astrology is not a scientifically validated personality framework.",
+          "<strong>Best for:</strong> daily reflective prompts, social conversation, design appreciation. <strong>Not for:</strong> precise self-understanding."
+        ]
+      },
+      { "h2": "The Pattern",
+        "paragraphs": [
+          "Similar genre to Co–Star — astrology-derived but with longer-form readings, relationship compatibility features, and a stronger community angle. More text-heavy than Co–Star.",
+          "<strong>Best for:</strong> longer reflective sessions, compatibility curiosity. <strong>Not for:</strong> data-driven self-knowledge."
+        ]
+      },
+      { "h2": "Persona Lens",
+        "paragraphs": [
+          "Different category: rather than astrology, Persona Lens uses your actual messages as the data source. Returns Big Five readouts, attachment-style indicators, communication patterns, and relationship dynamics — grounded in 30+ years of personality research.",
+          "<strong>Best for:</strong> understanding a specific relationship, getting a real personality readout based on behaviour, decoding a conversation that's been on your mind. <strong>Not for:</strong> daily horoscope ritual."
+        ]
+      },
+      { "h2": "Side by side",
+        "subsections": [
+          { "h3": "Data source", "paragraphs": ["Co–Star + Pattern: astronomy. Persona Lens: your actual conversation."] },
+          { "h3": "Use cadence", "paragraphs": ["Co–Star + Pattern: daily. Persona Lens: ad-hoc, per-relationship."] },
+          { "h3": "Empirical basis", "paragraphs": ["Co–Star + Pattern: astrology has no empirical backing. Persona Lens: peer-reviewed personality + attachment research."] },
+          { "h3": "Output style", "paragraphs": ["Co–Star: punchy. Pattern: longer prose. Persona Lens: structured report with quoted lines from your chat."] }
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Try the data-based side.",
+      "cta_body": "If you want a personality reading that's grounded in your real behaviour — not stars, not a quiz — Persona Lens is built for that. First reading is free, no account needed."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "friend-group-vs-family",
+    "title": "Why your friend group sees you differently than your family does",
+    "h1": "Why your friend group sees you differently than your family does",
+    "description": "You're funnier with your friends, quieter with your family. Why? A guide to the social-identity research behind it, and what it means for who you actually are.",
+    "keywords": "different around family, why am I different with friends, family vs friends personality, social identity, code switching",
+    "intro": "Most people have noticed it: you're a different person at Sunday dinner than you are at brunch with your closest friends. Quieter with parents, sharper with siblings, sillier with college friends, more measured at work. Are you fake? Or is there something else going on? Spoiler: there's something else going on.",
+    "sections": [
+      { "h2": "It's not fakeness — it's roles",
+        "paragraphs": ["Social-identity theory describes how we adapt our self-presentation to the group we're in. The version of you in each group is shaped by the role you've been assigned over time. With family, the role is usually inherited from childhood (eldest child, peacemaker, rebel). With friends, the role was earned through choice and mutual selection."]
+      },
+      { "h2": "The roles your family assigned you in childhood are sticky",
+        "paragraphs": ["The role you held at age 10 in your family system tends to persist into adulthood — even when you've outgrown it everywhere else. This is why you become quieter, smaller, or more reactive around your parents than around anyone else in your life. You're being pulled back into a role the rest of your life has already moved past."]
+      },
+      { "h2": "Friend groups let you choose the role",
+        "paragraphs": ["Friendships, unlike families, are voluntary. The friend group you have now was selected — by you and by them — partly because the dynamic suited the version of yourself you wanted to be. Your friends know a version of you that is closer to your <em>current</em> identity. Your family knows a version that's closer to your <em>original</em> identity."]
+      },
+      { "h2": "What this means",
+        "list": [
+          "Neither version is the \"real you\" — both are real, in different relational fields.",
+          "If you want your family to see the adult version of you, you have to actively reset the role, repeatedly, over time.",
+          "If you find yourself shrinking with family, that's the role pulling you back; it's not a verdict on your character.",
+          "The gap between Friend You and Family You is information about your family system, not your authenticity."
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "See which role you've slipped into.",
+      "cta_body": "Persona Lens's Family Lens names the role you've taken in your specific family chat — caretaker, mediator, peacekeeper, rebel — and shows you the lines that put you there. Free first reading."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "inherited-language",
+    "title": "Inherited language: the phrases you say without realising they're your parents'",
+    "h1": "Inherited language: the phrases you say without realising they're your parents'",
+    "description": "Many of the phrases you use under stress, when annoyed, or when comforting someone are inherited word-for-word from your parents. Here's how to spot them — and decide which to keep.",
+    "keywords": "inherited phrases from parents, why do I sound like my mother, generational patterns, family communication patterns, inherited language",
+    "intro": "You'll be standing in your kitchen, irritated about something small, and a phrase will come out of your mouth. It's your mother's phrase. Or your father's. Or your grandmother's. You didn't choose it — it arrived, fully formed, because that's the phrase someone in your family said in that exact situation when you were six.",
+    "sections": [
+      { "h2": "Why this happens",
+        "paragraphs": ["Children learn language not just by being taught vocabulary but by being immersed in the speech patterns of their environment. By age six, most of the affective phrases — the ones tied to emotion, conflict, comfort, and authority — are fully internalised. They're not memorised; they're <em>installed</em>. They surface automatically when the matching emotional context arrives."]
+      },
+      { "h2": "Common examples",
+        "list": [
+          "<strong>Authority phrases:</strong> \"Don't make me ask twice.\" \"Because I said so.\" \"You'll thank me later.\"",
+          "<strong>Comfort phrases:</strong> \"It'll be alright.\" \"These things have a way of working out.\" \"Worse things have happened.\"",
+          "<strong>Guilt phrases:</strong> \"After everything I've done.\" \"I just want what's best for you.\" \"I'm not angry, I'm disappointed.\"",
+          "<strong>Stonewall phrases:</strong> \"We're not talking about this.\" \"End of discussion.\" \"I don't want to hear it.\""
+        ]
+      },
+      { "h2": "The pattern is generational",
+        "paragraphs": ["Most of these phrases didn't start with your parents either. They got them from theirs. The phrase \"don't make me ask twice\" might be five generations old. You're not just speaking language — you're speaking a family's emotional script that's been running for a hundred years."]
+      },
+      { "h2": "How to spot yours",
+        "list": [
+          "Notice the phrases that come out when you're stressed, not when you're calm — stress mode is where the inheritance lives.",
+          "Notice the phrases that feel <em>automatic</em> rather than chosen.",
+          "Notice the phrases you'd never use in a professional context but use freely with family or partner.",
+          "Ask a sibling. They often hear the inherited language before you do."
+        ]
+      },
+      { "h2": "Choosing which to keep",
+        "paragraphs": ["Not every inherited phrase is bad. Some are warm and worth keeping — \"these things have a way of working out\" can be a real gift. Others are not — the guilt and stonewall phrases tend to be ones a generation should let go of, consciously. The work is to notice them as <em>artefacts</em> first, then decide."]
+      }
+    ],
+    "cta": {
+      "cta_title": "See which scripts you've inherited.",
+      "cta_body": "Persona Lens's Inherited Scripts module (inside the Family Lens) finds the specific phrases in your messages that match generational patterns — and traces them, where possible, back to their source. First reading free."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "boundaries-with-toxic-relatives",
+    "title": "How to set boundaries with toxic relatives over text",
+    "h1": "How to set boundaries with toxic relatives over text",
+    "description": "Text is often the safest medium for setting boundaries with a difficult relative — it removes the live emotional pressure. Here's exactly how to write them.",
+    "keywords": "boundaries with family, text boundaries, how to set boundaries with parents, no contact, gray rock",
+    "intro": "Live conversation gives a difficult relative everything they need to derail you — tears, raised voice, perfectly timed silences. Text removes most of that. This guide walks through exactly how to set a boundary in writing, the language that works, and the language that doesn't.",
+    "sections": [
+      { "h2": "Why text is often the right medium",
+        "list": [
+          "You can draft, edit, and time the message — they can't.",
+          "You don't see their face when they react — your nervous system stays regulated.",
+          "There's a written record — useful if the relationship is genuinely toxic.",
+          "You're not on their turf — they can't use the home-court advantage of guilt-tripping in person."
+        ]
+      },
+      { "h2": "The structure of a workable boundary",
+        "subsections": [
+          { "h3": "1. State the boundary in one sentence", "paragraphs": ["\"I'm not going to discuss my finances with you anymore.\" Not \"I feel like you don't respect my privacy.\" Feelings invite negotiation; statements don't."] },
+          { "h3": "2. Don't justify (the JADE trap)", "paragraphs": ["JADE = Justify, Argue, Defend, Explain. The moment you do any of these, the boundary becomes a debate. \"That's my decision\" is a complete sentence."] },
+          { "h3": "3. Name the consequence, calmly", "paragraphs": ["\"If it comes up again, I'll change the subject.\" \"If you ask again, I'll leave the conversation.\" The consequence should be proportional and entirely under your control."] },
+          { "h3": "4. Don't apologise for the boundary itself", "paragraphs": ["\"I'm sorry to do this\" undoes the entire message. You can be warm without being apologetic. \"I love you. This is my decision.\" works better."] }
+        ]
+      },
+      { "h2": "What doesn't work",
+        "list": [
+          "Long emotional explanations of <em>why</em> — gives them ammunition",
+          "Threats you won't enforce — destroys credibility for the next round",
+          "Setting boundaries while angry — restate them when calm",
+          "Hoping they'll respect it without you having to maintain it"
+        ]
+      },
+      { "h2": "Template",
+        "paragraphs": [
+          "<em>\"Hi [Name]. I've been thinking about [topic], and I want to be clear with you: [the boundary, one sentence]. I'm not going to be debating this. If it comes up again, [your consequence]. I love you, and that's separate from this decision.\"</em>"
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "See your boundary landscape mapped.",
+      "cta_body": "Persona Lens's Family Lens includes a Boundary Landscape module — surfacing where your boundaries are holding, where they're permeable, and which lines you're maintaining without recognition. First reading free."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "reading-between-lines",
+    "title": "Reading between the lines: a guide to detecting unspoken emotions in messages",
+    "h1": "Reading between the lines",
+    "description": "Most of the emotional content of a message is in the things not said — the gaps, the timing, the word choices. Here's a structured guide to reading it.",
+    "keywords": "reading between the lines, how to tell what someone is really saying, decode text messages, hidden meaning in texts",
+    "intro": "About 70% of the emotional content of a text message lives in what's <em>not</em> there — the response that took six hours when it usually takes ten minutes, the period that wasn't there yesterday but is today, the suddenly-formal greeting on a chat that usually opens with \"hey.\" This guide gives you a structured way to read those gaps.",
+    "sections": [
+      { "h2": "The four signals to track",
+        "subsections": [
+          { "h3": "1. Tempo deviation", "paragraphs": ["Compare a message's reply time to that person's <em>baseline</em>. The deviation matters more than the absolute number. A 30-minute reply from someone who normally answers in 30 seconds is louder than a 4-hour reply from someone who normally answers in 6."] },
+          { "h3": "2. Punctuation shift", "paragraphs": ["When someone who never uses periods suddenly starts, something changed. When someone who always uses exclamation marks drops them for a week, something changed. Punctuation is one of the most reliable mood barometers in text."] },
+          { "h3": "3. Lexical formality", "paragraphs": ["A chat that usually opens with \"hey lol\" suddenly opens with \"Hi.\" That's a signal. Formality goes up when distance goes up."] },
+          { "h3": "4. Length compression", "paragraphs": ["Their messages are shorter than usual. They're answering questions but not asking them. Length is a proxy for engagement."] }
+        ]
+      },
+      { "h2": "What to do with the signal",
+        "list": [
+          "Don't react to a single deviation — wait for a pattern across 5–7 messages.",
+          "Name what you observe, not what you fear: \"You've been a bit shorter than usual this week, everything OK?\" beats \"Are you mad at me?\"",
+          "Don't fill the silence — give them room to use the opening you've offered."
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the gap analysis automatically.",
+      "cta_body": "Persona Lens reads tempo deviation, punctuation shift, and length compression across every message in the chat — and tells you which signals are noise and which are real. Free first reading."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "reply-tempo-meaning",
+    "title": "What your reply time really says (and what it doesn't)",
+    "h1": "What your reply time really says (and what it doesn't)",
+    "description": "Reply time is one of the most over-interpreted signals in modern relationships. Here's what it actually means — and what you should ignore.",
+    "keywords": "reply time meaning, texting tempo, what does it mean when he takes hours to reply, slow reply meaning",
+    "intro": "Reply time is the most over-read signal in modern relationships. A four-hour gap can mean anything from \"in a meeting\" to \"falling out of love.\" Most people read it as the latter when it's almost always the former. This guide separates the signal from the noise.",
+    "sections": [
+      { "h2": "Why we over-read it",
+        "paragraphs": ["Anxiety attaches to uncertainty, and texting produces a lot of uncertainty. The reply-time gap is the most measurable thing in the relationship, so it absorbs all our anxiety even when it's the least meaningful variable."]
+      },
+      { "h2": "What reply time can reliably tell you",
+        "list": [
+          "<strong>Their personal tempo.</strong> Some people answer in 30 seconds, some in 4 hours. Both can be in love.",
+          "<strong>Their structural context.</strong> A surgeon, a parent of a toddler, and a freelance writer have wildly different rhythms.",
+          "<strong>Change in their pattern.</strong> Their average shifting over time matters more than the absolute number."
+        ]
+      },
+      { "h2": "What it cannot reliably tell you",
+        "list": [
+          "How they feel about you in this specific moment",
+          "Whether they're losing interest",
+          "Whether they're with someone else",
+          "Whether you should worry"
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Stop spiralling. Get the structured read.",
+      "cta_body": "Persona Lens reads reply tempo as one of dozens of signals — never alone — and tells you whether it's part of a pattern or just noise. Free first reading."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "communication-archaeology",
+    "title": "What is communication archaeology (and why does it matter)?",
+    "h1": "What is communication archaeology?",
+    "description": "Every relationship has an unspoken ruleset that emerged over time — what you talk about, what you don't, how you fight, how you repair. Here's how to excavate it.",
+    "keywords": "communication archaeology, unspoken rules in relationships, communication patterns, relationship dynamics",
+    "intro": "Every close relationship runs on an unspoken ruleset that nobody designed but everyone enforces — what's safe to discuss, what's off-limits, how disagreements get handled, what counts as repair. The set of rules is invisible to the people inside it. \"Communication archaeology\" is the practice of digging them up.",
+    "sections": [
+      { "h2": "Why this matters",
+        "paragraphs": ["You can't change a rule you can't see. Many of the most painful patterns in a relationship — the topics that always derail, the apologies that don't land, the silences that mean different things to each person — are <em>governed</em> by these rules. Excavating them is the first step to changing them."]
+      },
+      { "h2": "What the rules typically look like",
+        "list": [
+          "Topics that are unspoken-off-limits (one person's job, the other's family, money, the past relationship)",
+          "Deflection moves both people use when something hard comes up",
+          "Whose feelings get prioritised by default",
+          "What an apology has to include to count",
+          "Whether silence means agreement, disagreement, or distress"
+        ]
+      },
+      { "h2": "How to excavate",
+        "list": [
+          "Look for topics that consistently get changed when raised",
+          "Look for patterns of who concedes first in an argument",
+          "Look for the phrases used to soothe and what they're soothing",
+          "Look at the response to vulnerability — does it deepen or deflect?"
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the archaeology done for you.",
+      "cta_body": "Persona Lens's Family Lens and Romantic Lens include Communication Archaeology modules that surface the unspoken rules in the relationship — with the specific lines that revealed them. First reading free."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "what-your-emojis-say",
+    "title": "What your emoji use says about your personality",
+    "h1": "What your emoji use says about your personality",
+    "description": "Emoji choice is one of the most reliable personality signals in modern text. Here's what the patterns mean.",
+    "keywords": "emoji personality, what your emojis say about you, emoji meaning, texting personality",
+    "intro": "Emoji use is highly personal and surprisingly stable. The emojis you reach for under stress, the ones you'd never use, the ones you use ironically — taken together, they form one of the more reliable personality signals in modern text. Here's what the research and the patterns suggest.",
+    "sections": [
+      { "h2": "The four main emoji personalities",
+        "subsections": [
+          { "h3": "The Maximalist", "paragraphs": ["Uses emojis in nearly every message, often as visual punctuation. Correlates with high Extraversion and high Agreeableness — they're warming up the channel."] },
+          { "h3": "The Minimalist", "paragraphs": ["Rare emoji use, mostly functional (👍, 🙏). Correlates with higher Conscientiousness and lower Openness — they treat text as utility."] },
+          { "h3": "The Ironist", "paragraphs": ["Uses emojis subversively or self-deprecatingly. 🙃 instead of 🙂. 💀 instead of 😂. High Openness, often younger demographics."] },
+          { "h3": "The Specialist", "paragraphs": ["Has a small repertoire (3–5 emojis) used heavily. Stable, signature. High Conscientiousness."] }
+        ]
+      },
+      { "h2": "What changes when you're stressed",
+        "paragraphs": ["Most people's emoji use shifts under stress — either compressing (Maximalists go quieter), expanding (Minimalists reach for emotional cover), or shifting key (warm emojis disappear, formal ones appear). The shift itself is informative."]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the full emoji profile in your reading.",
+      "cta_body": "Persona Lens reads your emoji patterns alongside everything else — and uses them as a signal in your Big Five readout. Free first reading."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "are-you-using-people",
+    "title": "Are you the friend doing too much — or too little? An honest test",
+    "h1": "Are you the friend doing too much — or too little?",
+    "description": "Most people think they're the over-giver in their friendships. Often they're not. A self-honest diagnostic for figuring out where you actually sit.",
+    "keywords": "am I a bad friend, am I doing too much in friendship, friendship reciprocity, friendship balance",
+    "intro": "Most people, asked whether they're the over-giver or under-giver in their friendships, immediately answer \"over-giver.\" The math doesn't work — by definition, both sides can't be over-giving. This guide is a self-honest diagnostic for figuring out where you actually sit, in each specific friendship.",
+    "sections": [
+      { "h2": "Run the test on each friendship separately",
+        "paragraphs": ["You're not one kind of friend — you're different kinds in different friendships. Run the questions below against one specific person at a time."]
+      },
+      { "h2": "The honest questions",
+        "list": [
+          "Who initiated the last 10 plans?",
+          "Who remembers more details about the other's life?",
+          "Whose name comes up more in the other's stories?",
+          "Who is more often the listener in your conversations?",
+          "Who follows up after the other one has had a hard week?",
+          "Whose emotional bandwidth is more often borrowed by the other?"
+        ]
+      },
+      { "h2": "What the answers usually mean",
+        "paragraphs": [
+          "If you're consistently on the giving side: notice it, name it, decide if it's sustainable. Sometimes it is. Sometimes it isn't.",
+          "If you're consistently on the receiving side: this is the harder thing to admit, but it's the more useful one. Friendships die when receivers don't notice they're receiving."
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the actual reciprocity score.",
+      "cta_body": "Persona Lens's Give-and-Take module measures the actual ratio across your messages — initiation, follow-up, emotional labour, plan-making — and tells you where each specific friendship sits. Free first reading."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "first-replies-matter-more",
+    "title": "Why first replies matter more than long ones",
+    "h1": "Why first replies matter more than long ones",
+    "description": "In conversation analysis, the first message someone sends in response to a vulnerable share predicts the relationship's health more reliably than any other variable. Here's why.",
+    "keywords": "first reply, conversation analysis, vulnerability response, emotional bid",
+    "intro": "When you share something vulnerable, the message that arrives back first — the very first one — predicts the relationship's emotional capacity more reliably than almost anything else. This guide explains why.",
+    "sections": [
+      { "h2": "The Gottman framing",
+        "paragraphs": ["John Gottman's research identifies <em>bids for connection</em> as the most predictive unit of relational health. A bid is a small move toward connection — a question, an observation, a vulnerability. Whether the other person <em>turns toward</em>, <em>turns away</em>, or <em>turns against</em> the bid is the predictive variable."]
+      },
+      { "h2": "Why the first reply is the cleanest signal",
+        "paragraphs": ["The first reply is the least premeditated. Subsequent messages can be performative; the first one is closer to involuntary. It reveals the other person's <em>default</em> response to vulnerability."]
+      },
+      { "h2": "What to watch for",
+        "list": [
+          "Did they acknowledge the feeling? (Even one word — \"that sounds hard\" — counts.)",
+          "Did they redirect to logistics or a topic change? (Turning away.)",
+          "Did they make it about themselves? (Turning away in a friendlier costume.)",
+          "Did they go silent? (The hardest one to read; often dysregulation.)"
+        ]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the bid-response pattern mapped.",
+      "cta_body": "Persona Lens's Engagement Patterns module identifies bids, response types, and the ratio across the relationship. First reading free."
+    },
+    "faqs": []
+  },
+  {
+    "slug": "anxious-or-just-attentive",
+    "title": "Anxious attachment or just attentive? Three tests to tell the difference",
+    "h1": "Anxious attachment or just attentive?",
+    "description": "Some people get told they're \"anxiously attached\" when they're just paying attention. Three tests for the actual difference.",
+    "keywords": "anxious attachment, am I anxiously attached, secure but attentive, attachment style confusion",
+    "intro": "\"You're being anxious\" has become an accusation in modern relationships — sometimes fairly, sometimes as a way to dismiss valid attention. This guide gives you three honest tests for whether your behaviour is anxious-attachment-driven or just appropriately attuned.",
+    "sections": [
+      { "h2": "Test 1: Does the system regulate after reassurance?",
+        "paragraphs": ["Reassurance should land. If you ask for reassurance, get a clear and warm reply, and feel settled — that's secure attachment in action. If you ask for reassurance, get a clear and warm reply, and feel exactly as anxious as before — that's the anxious-attachment loop, where the soothing doesn't penetrate."]
+      },
+      { "h2": "Test 2: Are you scaling reaction to actual signal?",
+        "paragraphs": ["A 6-hour reply from someone who normally answers in 6 hours is not a signal. A 6-hour reply from someone who normally answers in 6 minutes is. Anxiously-attached people react to the same intensity regardless of the actual deviation. Securely-attached people calibrate."]
+      },
+      { "h2": "Test 3: Does the behaviour push them away, or pull them closer?",
+        "paragraphs": ["Anxious behaviour is, by definition, behaviour that produces the opposite of what it's trying to get. If your attentiveness is being received well — they thank you for noticing, they reciprocate — that's not anxious attachment. That's a healthy match."]
+      }
+    ],
+    "cta": {
+      "cta_title": "Get the calibration done for you.",
+      "cta_body": "Persona Lens reads your attachment indicators across the actual conversation — and tells you whether your behaviour pattern is anxious-driven, secure-driven, or somewhere in between. First reading free."
+    },
+    "faqs": []
+  }
+]

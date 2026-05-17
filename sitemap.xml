@@ -53,6 +53,14 @@
   <url><loc>https://persona-lens.com/guides/first-replies-matter-more.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/anxious-or-just-attentive.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
+  <!-- Phase 2C: long-tail high-volume queries (May 17, 2026 expansion) -->
+  <url><loc>https://persona-lens.com/guides/silent-treatment-psychology.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/signs-your-relationship-is-over.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/why-attracted-to-unavailable-people.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/am-i-the-toxic-one.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/why-parents-dont-apologize.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/workplace-bullying-signs.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
   <!-- French -->
   <url><loc>https://persona-lens.com/fr/</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
   <url><loc>https://persona-lens.com/fr/lens-self.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -94,5 +102,29 @@
   <url><loc>https://persona-lens.com/ru/testimonials.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://persona-lens.com/ru/privacy.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://persona-lens.com/ru/terms.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+
+  <!-- Phase 2C translations (FR/ES/RU) for 6 new guides -->
+  <url><loc>https://persona-lens.com/fr/guides/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/silent-treatment-psychology.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/signs-your-relationship-is-over.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/why-attracted-to-unavailable-people.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/am-i-the-toxic-one.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/why-parents-dont-apologize.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/workplace-bullying-signs.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/silent-treatment-psychology.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/signs-your-relationship-is-over.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/why-attracted-to-unavailable-people.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/am-i-the-toxic-one.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/why-parents-dont-apologize.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/workplace-bullying-signs.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/silent-treatment-psychology.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/signs-your-relationship-is-over.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/why-attracted-to-unavailable-people.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/am-i-the-toxic-one.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/why-parents-dont-apologize.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/workplace-bullying-signs.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
 </urlset>
