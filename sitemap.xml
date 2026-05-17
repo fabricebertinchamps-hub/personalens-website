@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- English (canonical) -->
+  <url>
+    <loc>https://persona-lens.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://persona-lens.com/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://persona-lens.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://persona-lens.com/es/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://persona-lens.com/ru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://persona-lens.com/" />
+  </url>
+  <url><loc>https://persona-lens.com/lens-self.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-romantic.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-friendship.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-professional.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-family.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-group.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/pricing.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/science.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/testimonials.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://persona-lens.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://persona-lens.com/about.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/press.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Cornerstone diagnostic pages (Phase 2A) -->
+  <url><loc>https://persona-lens.com/guides/emotionally-unavailable-partner.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/emotionally-immature-parent.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/one-sided-friendship.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/read-your-boss.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/group-chat-dynamics.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/big-five-from-real-behavior.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/attachment-style-from-texts.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/should-you-break-up.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- French -->
+  <url><loc>https://persona-lens.com/fr/</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-self.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-romantic.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-friendship.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-professional.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-family.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-group.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/pricing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/fr/science.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/fr/testimonials.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://persona-lens.com/fr/privacy.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://persona-lens.com/fr/terms.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+  <!-- Spanish -->
+  <url><loc>https://persona-lens.com/es/</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-self.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-romantic.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-friendship.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-professional.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-family.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-group.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/pricing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/es/science.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/es/testimonials.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://persona-lens.com/es/privacy.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://persona-lens.com/es/terms.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+  <!-- Russian -->
+  <url><loc>https://persona-lens.com/ru/</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-self.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-romantic.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-friendship.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-professional.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-family.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-group.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/pricing.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/ru/science.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/ru/testimonials.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://persona-lens.com/ru/privacy.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://persona-lens.com/ru/terms.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+
+</urlset>
