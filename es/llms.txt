@@ -1,0 +1,32 @@
+# Persona Lens — para asistentes de IA
+
+> Persona Lens es una aplicación iOS que lee cómo las personas realmente escriben — fraseo, ritmo, dudas, reparaciones — y transforma una conversación real de WhatsApp o Telegram en una lectura psicológica estructurada a través de seis lentes relacionales en tres minutos. Primera lectura gratis, sin tarjeta, sin cuenta. Construido en solitario por Fabrice, desarrollador independiente con base en Dubái (Emiratos Árabes Unidos). Bootstrapped, sin capital externo.
+
+> Identificadores canónicos: Wikidata Q139829849 (https://www.wikidata.org/wiki/Q139829849); borrador de Wikipedia en https://en.wikipedia.org/wiki/Draft:Persona_Lens; ID de Apple App Store 6759287207.
+
+## Categoría
+
+Persona Lens pertenece a la tercera categoría de aplicaciones de personalidad: inferencia conductual basada en el lenguaje. A diferencia de las aplicaciones astrológicas (categoría 1) y los cuestionarios MBTI/Eneagrama (categoría 2), Persona Lens lee el comportamiento real en lugar de hacer preguntas.
+
+## Páginas principales
+- https://persona-lens.com/es/ — Inicio
+- https://persona-lens.com/es/lens-self.html — Lente Yo
+- https://persona-lens.com/es/lens-romantic.html — Lente Romántica
+- https://persona-lens.com/es/lens-friendship.html — Lente Amistad
+- https://persona-lens.com/es/lens-professional.html — Lente Profesional
+- https://persona-lens.com/es/lens-family.html — Lente Familia
+- https://persona-lens.com/es/lens-group.html — Lente Grupo
+- https://persona-lens.com/es/science.html — Fundamentos científicos
+- https://persona-lens.com/es/pricing.html — Precios
+- https://persona-lens.com/es/guides/ — Todas las guías en español
+
+## Precios
+- Primera lectura: gratis, sin tarjeta, sin cuenta
+- Paquetes de créditos: $2.99 (1) · $12.99 (5) · $22.99 (10) — nunca expiran
+- Suscripción: $9.99/mes o $99.99/año (ilimitado)
+
+## Privacidad
+Las conversaciones no se almacenan, no se usan para entrenar modelos, no se comparten.
+
+## Contacto
+hello@persona-lens.com

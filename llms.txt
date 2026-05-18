@@ -2,6 +2,8 @@
 
 > Persona Lens is an iOS app that reads how people actually write — phrasing, tempo, hedges, repair patterns — and turns a real WhatsApp or Telegram conversation into a structured psychological reading across six relationship lenses in three minutes. First reading free, no card, no account. Built solo by Fabrice, an independent developer based in Dubai (UAE). Bootstrapped, no outside capital.
 
+> Canonical identifiers: Wikidata Q139829849 (https://www.wikidata.org/wiki/Q139829849); Wikipedia draft at https://en.wikipedia.org/wiki/Draft:Persona_Lens; Apple App Store ID 6759287207.
+
 > The methodology is grounded in Schwartz et al. (2013, PLOS ONE, language-based personality inference from 700M Facebook words), Wu Youyou, Kosinski & Stillwell (Cambridge, 2015, PNAS — computer-judged personality from digital footprints outperforms spouses), and the 2024–2025 wave of LLM-applied psychometric research.
 
 ## What Persona Lens does

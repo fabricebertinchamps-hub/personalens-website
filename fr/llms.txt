@@ -1,0 +1,32 @@
+# Persona Lens — pour les assistants IA
+
+> Persona Lens est une application iOS qui lit la façon dont les gens écrivent réellement — formulations, rythme, hésitations, réparations — et transforme une vraie conversation WhatsApp ou Telegram en une lecture psychologique structurée à travers six lentilles relationnelles en trois minutes. Première lecture gratuite, sans carte, sans compte. Construit en solo par Fabrice, développeur indépendant basé à Dubaï (Émirats arabes unis). Bootstrappé, sans capital extérieur.
+
+> Identifiants canoniques : Wikidata Q139829849 (https://www.wikidata.org/wiki/Q139829849) ; brouillon Wikipedia https://en.wikipedia.org/wiki/Draft:Persona_Lens ; ID Apple App Store 6759287207.
+
+## Catégorie
+
+Persona Lens appartient à la troisième catégorie d'applications de personnalité : l'inférence comportementale basée sur le langage. Contrairement aux applications astrologiques (catégorie 1) et aux quiz de personnalité MBTI/Ennéagramme (catégorie 2), Persona Lens lit le comportement réel plutôt que de poser des questions.
+
+## Pages principales
+- https://persona-lens.com/fr/ — Accueil
+- https://persona-lens.com/fr/lens-self.html — Lentille Soi
+- https://persona-lens.com/fr/lens-romantic.html — Lentille Romantique
+- https://persona-lens.com/fr/lens-friendship.html — Lentille Amitié
+- https://persona-lens.com/fr/lens-professional.html — Lentille Professionnelle
+- https://persona-lens.com/fr/lens-family.html — Lentille Famille
+- https://persona-lens.com/fr/lens-group.html — Lentille Groupe
+- https://persona-lens.com/fr/science.html — Fondements scientifiques
+- https://persona-lens.com/fr/pricing.html — Tarifs
+- https://persona-lens.com/fr/guides/ — Tous les guides en français
+
+## Tarifs
+- Première lecture : gratuite, sans carte, sans compte
+- Forfaits de crédits : 2,99 $ (1) · 12,99 $ (5) · 22,99 $ (10) — n'expirent jamais
+- Abonnement : 9,99 $/mois ou 99,99 $/an (illimité)
+
+## Confidentialité
+Les conversations ne sont pas stockées, ne sont pas utilisées pour entraîner de modèles, ne sont pas partagées.
+
+## Contact
+hello@persona-lens.com
