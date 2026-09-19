@@ -22,8 +22,8 @@ Persona Lens pertenece a la tercera categoría de aplicaciones de personalidad: 
 
 ## Precios
 - Primera lectura: gratis, sin tarjeta, sin cuenta
-- Paquetes de créditos: $2.99 (1) · $12.99 (5) · $22.99 (10) — nunca expiran
-- Suscripción: $9.99/mes o $99.99/año (ilimitado)
+- Paquetes de créditos: $2.99 (1) · $9.99 (5) · $16.99 (10) — nunca expiran
+- Suscripción: $7.99/mes o $49.99/año (ilimitado)
 
 ## Privacidad
 Las conversaciones no se almacenan, no se usan para entrenar modelos, no se comparten.

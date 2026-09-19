@@ -22,8 +22,8 @@ Persona Lens appartient à la troisième catégorie d'applications de personnali
 
 ## Tarifs
 - Première lecture : gratuite, sans carte, sans compte
-- Forfaits de crédits : 2,99 $ (1) · 12,99 $ (5) · 22,99 $ (10) — n'expirent jamais
-- Abonnement : 9,99 $/mois ou 99,99 $/an (illimité)
+- Forfaits de crédits : 2,99 $ (1) · 9,99 $ (5) · 16,99 $ (10) — n'expirent jamais
+- Abonnement : 7,99 $/mois ou 49,99 $/an (illimité)
 
 ## Confidentialité
 Les conversations ne sont pas stockées, ne sont pas utilisées pour entraîner de modèles, ne sont pas partagées.
