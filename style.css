@@ -1615,3 +1615,22 @@ img { max-width: 100%; display: block; }
 }
 .legal-page ul { padding-left: 22px; }
 .legal-page .container { max-width: 760px; }
+
+/* ===== DECODE TEASER ===== */
+.section-decode { background: var(--cream-warm); }
+.decode-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; max-width: 1040px; margin: 40px auto 0; }
+.decode-chat { background: #fff; border-radius: 28px; border: 1px solid rgba(37,55,91,0.10); box-shadow: 0 20px 50px rgba(37,55,91,0.10); padding: 0 0 18px; overflow: hidden; }
+.decode-chat-bar { display: flex; align-items: center; gap: 10px; padding: 14px 20px; background: #F4F1EC; font-weight: 700; color: var(--navy); border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 14px; }
+.decode-avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg,#DD8C8A,#BD6C6A); display: inline-block; }
+.decode-msg { position: relative; max-width: 82%; margin: 0 16px 10px; padding: 11px 16px 22px; border-radius: 20px; font-size: 15.5px; line-height: 1.35; }
+.decode-msg span { position: absolute; right: 12px; bottom: 5px; font-size: 11px; opacity: 0.55; font-weight: 600; }
+.decode-msg.them { background: #EFECE6; color: var(--navy); border-bottom-left-radius: 6px; }
+.decode-msg.you { background: #DD8C8A; color: #fff; margin-left: auto; border-bottom-right-radius: 6px; }
+.decode-reading { display: flex; flex-direction: column; gap: 14px; }
+.decode-card { background: #fff; border-radius: 18px; padding: 18px 20px; border: 1px solid rgba(37,55,91,0.08); }
+.decode-card p { margin: 0; color: var(--text-2, #4A4540); font-size: 15px; line-height: 1.5; }
+.decode-card-label { font-size: 12px !important; letter-spacing: 1.5px; text-transform: uppercase; color: #D78377 !important; font-weight: 700; margin-bottom: 6px !important; }
+.decode-card-value { font-size: 17px !important; color: var(--navy) !important; margin-bottom: 6px !important; }
+.decode-verdict { border-left: 4px solid #DD8C8A; }
+.decode-reading .btn { align-self: flex-start; margin-top: 6px; }
+@media (max-width: 820px) { .decode-grid { grid-template-columns: 1fr; } }
