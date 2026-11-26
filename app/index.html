@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Persona Lens — read any conversation</title>
+<meta name="description" content="Paste a real conversation and get a psychological reading in about three minutes. First reading free, no account.">
+<link rel="canonical" href="https://persona-lens.com/app/">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Persona Lens">
+<meta name="theme-color" content="#F4F1EC">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="icon" href="../assets/favicon-192.png">
+<style>
+:root{--cream:#F4F1EC;--cream-2:#FBF9F6;--navy:#25375B;--rose:#DD8C8A;--rose-dark:#BD6C6A;--line:rgba(37,55,91,.12);--muted:#6B7384}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--cream);color:var(--navy);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.wrap{max-width:720px;margin:0 auto;padding:18px 18px 70px}
+header{display:flex;align-items:center;gap:10px;margin:6px 0 20px}
+.dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--rose),var(--rose-dark));flex:0 0 auto}
+h1{font-size:20px;margin:0;letter-spacing:-.2px;flex:1}
+.bal{font-size:12.5px;color:var(--muted);white-space:nowrap}
+h2{font-size:17px;margin:24px 0 10px}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:14px;padding:13px;font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical;background:var(--cream-2);color:var(--navy)}
+select,input[type=file]{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;background:var(--cream-2);color:var(--navy)}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>div{flex:1 1 160px}
+button{font:600 15px/1 inherit;border:0;border-radius:12px;padding:14px 18px;cursor:pointer}
+.primary{background:var(--navy);color:#fff;width:100%}
+.primary:disabled{opacity:.45;cursor:default}
+.rose{background:var(--rose-dark);color:#fff;width:100%}
+.ghost{background:transparent;color:var(--muted);text-decoration:underline;padding:6px 0;font-weight:400;font-size:13px}
+.lenses{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.lens{border:1.5px solid var(--line);border-radius:14px;padding:12px;background:var(--cream-2);text-align:left;color:var(--navy)}
+.lens.on{border-color:var(--rose);background:#fff;box-shadow:0 0 0 3px rgba(221,140,138,.14)}
+.lens b{display:block;font-size:14px;margin-bottom:2px}
+.lens span{font-size:12px;color:var(--muted);font-weight:400;line-height:1.35;display:block}
+.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-dark);margin:0 0 6px}
+.err{background:#FDECEA;border:1px solid #F5C2BE;color:#8B2F28;border-radius:12px;padding:12px;font-size:14px;margin-bottom:12px}
+.hide{display:none}
+.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:8px}
+@keyframes s{to{transform:rotate(360deg)}}
+.sec{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.sec:first-child{border-top:0;padding-top:0;margin-top:0}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kv:last-child{border-bottom:0}
+ul.list{margin:7px 0 0;padding-left:19px}
+ul.list li{margin-bottom:6px;font-size:14.5px}
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px;margin-top:12px}
+.pack{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:var(--cream-2);text-align:center;color:var(--navy)}
+.pack b{display:block;font-size:19px;margin-bottom:2px}
+.pack span{font-size:12.5px;color:var(--muted);display:block}
+.install{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:14px;margin-top:10px}
+.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:24px;line-height:1.7}
+.foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="dot"></div>
+  <h1>Persona Lens</h1>
+  <span class="bal" id="bal"></span>
+</header>
+
+<div id="err" class="err hide"></div>
+
+<div class="card">
+  <p class="pill">Step 1</p>
+  <h2 style="margin-top:0">Paste the conversation</h2>
+  <p class="sub">Export a chat from WhatsApp or Telegram and paste it here, or paste any conversation as <code>Name: message</code>, one per line. Nothing is stored.</p>
+  <div style="height:10px"></div>
+  <textarea id="chat" placeholder="[12/05/2026, 21:14] Sophie: hey, sorry i went quiet this week&#10;[12/05/2026, 21:16] Me: no worries. still on for saturday?"></textarea>
+  <div style="height:10px"></div>
+  <div class="row">
+    <div><button class="rose" onclick="parseChat()">Read the conversation</button></div>
+    <div><input type="file" id="file" accept=".txt,.json" onchange="loadFile(event)" style="padding:9px;font-size:13px"></div>
+  </div>
+</div>
+
+<div id="step2" class="card hide">
+  <p class="pill">Step 2</p>
+  <h2 style="margin-top:0">Who and which lens</h2>
+  <p id="parsed" class="sub"></p>
+  <div class="row">
+    <div><label for="target">Analyse this person</label><select id="target"></select></div>
+    <div><label for="me">You are</label><select id="me"></select></div>
+  </div>
+  <div class="row">
+    <div><label for="gender">Their gender (optional)</label>
+      <select id="gender"><option value="">Not specified</option><option value="female">Female</option><option value="male">Male</option></select></div>
+    <div><label for="lang">Report language</label>
+      <select id="lang"><option>English</option><option>French</option><option>Spanish</option><option>Russian</option></select></div>
+  </div>
+  <label style="margin-top:16px">Lens</label>
+  <div class="lenses" id="lenses"></div>
+  <div style="height:16px"></div>
+  <button id="go" class="primary" onclick="analyze()">Read this conversation</button>
+  <p class="sub" style="margin-top:10px;text-align:center">Takes about two to three minutes.</p>
+</div>
+
+<div id="paywall" class="card hide">
+  <p class="pill">Your free reading is used</p>
+  <h2 style="margin-top:0">Keep reading</h2>
+  <p class="sub">Unlimited readings on a plan you can cancel any time, or pay once for a pack. No account needed. Payment is handled by Stripe.</p>
+  <label style="margin-top:14px">Unlimited</label>
+  <div class="packs" id="plans"></div>
+  <label style="margin-top:14px">Or pay as you go</label>
+  <div class="packs" id="packs"></div>
+  <p class="sub" style="margin-top:12px;text-align:center">You come straight back here afterwards.</p>
+</div>
+
+<div id="out"></div>
+
+<div id="installBox" class="install hide">
+  <strong>Keep it on your phone</strong>
+  <p class="sub" id="installText" style="margin:6px 0 10px"></p>
+  <button id="installBtn" class="rose hide" onclick="doInstall()">Add to home screen</button>
+</div>
+
+<p class="foot">
+  Your conversations are not stored, not used for training, not shared.<br>
+  <a href="/">persona-lens.com</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a>
+</p>
+
+</div>
+<script>
+const API = "https://personalens-api.personalens.workers.dev";
+const LENSES = [
+  ["Self Lens","Who you are in your own words"],
+  ["Romantic Lens","Attachment, interest, repair patterns"],
+  ["Friendship Lens","Reciprocity, depth, one-sided patterns"],
+  ["Professional Lens","Power, feedback, boundaries"],
+  ["Family Lens","Control signals, inherited patterns"],
+  ["Group Lens","Roles, alliances, who carries it"]
+];
+const LANG_BY_CODE = {fr:"French", es:"Spanish", ru:"Russian", en:"English"};
+let chosenLens = "Romantic Lens";
+let parsedMsgs = [], speakers = [], session = null, lastKey = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[<>&]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
+function showErr(m){ const e=$("err"); e.textContent=m; e.classList.remove("hide"); window.scrollTo({top:0,behavior:"smooth"}) }
+function clearErr(){ $("err").classList.add("hide") }
+
+function deviceId(){
+  let d = localStorage.getItem("pl_device");
+  if(!d){ d = "web-" + (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2)); localStorage.setItem("pl_device", d) }
+  return d;
+}
+
+async function loadSession(){
+  try{
+    const r = await fetch(`${API}/web/session?deviceId=${encodeURIComponent(deviceId())}`);
+    session = await r.json();
+    if(session.deviceId) localStorage.setItem("pl_device", session.deviceId);
+    paintBalance();
+    paintPacks();
+  }catch(e){
+    showErr("Could not reach the Persona Lens service. Check your connection and reload.");
+  }
+}
+function paintBalance(){
+  if(!session) return;
+  if(session.premium){ $("bal").textContent = "unlimited"; return }
+  const c = session.credits || 0;
+  $("bal").textContent = c > 0 ? (c === 1 ? "1 reading left" : c + " readings left") : "no readings left";
+}
+function paintPacks(){
+  if(!session) return;
+  if(session.plans) $("plans").innerHTML = session.plans.map(p =>
+    `<button class="pack" onclick="buy(null,'${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>per ${esc(p.interval)}, cancel any time</span></button>`
+  ).join("");
+  if(session.packs) $("packs").innerHTML = session.packs.map(p =>
+    `<button class="pack" onclick="buy('${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>one-off</span></button>`
+  ).join("");
+}
+
+function renderLenses(){
+  $("lenses").innerHTML = LENSES.map(([n,d]) =>
+    `<button class="lens${n===chosenLens?" on":""}" onclick="pickLens('${n}')"><b>${n.replace(" Lens","")}</b><span>${d}</span></button>`
+  ).join("");
+}
+function pickLens(n){ chosenLens = n; renderLenses() }
+
+function loadFile(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => { $("chat").value = typeof r.result === "string" ? r.result : ""; parseChat() };
+  r.readAsText(f);
+}
+
+// Parses WhatsApp exports, Telegram text exports and plain "Name: message" lines.
+function parseLines(raw){
+  const out = [];
+  const lines = raw.replace(/‎/g,"").split(/\r?\n/);
+  const wa1 = /^\[(.+?)\]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
+  const wa2 = /^(\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},?\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[APap][Mm])?)\s*[-–]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
+  const plain = /^([^:]{1,40}?):\s*([\s\S]*)$/;
+  for(const line of lines){
+    if(!line.trim()) continue;
+    let m = line.match(wa1) || line.match(wa2);
+    if(m){ out.push({ts:m[1].trim(), name:m[2].trim(), content:m[3].trim()}); continue }
+    m = line.match(plain);
+    if(m && !/^https?$/i.test(m[1])){ out.push({ts:"", name:m[1].trim(), content:m[2].trim()}); continue }
+    if(out.length){ out[out.length-1].content += " " + line.trim() }
+  }
+  return out.filter(m => m.content && !/^(<Media omitted>|image omitted|video omitted|This message was deleted|null)$/i.test(m.content));
+}
+
+function parseChat(){
+  clearErr();
+  const raw = $("chat").value;
+  if(!raw.trim()){ showErr("Paste a conversation first."); return }
+  parsedMsgs = parseLines(raw);
+  if(parsedMsgs.length < 4){ showErr("I could only read " + parsedMsgs.length + " messages. Each line should look like \"Name: message\", or be a WhatsApp or Telegram export."); return }
+  const counts = {};
+  parsedMsgs.forEach(m => counts[m.name] = (counts[m.name]||0)+1);
+  speakers = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  const opts = speakers.map(s => `<option value="${esc(s).replace(/"/g,'&quot;')}">${esc(s)} (${counts[s]})</option>`).join("");
+  $("target").innerHTML = opts; $("me").innerHTML = opts;
+  if(speakers[1]) $("me").value = speakers[1];
+  $("parsed").textContent = parsedMsgs.length + " messages, " + speakers.length + " participant" + (speakers.length>1?"s":"") + ": " + speakers.join(", ") + ".";
+  $("step2").classList.remove("hide");
+  $("step2").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function buildPayload(){
+  const targetName = $("target").value, meName = $("me").value;
+  const msgs = parsedMsgs.map(m => ({
+    sender: m.name === targetName ? "TARGET" : "OTHER",
+    content: m.content,
+    timestamp: new Date().toISOString()
+  })).slice(-600);
+  const t = msgs.filter(m=>m.sender==="TARGET").length;
+  const words = msgs.reduce((a,m)=>a+m.content.split(/\s+/).length,0);
+  return {
+    deviceId: deviceId(),
+    analysis_type: chosenLens,
+    language: $("lang").value,
+    messages: msgs,
+    features: {},
+    metadata: {
+      total_messages: msgs.length, target_messages: t, other_messages: msgs.length - t,
+      avg_message_length_words: Math.round(words / Math.max(msgs.length,1)),
+      target_person_name: targetName, other_person_name: meName,
+      target_gender: $("gender").value || null
+    }
+  };
+}
+
+async function analyze(){
+  clearErr();
+  $("paywall").classList.add("hide");
+  if(!session || !session.token){ await loadSession(); if(!session) return }
+  const btn = $("go");
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Reading the conversation';
+  $("out").innerHTML = "";
+  lastKey = "a" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  try{
+    const res = await fetch(API + "/analyze", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json", "X-Web-Token": session.token, "X-Device-Id": deviceId() },
+      body: JSON.stringify(buildPayload())
+    });
+    const data = await res.json();
+    if(res.status === 402){ showPaywall(); return }
+    if(res.status === 429){ throw new Error("That is a lot of readings in a short time. Give it a minute and try again.") }
+    if(!res.ok){ throw new Error(data.error || ("The service returned " + res.status)) }
+    render(data);
+    consumeCredit();
+    offerInstall();
+  }catch(e){
+    showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection." : e.message);
+  }finally{
+    btn.disabled = false; btn.textContent = "Read this conversation";
+  }
+}
+
+async function consumeCredit(){
+  try{
+    const r = await fetch(API + "/credits/consume", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ deviceId: deviceId(), idempotencyKey: lastKey })
+    });
+    const d = await r.json();
+    if(typeof d.credits === "number" && session){ session.credits = d.credits; paintBalance() }
+  }catch(_){ /* the reading already succeeded; balance refreshes on reload */ }
+}
+
+function showPaywall(){
+  paintPacks();
+  $("paywall").classList.remove("hide");
+  $("paywall").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+async function buy(pack, plan){
+  clearErr();
+  try{
+    const r = await fetch(API + "/web/checkout", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ deviceId: deviceId(), pack: pack||null, plan: plan||null, origin: location.origin })
+    });
+    const d = await r.json();
+    if(!r.ok || !d.url) throw new Error(d.error || "Could not start the payment.");
+    location.href = d.url;
+  }catch(e){ showErr(e.message) }
+}
+
+// ---- install prompt ----
+let deferredPrompt = null;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; });
+function isStandalone(){ return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true }
+function offerInstall(){
+  if(isStandalone()) return;
+  const box = $("installBox"), isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(deferredPrompt){
+    $("installText").textContent = "Add Persona Lens to your home screen and it opens like an app.";
+    $("installBtn").classList.remove("hide");
+  } else if(isIOS){
+    $("installText").textContent = "Tap the Share button in Safari, then Add to Home Screen. It then opens full screen, like an app.";
+  } else {
+    $("installText").textContent = "Bookmark this page, or use your browser's Install option to keep it one tap away.";
+  }
+  box.classList.remove("hide");
+}
+async function doInstall(){
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  $("installBtn").classList.add("hide");
+}
+
+// ---- generic renderer: the report schema differs per lens, so walk the JSON ----
+const TITLE = k => k.replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+const SKIP = new Set(["_meta","prompt_version","cached","cache_age_ms","pass1_ms","pass2_ms","total_ms","language"]);
+
+function node(k, v, depth){
+  if(SKIP.has(k)) return "";
+  if(v === null || v === undefined || v === "") return "";
+  if(Array.isArray(v)){
+    if(!v.length) return "";
+    if(v.every(x => typeof x === "string"))
+      return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p><ul class="list">${v.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p>${v.map(x=>typeof x==="object"&&x?`<div style="margin:10px 0">${Object.entries(x).map(([a,b])=>node(a,b,depth+1)).join("")}</div>`:`<p>${esc(x)}</p>`).join("")}</div>`;
+  }
+  if(typeof v === "object"){
+    const inner = Object.entries(v).map(([a,b]) => node(a,b,depth+1)).join("");
+    if(!inner.trim()) return "";
+    return depth === 0
+      ? `<div class="card"><h2 style="margin-top:0">${esc(TITLE(k))}</h2>${inner}</div>`
+      : `<div class="sec"><p class="pill">${esc(TITLE(k))}</p>${inner}</div>`;
+  }
+  if(typeof v === "number") return `<div class="kv"><b>${esc(TITLE(k))}</b><span>${v}</span></div>`;
+  if(typeof v === "string" && v.length > 220)
+    return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p><p style="margin:6px 0;font-size:14.5px">${esc(v)}</p></div>`;
+  return `<div class="kv"><b>${esc(TITLE(k))}</b><span>${esc(v)}</span></div>`;
+}
+
+function render(data){
+  let html = `<div class="card"><p class="pill">${esc(chosenLens)}</p><h2 style="margin:0 0 4px">${esc($("target").value)}</h2><p class="sub">${parsedMsgs.length} messages read.</p></div>`;
+  html += Object.entries(data).filter(([k]) => !SKIP.has(k)).map(([k,v]) => {
+    const r = node(k,v,0);
+    if(!r) return "";
+    return r.startsWith('<div class="card"') ? r : `<div class="card">${r}</div>`;
+  }).join("");
+  $("out").innerHTML = html;
+  $("out").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// ---- boot ----
+(async function(){
+  renderLenses();
+  const q = new URLSearchParams(location.search);
+  const lang = LANG_BY_CODE[(q.get("lang")||"").toLowerCase()];
+  if(lang) $("lang").value = lang;
+  await loadSession();
+  if(q.get("paid") === "1"){
+    // the Stripe webhook may land a moment after the redirect
+    for(let i=0;i<6 && (!session || (!session.credits && !session.premium));i++){
+      await new Promise(r=>setTimeout(r,1500));
+      await loadSession();
+    }
+    history.replaceState({}, "", location.pathname);
+    if(session && (session.premium || session.credits)){
+      $("paywall").classList.add("hide");
+    }
+  }
+  if(!isStandalone()) offerInstall();
+})();
+</script>
+</body>
+</html>
