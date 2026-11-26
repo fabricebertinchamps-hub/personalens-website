@@ -24,7 +24,7 @@
 /* App-specific components, built on the site's brand tokens */
 .app-wrap{max-width:760px;margin:0 auto;padding:30px 20px 80px}
 .app-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.app-head h1{margin:0;flex:1;font-size:clamp(26px,5vw,34px)}
+.app-head h1{margin:0;flex:1;font-size:clamp(24px,5vw,34px);hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:normal;line-height:1.15}
 .bal{font-size:13px;color:var(--text-3);background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}
 .bal.premium{background:#EEF5F0;border-color:#CADCCF;color:#44705A}
 .steps-rail{display:flex;gap:6px;margin:22px 0 26px}
@@ -74,6 +74,14 @@ label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:var(-
 .acc{display:flex;gap:14px;align-items:center;background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0}
 .acc b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .acc span{font-size:13.5px;color:var(--text-3);line-height:1.45;display:block;margin-top:2px}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px}
+.person{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;border:1.5px solid var(--border);background:var(--elevated);border-radius:var(--radius-sm);padding:13px 14px;cursor:pointer;font:inherit;color:var(--ink);transition:.15s}
+.person:hover{border-color:var(--border-accent)}
+.person.on{border-color:var(--navy);background:#fff;box-shadow:0 0 0 3px rgba(37,55,91,.12)}
+.person b{font-size:15.5px;overflow-wrap:anywhere}
+.person span{font-size:12.5px;color:var(--text-3)}
+.readline{background:var(--cream-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:14.5px;color:var(--text-2);margin:14px 0 0}
+.readline b{color:var(--ink)}
 .chip{display:inline-block;background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:5px 11px;font-size:13px;margin:0 6px 6px 0}
 .err{background:#FDECEA;border:1px solid #F3C7C2;color:#8B2F28;border-radius:var(--radius-sm);padding:13px 15px;font-size:14.5px;margin-bottom:16px;line-height:1.5}
 .hide{display:none!important}
@@ -104,7 +112,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 @media (max-width:560px){
   .panel{padding:18px 16px}
   .app-wrap{padding:18px 12px 64px}
-  .app-head h1{font-size:26px}
+  .app-head h1{font-size:23px}
   /* two lenses and three sources per row, rather than one tall column each */
   .lens-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .lens-pick{flex-direction:column;gap:8px;padding:12px 10px;align-items:center;text-align:center}
@@ -174,7 +182,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
       <div id="fileZone" class="hide" style="margin-top:18px">
         <div class="drop" id="drop" onclick="document.getElementById('file').click()">
           <b>Choose the exported file</b>
-          <span id="dropHint">.txt or .zip from WhatsApp</span>
+          <span id="dropHint">The .zip or .txt straight from WhatsApp</span>
         </div>
         <input type="file" id="file" accept=".txt,.json,.zip" class="hide" onchange="loadFile(event)">
       </div>
@@ -254,10 +262,17 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
       <div class="bars" id="bars"><i></i><i></i><i></i><i></i><i></i></div>
       <div><b id="accTier"></b><span id="accHint"></span></div>
     </div>
-    <div class="row">
-      <div><label for="target">Analyse this person</label><select id="target"></select></div>
-      <div><label for="me">You are</label><select id="me"></select></div>
+
+    <label style="margin-top:4px">Which one are you?</label>
+    <div class="people" id="whoAmI"></div>
+
+    <div id="whoReadWrap" class="hide">
+      <label>Who do you want read?</label>
+      <div class="people" id="whoRead"></div>
     </div>
+
+    <p class="readline hide" id="readline"></p>
+
     <div class="row">
       <div><label for="gender">Their gender (optional)</label>
         <select id="gender"><option value="">Not specified</option><option value="female">Female</option><option value="male">Male</option></select></div>
@@ -343,8 +358,8 @@ const HOWTO = {
           "Send the file to yourself by email or save it to your cloud drive",
           "Open it on this computer",
           "Choose that file below"],
-    note: "A WhatsApp export is a <b>.txt</b> file, sometimes inside a <b>.zip</b>. Choose <b>Without media</b>: photos and voice notes are not read and only make the file large.",
-    accept: ".txt,.zip", hint: ".txt or .zip from WhatsApp"
+    note: "Drop in the <b>.zip</b> exactly as WhatsApp gives it to you, no unzipping needed. Choosing <b>Without media</b> just keeps the file small, since photos and voice notes are not read.",
+    accept: ".txt,.zip", hint: "The .zip or .txt straight from WhatsApp"
   },
   telegram: {
     desktop: ["Open <b>Telegram Desktop</b> on your computer (the phone app cannot export)",
@@ -478,27 +493,63 @@ function renderSteps(list){
 }
 
 // ---------- parsing ----------
-function parseWhatsAppText(raw){
+const WA1 = /^\[(.+?)\]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
+const WA2 = /^(\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},?\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[APap]\.?[Mm]\.?)?)\s*[-\u2013]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
+const PLAIN = /^([^:]{1,32}?):\s*([\s\S]*)$/;
+
+// A sender name is short, has no URL or bracket, and is not a sentence.
+// Without this, lines like "Voici le lien:" or "PREVOIR:" become fake people.
+function isNameish(s){
+  const n = (s||"").trim();
+  if(!n || n.length > 32) return false;
+  if(/https?:|www\.|\/\//i.test(n)) return false;
+  if(/[(){}\[\]<>|"]/.test(n)) return false;
+  if((n.match(/\s/g)||[]).length > 3) return false;
+  if(/[.!?,;]$/.test(n)) return false;
+  if(/^\d[\d\s\/.@h:-]*$/.test(n)) return false;
+  return true;
+}
+function isNoise(t){
+  return !t || /^(<Media omitted>|image omitted|video omitted|audio omitted|sticker omitted|GIF omitted|document omitted|Contact card omitted|This message was deleted|You deleted this message|null|Missed voice call|Missed video call|Messages and calls are end-to-end encrypted[\s\S]*)$/i.test(t.trim());
+}
+
+function parseConversation(raw){
+  const lines = (raw||"").replace(/[\u200e\u200f]/g,"").split(/\r?\n/);
+  let dated = 0;
+  for(const l of lines){ if(WA1.test(l) || WA2.test(l)) dated++; if(dated >= 3) break }
+  const isExport = dated >= 3;
   const out = [];
-  const lines = raw.replace(/‎|‏/g,"").split(/\r?\n/);
-  const wa1 = /^\[(.+?)\]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
-  const wa2 = /^(\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},?\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[APap]\.?[Mm]\.?)?)\s*[-–]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
-  const plain = /^([^:]{1,40}?):\s*([\s\S]*)$/;
-  for(const line of lines){
-    if(!line.trim()) continue;
-    let m = line.match(wa1) || line.match(wa2);
-    if(m){ out.push({name:m[2].trim(), content:m[3].trim()}); continue }
-    m = line.match(plain);
-    if(m && !/^https?$/i.test(m[1])){ out.push({name:m[1].trim(), content:m[2].trim()}); continue }
-    if(out.length) out[out.length-1].content += " " + line.trim();
+  const push = (n,c) => out.push({name:n.trim(), content:c.trim()});
+  const append = line => { if(out.length && line.trim()) out[out.length-1].content += "\n" + line.trim() };
+
+  if(isExport){
+    // Dated export: only a timestamped line starts a message. Everything else
+    // belongs to the message above it, even when it contains a colon.
+    for(const line of lines){
+      const m = line.match(WA1) || line.match(WA2);
+      if(m) push(m[2], m[3]); else append(line);
+    }
+  } else {
+    // Pasted text: a real sender says more than one thing.
+    const tally = {};
+    for(const l of lines){
+      const m = l.match(PLAIN);
+      if(m && isNameish(m[1])){ const n = m[1].trim(); tally[n] = (tally[n]||0)+1 }
+    }
+    const repeated = new Set(Object.keys(tally).filter(n => tally[n] >= 2));
+    const accept = n => repeated.size ? repeated.has(n) : true;
+    for(const line of lines){
+      if(!line.trim()) continue;
+      const m = line.match(PLAIN);
+      if(m && isNameish(m[1]) && accept(m[1].trim())) push(m[1], m[2]); else append(line);
+    }
   }
-  return clean(out);
+  return out.filter(m => !isNoise(m.content));
 }
 function parseTelegramJson(text){
   const data = JSON.parse(text);
-  const msgs = data.messages || [];
   const out = [];
-  for(const m of msgs){
+  for(const m of (data.messages || [])){
     if(m.type !== "message") continue;
     const who = m.from || m.actor;
     if(!who) continue;
@@ -508,61 +559,147 @@ function parseTelegramJson(text){
     t = t.trim();
     if(t) out.push({name: String(who).trim(), content: t});
   }
-  return clean(out);
+  return out.filter(m => !isNoise(m.content));
 }
-function clean(list){
-  return list.filter(m => m.content &&
-    !/^(<Media omitted>|image omitted|video omitted|audio omitted|sticker omitted|GIF omitted|This message was deleted|You deleted this message|null|Missed voice call|Missed video call)$/i.test(m.content));
+
+// Reads a WhatsApp .zip in the browser. No unzipping by hand, ever.
+async function readZipText(buf){
+  const dv = new DataView(buf), u8 = new Uint8Array(buf);
+  let eocd = -1;
+  for(let i = u8.length - 22; i >= 0 && i > u8.length - 66000; i--){
+    if(dv.getUint32(i, true) === 0x06054b50){ eocd = i; break }
+  }
+  if(eocd < 0) throw new Error("That zip could not be opened.");
+  const count = dv.getUint16(eocd + 10, true);
+  let p = dv.getUint32(eocd + 16, true);
+  const entries = [];
+  for(let i = 0; i < count; i++){
+    if(dv.getUint32(p, true) !== 0x02014b50) break;
+    const method = dv.getUint16(p + 10, true);
+    const compSize = dv.getUint32(p + 20, true);
+    const nameLen = dv.getUint16(p + 28, true);
+    const extraLen = dv.getUint16(p + 30, true);
+    const commentLen = dv.getUint16(p + 32, true);
+    const localOff = dv.getUint32(p + 42, true);
+    const name = new TextDecoder().decode(u8.subarray(p + 46, p + 46 + nameLen));
+    entries.push({ name, method, compSize, localOff });
+    p += 46 + nameLen + extraLen + commentLen;
+  }
+  const ok = e => !/^__MACOSX/.test(e.name) && !/\/$/.test(e.name);
+  const pick = entries.find(e => ok(e) && /\.txt$/i.test(e.name))
+            || entries.find(e => ok(e) && /\.json$/i.test(e.name));
+  if(!pick) throw new Error("There is no chat file inside that zip, only media.");
+  const lo = pick.localOff;
+  if(dv.getUint32(lo, true) !== 0x04034b50) throw new Error("That zip could not be opened.");
+  const lNameLen = dv.getUint16(lo + 26, true), lExtraLen = dv.getUint16(lo + 28, true);
+  const dataStart = lo + 30 + lNameLen + lExtraLen;
+  const data = u8.subarray(dataStart, dataStart + pick.compSize);
+  if(pick.method === 0) return { text: new TextDecoder().decode(data), name: pick.name };
+  if(pick.method !== 8) throw new Error("That zip uses a compression this browser cannot open.");
+  if(typeof DecompressionStream === "undefined") throw new Error("This browser is too old to open a zip. Update it, or pick the .txt inside.");
+  const stream = new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return { text: new TextDecoder().decode(await new Response(stream).arrayBuffer()), name: pick.name };
 }
 
 function loadFile(ev){
-  const f = ev.target.files[0]; if(!f) return;
+  const f = ev.target.files && ev.target.files[0]; if(!f) return;
   clearErr();
-  if(/\.zip$/i.test(f.name)){
-    showErr("That is a <b>.zip</b>. Unzip it first and choose the <b>.txt</b> inside. On iPhone, tap the zip in Files and it unpacks into a folder.");
-    return;
-  }
-  const r = new FileReader();
-  r.onload = () => {
-    const text = typeof r.result === "string" ? r.result : "";
+  const done = (text, label) => {
     try{
-      const msgs = /\.json$/i.test(f.name) || text.trim().startsWith("{") ? parseTelegramJson(text) : parseWhatsAppText(text);
-      acceptParsed(msgs, f.name);
-    }catch(e){ showErr("I could not read that file. For Telegram choose <b>Machine-readable JSON</b>, for WhatsApp the <b>.txt</b> export.") }
+      const msgs = /\.json$/i.test(label) || text.trim().startsWith("{")
+        ? parseTelegramJson(text) : parseConversation(text);
+      acceptParsed(msgs, label);
+    }catch(e){
+      showErr("I could not read that file. For Telegram choose <b>Machine-readable JSON</b>, for WhatsApp the export as it comes.");
+    }
   };
-  r.readAsText(f);
+  const r = new FileReader();
+  if(/\.zip$/i.test(f.name)){
+    r.onload = async () => {
+      try{
+        const { text, name } = await readZipText(r.result);
+        done(text, f.name + " \u2192 " + name);
+      }catch(e){ showErr(esc(e.message)) }
+    };
+    r.readAsArrayBuffer(f);
+  } else {
+    r.onload = () => done(typeof r.result === "string" ? r.result : "", f.name);
+    r.readAsText(f);
+  }
 }
+
 function parsePasted(){
   clearErr();
   const raw = $("chat").value;
   if(!raw.trim()){ showErr("Paste the conversation into the box first."); return }
-  acceptParsed(parseWhatsAppText(raw), null);
+  acceptParsed(parseConversation(raw), null);
 }
+
+// ---------- who is who ----------
+let people = [], meName = "", targetName = "";
+
+function paintPeople(){
+  $("whoAmI").innerHTML = people.map(pp =>
+    `<button class="person${pp.name===meName?" on":""}" onclick="setMe(${JSON.stringify(pp.name).replace(/"/g,'&quot;')})">
+       <b>${esc(pp.name)}</b><span>${pp.count} message${pp.count===1?"":"s"}</span></button>`).join("");
+  const others = people.filter(pp => pp.name !== meName);
+  if(others.length > 1){
+    $("whoReadWrap").classList.remove("hide");
+    $("whoRead").innerHTML = others.map(pp =>
+      `<button class="person${pp.name===targetName?" on":""}" onclick="setTarget(${JSON.stringify(pp.name).replace(/"/g,'&quot;')})">
+         <b>${esc(pp.name)}</b><span>${pp.count} message${pp.count===1?"":"s"}</span></button>`).join("");
+  } else {
+    $("whoReadWrap").classList.add("hide");
+    targetName = others.length ? others[0].name : meName;
+  }
+  const rl = $("readline");
+  if(meName && targetName){
+    rl.innerHTML = lens && lens.id === "Self Lens"
+      ? `Reading <b>${esc(meName)}</b> through the <b>Self</b> lens.`
+      : `Reading <b>${esc(targetName)}</b> through the <b>${esc(lens ? lens.name : "")}</b> lens, from your side as <b>${esc(meName)}</b>.`;
+    rl.classList.remove("hide");
+    $("go").disabled = false;
+  } else {
+    rl.classList.add("hide");
+    $("go").disabled = true;
+  }
+}
+function setMe(n){ meName = n; if(targetName === n) targetName = ""; paintPeople() }
+function setTarget(n){ targetName = n; paintPeople() }
 
 function acceptParsed(msgs, fileName){
   if(!msgs || msgs.length < 4){
-    showErr("I could only read " + (msgs ? msgs.length : 0) + " messages from that. Each line needs to start with who said it, like <b>Sophie: hey</b>.");
+    showErr("I could only read " + (msgs ? msgs.length : 0) + " messages from that. If you pasted text, each line needs to start with who said it, like <b>Sophie: hey</b>.");
     return;
   }
   parsedMsgs = msgs;
   const counts = {};
   msgs.forEach(m => counts[m.name] = (counts[m.name]||0)+1);
-  speakers = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
-  if(speakers.length < 2 && lens && lens.id !== "Self Lens"){
-    showErr("I found only one participant in that conversation. Every lens except <b>Self</b> needs both sides.");
+  people = Object.keys(counts).map(n => ({name:n, count:counts[n]})).sort((a,b)=>b.count-a.count);
+  speakers = people.map(pp => pp.name);
+
+  if(people.length < 2 && lens && lens.id !== "Self Lens"){
+    showErr("I found only one person in that conversation. Every lens except <b>Self</b> needs both sides.");
   }
-  if(speakers.length > 2 && lens && lens.id !== "Group Lens"){
-    showErr("That looks like a group chat with " + speakers.length + " people. Pick the <b>Group</b> lens for it, or import a one to one conversation.");
+  if(people.length > 2 && lens && lens.id !== "Group Lens"){
+    showErr("That looks like a group chat with " + people.length + " people. The <b>Group</b> lens is built for that, or import a one to one conversation.");
   }
-  const opts = speakers.map(s => `<option value="${esc(s)}">${esc(s)} (${counts[s]})</option>`).join("");
-  $("target").innerHTML = opts; $("me").innerHTML = opts;
-  if(speakers[1]) $("me").value = speakers[1];
-  $("parsedLine").innerHTML = (fileName ? esc(fileName) + " &middot; " : "") + "<b>" + msgs.length + " messages</b> from " +
-    speakers.map(s => `<span class="chip">${esc(s)} &middot; ${counts[s]}</span>`).join(" ");
+
+  // sensible default: you are the second most talkative, read the most talkative
+  meName = people[1] ? people[1].name : people[0].name;
+  targetName = people[0] ? people[0].name : "";
+  if(people.length > 2) targetName = "";
+
+  const total = msgs.length.toLocaleString();
+  $("parsedLine").innerHTML = (fileName ? esc(fileName) + " &middot; " : "") +
+    "<b>" + total + " messages</b> &middot; " + people.length + (people.length === 1 ? " person" : " people");
+
   const a = ACC.find(x => msgs.length >= x.min);
   $("accTier").textContent = a.tier + " accuracy";
   $("accHint").textContent = a.hint;
   $("bars").innerHTML = [1,2,3,4,5].map(i => `<i class="${i<=a.bars?"f":""}"></i>`).join("");
+
+  paintPeople();
   $("p3").classList.remove("hide");
   rail(3);
   $("p3").scrollIntoView({behavior:"smooth",block:"start"});
@@ -570,7 +707,7 @@ function acceptParsed(msgs, fileName){
 
 // ---------- analysis ----------
 function buildPayload(){
-  const targetName = $("target").value, meName = $("me").value;
+  if(!targetName || !meName) throw new Error("Choose who is who first.");
   const msgs = parsedMsgs.map(m => ({
     sender: m.name === targetName ? "TARGET" : "OTHER",
     content: m.content,
@@ -874,7 +1011,7 @@ function render(data){
       <div style="display:flex;gap:14px;align-items:center">
         <img src="/assets/${lens.icon}" alt="" style="width:46px;height:46px">
         <div><p class="rep-lab" style="color:${lens.color};margin:0 0 2px">${esc(lens.name)} Lens</p>
-        <h2 style="margin:0">${esc($("target").value)}</h2></div>
+        <h2 style="margin:0">${esc(targetName)}</h2></div>
       </div>
       <p style="color:var(--text-3);font-size:14px;margin:12px 0 0">${parsedMsgs.length} messages read. Nothing was stored.</p>
     </section>`;
