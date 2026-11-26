@@ -122,7 +122,8 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .rep-hero .lenstag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
 .rep-hero .lenstag img{width:18px;height:18px}
 .rep-hero h2{color:#fff;margin:0 0 8px;font-size:clamp(21px,4.4vw,27px);line-height:1.25;hyphens:none}
-.rep-hero .who{color:rgba(255,255,255,.72);font-size:14px;margin:0}
+.rep-hero .hero-rest{color:rgba(255,255,255,.86);font-size:15px;line-height:1.6;margin:0 0 14px}
+.rep-hero .who{color:rgba(255,255,255,.62);font-size:13px;margin:0}
 .hero-row{display:flex;gap:20px;align-items:center;margin-top:20px;flex-wrap:wrap}
 .ring{position:relative;width:92px;height:92px;flex:0 0 auto}
 .ring svg{transform:rotate(-90deg)}
@@ -168,7 +169,8 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .kvrow b{font-weight:600;color:var(--ink)}
 .kvrow span{color:var(--text-2);text-align:right}
 .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
-.repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:12px 0 0;background:linear-gradient(to top,var(--cream) 62%,transparent);margin-top:4px}
+.repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:14px 0 10px;background:linear-gradient(to top,var(--cream) 68%,transparent);margin-top:6px;z-index:5}
+#out{padding-bottom:6px}
 .repbar .btn{flex:1}
 /* ---------- live stats while it crunches ---------- */
 .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}
@@ -1275,9 +1277,15 @@ function render(data){
   const trend = String(scoreHost.trend || "").toUpperCase();
   const trendCls = /DECLIN|FALL|WORSEN|COOL/.test(trend) ? "down" : /IMPROV|RIS|WARM|GROW/.test(trend) ? "up" : "";
 
+  // the first sentence is the verdict, the rest is the explanation
+  let headline = hero, rest = "";
+  const cut = String(hero).match(/^([\s\S]{20,150}?[.!?])\s+(.*)$/s);
+  if(cut){ headline = cut[1]; rest = cut[2] }
+
   let html = `<div class="rep-hero">
       <span class="lenstag"><img src="/assets/${lens ? lens.icon : "appicon.png"}" alt="">${esc(lens ? lens.name : "")} Lens</span>
-      ${hero ? `<h2>${esc(hero)}</h2>` : ""}
+      ${headline ? `<h2>${esc(headline)}</h2>` : ""}
+      ${rest ? `<p class="hero-rest">${esc(rest)}</p>` : ""}
       <p class="who">${esc(targetName)} &middot; ${parsedMsgs.length.toLocaleString()} messages read</p>
       ${typeof scoreHost.overall_score === "number" ? `<div class="hero-row">
         ${ring(scoreHost.overall_score, 92)}
