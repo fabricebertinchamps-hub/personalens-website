@@ -101,7 +101,30 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .install-card h3{margin:0 0 4px;color:#fff;font-size:17px}
 .install-card p{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.82)}
 .install-card .btn{margin-top:12px;background:#fff;color:var(--navy)}
-@media (max-width:520px){.panel{padding:20px}.app-wrap{padding:20px 14px 64px}}
+@media (max-width:560px){
+  .panel{padding:18px 16px}
+  .app-wrap{padding:18px 12px 64px}
+  .app-head h1{font-size:26px}
+  /* two lenses and three sources per row, rather than one tall column each */
+  .lens-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .lens-pick{flex-direction:column;gap:8px;padding:12px 10px;align-items:center;text-align:center}
+  .lens-pick img{width:34px;height:34px}
+  .lens-pick b{font-size:14px}
+  .lens-pick span span{font-size:11.5px}
+  .src-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .src{padding:14px 6px;gap:7px}
+  .src img{width:38px;height:38px}
+  .src b{font-size:13px}
+  .src span{font-size:10.5px}
+  .plan-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .plan{padding:14px 10px}
+  .plan b{font-size:21px}
+  .tabs{width:100%;justify-content:space-between}
+  .tab{flex:1;padding:9px 4px;font-size:13px}
+  ol.howto li{font-size:14.5px}
+  .acc{padding:12px 13px;gap:12px}
+  .install-card{flex-direction:column}
+}
 </style>
 </head>
 <body>
