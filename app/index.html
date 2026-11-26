@@ -4,152 +4,310 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Persona Lens — read any conversation</title>
-<meta name="description" content="Paste a real conversation and get a psychological reading in about three minutes. First reading free, no account.">
+<meta name="description" content="Import a real WhatsApp or Telegram conversation and get a psychological reading across six lenses in about three minutes. First reading free, no account.">
 <link rel="canonical" href="https://persona-lens.com/app/">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Persona Lens — read any conversation">
+<meta property="og:description" content="Import a real conversation and get a psychological reading in about three minutes. First reading free.">
+<meta property="og:url" content="https://persona-lens.com/app/">
+<meta property="og:image" content="https://persona-lens.com/assets/appicon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Persona Lens">
-<meta name="theme-color" content="#F4F1EC">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
-<link rel="icon" href="../assets/favicon-192.png">
+<meta name="theme-color" content="#F8F6F3">
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon-192.png">
+<link rel="stylesheet" href="/style.css">
 <style>
-:root{--cream:#F4F1EC;--cream-2:#FBF9F6;--navy:#25375B;--rose:#DD8C8A;--rose-dark:#BD6C6A;--line:rgba(37,55,91,.12);--muted:#6B7384}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{background:var(--cream);color:var(--navy);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-.wrap{max-width:720px;margin:0 auto;padding:18px 18px 70px}
-header{display:flex;align-items:center;gap:10px;margin:6px 0 20px}
-.dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--rose),var(--rose-dark));flex:0 0 auto}
-h1{font-size:20px;margin:0;letter-spacing:-.2px;flex:1}
-.bal{font-size:12.5px;color:var(--muted);white-space:nowrap}
-h2{font-size:17px;margin:24px 0 10px}
-.sub{color:var(--muted);font-size:14px;margin:0}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
-textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:14px;padding:13px;font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical;background:var(--cream-2);color:var(--navy)}
-select,input[type=file]{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;background:var(--cream-2);color:var(--navy)}
-label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px;color:var(--muted)}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row>div{flex:1 1 160px}
-button{font:600 15px/1 inherit;border:0;border-radius:12px;padding:14px 18px;cursor:pointer}
-.primary{background:var(--navy);color:#fff;width:100%}
-.primary:disabled{opacity:.45;cursor:default}
-.rose{background:var(--rose-dark);color:#fff;width:100%}
-.ghost{background:transparent;color:var(--muted);text-decoration:underline;padding:6px 0;font-weight:400;font-size:13px}
-.lenses{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
-.lens{border:1.5px solid var(--line);border-radius:14px;padding:12px;background:var(--cream-2);text-align:left;color:var(--navy)}
-.lens.on{border-color:var(--rose);background:#fff;box-shadow:0 0 0 3px rgba(221,140,138,.14)}
-.lens b{display:block;font-size:14px;margin-bottom:2px}
-.lens span{font-size:12px;color:var(--muted);font-weight:400;line-height:1.35;display:block}
-.pill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--rose-dark);margin:0 0 6px}
-.err{background:#FDECEA;border:1px solid #F5C2BE;color:#8B2F28;border-radius:12px;padding:12px;font-size:14px;margin-bottom:12px}
-.hide{display:none}
-.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:8px}
-@keyframes s{to{transform:rotate(360deg)}}
-.sec{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
-.sec:first-child{border-top:0;padding-top:0;margin-top:0}
-.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+/* App-specific components, built on the site's brand tokens */
+.app-wrap{max-width:760px;margin:0 auto;padding:30px 20px 80px}
+.app-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.app-head h1{margin:0;flex:1;font-size:clamp(26px,5vw,34px)}
+.bal{font-size:13px;color:var(--text-3);background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.bal.premium{background:#EEF5F0;border-color:#CADCCF;color:#44705A}
+.steps-rail{display:flex;gap:6px;margin:22px 0 26px}
+.rail{flex:1;height:4px;border-radius:2px;background:var(--border)}
+.rail.on{background:var(--navy)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:26px;margin-bottom:18px}
+.panel h2{margin:0 0 6px;font-size:21px}
+.panel .lede{color:var(--text-2);margin:0 0 18px;font-size:15.5px;line-height:1.55}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;margin-right:10px;flex:0 0 auto}
+.lens-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px}
+.lens-pick{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1.5px solid var(--border);background:var(--elevated);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:.15s;font:inherit;color:var(--ink)}
+.lens-pick:hover{border-color:var(--border-accent)}
+.lens-pick.on{border-color:var(--lens);background:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--lens) 18%,transparent)}
+.lens-pick img{width:38px;height:38px;flex:0 0 auto}
+.lens-pick b{display:block;font-size:15px;margin-bottom:2px}
+.lens-pick span{font-size:12.5px;color:var(--text-3);line-height:1.4;display:block}
+.src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.src{display:flex;flex-direction:column;align-items:center;gap:9px;border:1.5px solid var(--border);background:var(--elevated);border-radius:var(--radius-sm);padding:18px 12px;cursor:pointer;font:inherit;color:var(--ink);transition:.15s}
+.src:hover{border-color:var(--border-accent)}
+.src.on{border-color:var(--navy);background:#fff;box-shadow:0 0 0 3px rgba(37,55,91,.12)}
+.src img{width:46px;height:46px}
+.src b{font-size:15px}
+.src span{font-size:12px;color:var(--text-3);text-align:center;line-height:1.35}
+.tabs{display:flex;gap:6px;background:var(--cream-warm);border-radius:999px;padding:4px;margin:4px 0 18px;width:fit-content}
+.tab{border:0;background:transparent;border-radius:999px;padding:8px 16px;font:600 13.5px/1 inherit;color:var(--text-3);cursor:pointer}
+.tab.on{background:#fff;color:var(--ink);box-shadow:var(--shadow-soft)}
+ol.howto{list-style:none;margin:0;padding:0;counter-reset:s}
+ol.howto li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--border);font-size:15px;line-height:1.5;color:var(--text-2)}
+ol.howto li:last-child{border-bottom:0}
+ol.howto li b{color:var(--ink);font-weight:600}
+.note{background:var(--cream-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 15px;font-size:14px;color:var(--text-2);margin-top:14px;line-height:1.5}
+.drop{border:2px dashed var(--border-accent);border-radius:var(--radius);padding:28px 18px;text-align:center;background:var(--elevated);cursor:pointer;transition:.15s}
+.drop.over{background:#fff;border-color:var(--navy)}
+.drop b{display:block;font-size:16px;margin-bottom:4px}
+.drop span{font-size:13.5px;color:var(--text-3)}
+textarea{width:100%;min-height:200px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--elevated);color:var(--ink);resize:vertical}
+select{width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-size:15px;background:var(--elevated);color:var(--ink)}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:var(--text-3)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1 1 170px}
+.btn{cursor:pointer;border:0}
+.btn-wide{width:100%;justify-content:center;text-align:center}
+.bars{display:flex;gap:4px;align-items:flex-end;height:26px}
+.bars i{width:7px;border-radius:2px;background:var(--border);display:block}
+.bars i.f{background:var(--sage)}
+.bars i:nth-child(1){height:30%}.bars i:nth-child(2){height:48%}.bars i:nth-child(3){height:66%}.bars i:nth-child(4){height:84%}.bars i:nth-child(5){height:100%}
+.acc{display:flex;gap:14px;align-items:center;background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0}
+.acc b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.acc span{font-size:13.5px;color:var(--text-3);line-height:1.45;display:block;margin-top:2px}
+.chip{display:inline-block;background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:5px 11px;font-size:13px;margin:0 6px 6px 0}
+.err{background:#FDECEA;border:1px solid #F3C7C2;color:#8B2F28;border-radius:var(--radius-sm);padding:13px 15px;font-size:14.5px;margin-bottom:16px;line-height:1.5}
+.hide{display:none!important}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px;margin-right:9px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.work{text-align:center;padding:34px 18px}
+.work p{color:var(--text-3);font-size:14.5px;margin:10px 0 0}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:12px}
+.plan{border:1.5px solid var(--border);background:var(--elevated);border-radius:var(--radius-sm);padding:18px 14px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);transition:.15s}
+.plan:hover{border-color:var(--navy);background:#fff}
+.plan.best{border-color:var(--navy);background:#fff}
+.plan b{display:block;font-size:24px;margin-bottom:3px;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif}
+.plan span{font-size:13px;color:var(--text-3);line-height:1.4;display:block}
+.plan em{display:inline-block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
+.rep-sec{border-top:1px solid var(--border);padding-top:16px;margin-top:16px}
+.rep-sec:first-child{border-top:0;padding-top:0;margin-top:0}
+.rep-lab{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--romantic);margin:0 0 8px}
+.kv{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14.5px}
 .kv:last-child{border-bottom:0}
-ul.list{margin:7px 0 0;padding-left:19px}
-ul.list li{margin-bottom:6px;font-size:14.5px}
-.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px;margin-top:12px}
-.pack{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:var(--cream-2);text-align:center;color:var(--navy)}
-.pack b{display:block;font-size:19px;margin-bottom:2px}
-.pack span{font-size:12.5px;color:var(--muted);display:block}
-.install{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:14px;margin-top:10px}
-.foot{color:var(--muted);font-size:12.5px;text-align:center;margin-top:24px;line-height:1.7}
-.foot a{color:var(--muted)}
+.kv b{font-weight:600}
+ul.bul{margin:8px 0 0;padding-left:20px}
+ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
+.install-card{display:flex;gap:14px;align-items:flex-start;background:var(--navy);color:#fff;border-radius:var(--radius);padding:20px;margin-top:18px}
+.install-card img{width:40px;height:40px;border-radius:10px;flex:0 0 auto}
+.install-card h3{margin:0 0 4px;color:#fff;font-size:17px}
+.install-card p{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.82)}
+.install-card .btn{margin-top:12px;background:#fff;color:var(--navy)}
+@media (max-width:520px){.panel{padding:20px}.app-wrap{padding:20px 14px 64px}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <div class="dot"></div>
-  <h1>Persona Lens</h1>
-  <span class="bal" id="bal"></span>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/"><img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
+    <nav class="site-nav"><a href="/#lenses">The Lenses</a><a href="/#how">How It Works</a><a href="/science.html">Science</a><a href="/guides/">Guides</a><a href="/pricing.html">Pricing</a></nav>
+    <div class="lang-picker"><span class="lang-flag flag-en active" aria-label="English"></span><a class="lang-flag flag-fr" href="/app/?lang=fr" aria-label="Français"></a><a class="lang-flag flag-es" href="/app/?lang=es" aria-label="Español"></a><a class="lang-flag flag-ru" href="/app/?lang=ru" aria-label="Русский"></a></div>
+  </div>
 </header>
 
-<div id="err" class="err hide"></div>
+<div class="app-wrap">
 
-<div class="card">
-  <p class="pill">Step 1</p>
-  <h2 style="margin-top:0">Paste the conversation</h2>
-  <p class="sub">Export a chat from WhatsApp or Telegram and paste it here, or paste any conversation as <code>Name: message</code>, one per line. Nothing is stored.</p>
-  <div style="height:10px"></div>
-  <textarea id="chat" placeholder="[12/05/2026, 21:14] Sophie: hey, sorry i went quiet this week&#10;[12/05/2026, 21:16] Me: no worries. still on for saturday?"></textarea>
-  <div style="height:10px"></div>
-  <div class="row">
-    <div><button class="rose" onclick="parseChat()">Read the conversation</button></div>
-    <div><input type="file" id="file" accept=".txt,.json" onchange="loadFile(event)" style="padding:9px;font-size:13px"></div>
+  <div class="app-head">
+    <h1>Read a conversation</h1>
+    <span class="bal" id="bal"></span>
   </div>
-</div>
+  <p class="lede" style="color:var(--text-2);margin:0 0 4px;font-size:16px">Six lenses, one real conversation, a structured reading in about three minutes. Nothing you paste is stored.</p>
 
-<div id="step2" class="card hide">
-  <p class="pill">Step 2</p>
-  <h2 style="margin-top:0">Who and which lens</h2>
-  <p id="parsed" class="sub"></p>
-  <div class="row">
-    <div><label for="target">Analyse this person</label><select id="target"></select></div>
-    <div><label for="me">You are</label><select id="me"></select></div>
+  <div class="steps-rail"><div class="rail on" id="r1"></div><div class="rail" id="r2"></div><div class="rail" id="r3"></div><div class="rail" id="r4"></div></div>
+
+  <div id="err" class="err hide"></div>
+
+  <!-- 1. LENS -->
+  <section class="panel" id="p1">
+    <h2><span class="step-num">1</span>Which lens</h2>
+    <p class="lede">Each lens reads the same conversation for different things.</p>
+    <div class="lens-grid" id="lensGrid"></div>
+  </section>
+
+  <!-- 2. SOURCE -->
+  <section class="panel" id="p2">
+    <h2><span class="step-num">2</span>Where is the conversation</h2>
+    <p class="lede">Bring in a real chat. The more messages, the sharper the reading.</p>
+    <div class="src-grid" id="srcGrid"></div>
+
+    <div id="howWrap" class="hide" style="margin-top:22px">
+      <div class="tabs hide" id="platTabs">
+        <button class="tab on" data-plat="ios" onclick="setPlat('ios')">iPhone</button>
+        <button class="tab" data-plat="android" onclick="setPlat('android')">Android</button>
+        <button class="tab" data-plat="desktop" onclick="setPlat('desktop')">Computer</button>
+      </div>
+      <ol class="howto" id="howto"></ol>
+      <div class="note" id="howNote"></div>
+
+      <div id="fileZone" class="hide" style="margin-top:18px">
+        <div class="drop" id="drop" onclick="document.getElementById('file').click()">
+          <b>Choose the exported file</b>
+          <span id="dropHint">.txt or .zip from WhatsApp</span>
+        </div>
+        <input type="file" id="file" accept=".txt,.json,.zip" class="hide" onchange="loadFile(event)">
+      </div>
+
+      <div id="pasteZone" class="hide" style="margin-top:18px">
+        <textarea id="chat" placeholder="[12/05/2026, 21:14] Sophie: hey, sorry i went quiet this week&#10;[12/05/2026, 21:16] Me: no worries. still on for saturday?"></textarea>
+        <div style="height:12px"></div>
+        <button class="btn btn-primary btn-wide" onclick="parsePasted()">Read this conversation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CONFIRM -->
+  <section class="panel hide" id="p3">
+    <h2><span class="step-num">3</span>Check and confirm</h2>
+    <p class="lede" id="parsedLine"></p>
+    <div class="acc" id="accCard">
+      <div class="bars" id="bars"><i></i><i></i><i></i><i></i><i></i></div>
+      <div><b id="accTier"></b><span id="accHint"></span></div>
+    </div>
+    <div class="row">
+      <div><label for="target">Analyse this person</label><select id="target"></select></div>
+      <div><label for="me">You are</label><select id="me"></select></div>
+    </div>
+    <div class="row">
+      <div><label for="gender">Their gender (optional)</label>
+        <select id="gender"><option value="">Not specified</option><option value="female">Female</option><option value="male">Male</option></select></div>
+      <div><label for="lang">Report language</label>
+        <select id="lang"><option>English</option><option>French</option><option>Spanish</option><option>Russian</option></select></div>
+    </div>
+    <div style="height:20px"></div>
+    <button id="go" class="btn btn-primary btn-wide" onclick="analyze()">Read this conversation</button>
+    <p style="text-align:center;color:var(--text-3);font-size:13.5px;margin:12px 0 0">Takes about two to three minutes. Keep this page open.</p>
+  </section>
+
+  <!-- WORKING -->
+  <section class="panel hide" id="working">
+    <div class="work">
+      <div class="bars" style="justify-content:center;margin:0 auto 16px;height:34px"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div>
+      <h2 style="margin:0">Reading the conversation</h2>
+      <p id="workMsg">Looking at who starts, who repairs, and what gets avoided.</p>
+    </div>
+  </section>
+
+  <!-- PAYWALL -->
+  <section class="panel hide" id="paywall">
+    <h2 style="margin-top:0">Your free reading is used</h2>
+    <p class="lede">Keep going with a plan you can cancel any time, or pay once for a pack. No account needed, payment handled by Stripe.</p>
+    <label>Unlimited</label>
+    <div class="plan-grid" id="plans"></div>
+    <label style="margin-top:18px">Or pay as you go</label>
+    <div class="plan-grid" id="packs"></div>
+  </section>
+
+  <!-- REPORT -->
+  <div id="out"></div>
+
+  <!-- INSTALL -->
+  <div id="installBox" class="install-card hide">
+    <img src="/assets/appicon.png" alt="">
+    <div style="flex:1">
+      <h3>Keep it on your phone</h3>
+      <p id="installText"></p>
+      <button id="installBtn" class="btn hide" onclick="doInstall()">Add to home screen</button>
+    </div>
   </div>
-  <div class="row">
-    <div><label for="gender">Their gender (optional)</label>
-      <select id="gender"><option value="">Not specified</option><option value="female">Female</option><option value="male">Male</option></select></div>
-    <div><label for="lang">Report language</label>
-      <select id="lang"><option>English</option><option>French</option><option>Spanish</option><option>Russian</option></select></div>
-  </div>
-  <label style="margin-top:16px">Lens</label>
-  <div class="lenses" id="lenses"></div>
-  <div style="height:16px"></div>
-  <button id="go" class="primary" onclick="analyze()">Read this conversation</button>
-  <p class="sub" style="margin-top:10px;text-align:center">Takes about two to three minutes.</p>
+
+  <p style="text-align:center;color:var(--text-3);font-size:13px;margin-top:28px;line-height:1.7">
+    Your conversations are not stored, not used for training, not shared.<br>
+    <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/">persona-lens.com</a>
+  </p>
 </div>
 
-<div id="paywall" class="card hide">
-  <p class="pill">Your free reading is used</p>
-  <h2 style="margin-top:0">Keep reading</h2>
-  <p class="sub">Unlimited readings on a plan you can cancel any time, or pay once for a pack. No account needed. Payment is handled by Stripe.</p>
-  <label style="margin-top:14px">Unlimited</label>
-  <div class="packs" id="plans"></div>
-  <label style="margin-top:14px">Or pay as you go</label>
-  <div class="packs" id="packs"></div>
-  <p class="sub" style="margin-top:12px;text-align:center">You come straight back here afterwards.</p>
-</div>
-
-<div id="out"></div>
-
-<div id="installBox" class="install hide">
-  <strong>Keep it on your phone</strong>
-  <p class="sub" id="installText" style="margin:6px 0 10px"></p>
-  <button id="installBtn" class="rose hide" onclick="doInstall()">Add to home screen</button>
-</div>
-
-<p class="foot">
-  Your conversations are not stored, not used for training, not shared.<br>
-  <a href="/">persona-lens.com</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a>
-</p>
-
-</div>
 <script>
 const API = "https://personalens-api.personalens.workers.dev";
+
 const LENSES = [
-  ["Self Lens","Who you are in your own words"],
-  ["Romantic Lens","Attachment, interest, repair patterns"],
-  ["Friendship Lens","Reciprocity, depth, one-sided patterns"],
-  ["Professional Lens","Power, feedback, boundaries"],
-  ["Family Lens","Control signals, inherited patterns"],
-  ["Group Lens","Roles, alliances, who carries it"]
+  {id:"Self Lens",        name:"Self",         color:"#6BA7B3", icon:"lens-self.png",         desc:"Who you are in your own words"},
+  {id:"Romantic Lens",    name:"Romantic",     color:"#D78377", icon:"lens-romantic.png",     desc:"Attachment, interest, repair"},
+  {id:"Friendship Lens",  name:"Friendship",   color:"#FBB35F", icon:"lens-friendship.png",   desc:"Reciprocity, depth, balance"},
+  {id:"Professional Lens",name:"Professional", color:"#A783D7", icon:"lens-professional.png", desc:"Power, feedback, boundaries"},
+  {id:"Family Lens",      name:"Family",       color:"#83B3E3", icon:"lens-family.png",       desc:"Control signals, old patterns"},
+  {id:"Group Lens",       name:"Group",        color:"#FB775F", icon:"lens-group.png",        desc:"Roles, alliances, who carries it"}
 ];
+
+const SOURCES = [
+  {id:"whatsapp", name:"WhatsApp",     icon:"icon-whatsapp.png",  sub:"Export the chat"},
+  {id:"telegram", name:"Telegram",     icon:"icon-telegram.png",  sub:"Export as JSON"},
+  {id:"paste",    name:"Copy & Paste", icon:"icon-copypaste.png", sub:"Paste text directly"}
+];
+
+// Step copy carried over from the iOS app, platform aware.
+const HOWTO = {
+  whatsapp: {
+    ios: ["Open WhatsApp and select the conversation you want to analyse",
+          "Tap the contact or group <b>name</b> at the top",
+          "Scroll down and tap <b>Export chat</b>",
+          "Choose <b>Without media</b>, then <b>Save to Files</b>",
+          "Come back here and choose that file below"],
+    android: ["Open WhatsApp and select the conversation you want to analyse",
+          "Tap the <b>three dots</b> at the top right, then <b>More</b>",
+          "Tap <b>Export chat</b>",
+          "Choose <b>Without media</b>, then save it or send it to yourself",
+          "Come back here and choose that file below"],
+    desktop: ["Export the chat from WhatsApp on your phone (there is no export in WhatsApp Web)",
+          "Tap the chat name, then <b>Export chat</b>, then <b>Without media</b>",
+          "Send the file to yourself by email or save it to your cloud drive",
+          "Open it on this computer",
+          "Choose that file below"],
+    note: "A WhatsApp export is a <b>.txt</b> file, sometimes inside a <b>.zip</b>. Choose <b>Without media</b>: photos and voice notes are not read and only make the file large.",
+    accept: ".txt,.zip", hint: ".txt or .zip from WhatsApp"
+  },
+  telegram: {
+    desktop: ["Open <b>Telegram Desktop</b> on your computer (the phone app cannot export)",
+          "Open the conversation you want to analyse",
+          "Click the <b>three dots</b> at the top right, then <b>Export chat history</b>",
+          "Untick all media, choose <b>Machine-readable JSON</b>, then <b>Export</b>",
+          "Choose the <b>result.json</b> file below"],
+    note: "Telegram only exports from the desktop app. If you are on your phone, the quickest route is <b>Copy &amp; Paste</b>: open the chat, select the messages, copy, and paste them here.",
+    accept: ".json", hint: "result.json from Telegram Desktop"
+  },
+  paste: {
+    any: ["Open the conversation in any app",
+          "Select the messages you want read and copy them",
+          "Paste them into the box below",
+          "Any format works as long as each line starts with the sender, like <b>Sophie: hey</b>"],
+    note: "This works with iMessage, Messenger, Instagram, Slack, Signal, anything. Around 100 messages gives a decent reading, 300 or more gives a sharp one.",
+    accept: "", hint: ""
+  }
+};
+
+const ACC = [
+  {min:2000, tier:"VERY HIGH", bars:5, hint:"Excellent data. Expect highly detailed and reliable insights."},
+  {min:800,  tier:"HIGH",      bars:4, hint:"Strong data. Expect accurate and detailed insights."},
+  {min:300,  tier:"MEDIUM",    bars:3, hint:"Decent data. Insights will cover the main patterns."},
+  {min:100,  tier:"LOW",       bars:2, hint:"Limited data. Insights will be broad. More messages improve accuracy."},
+  {min:0,    tier:"VERY LOW",  bars:1, hint:"Minimal data. Results will be general. A longer conversation gives a richer reading."}
+];
+
 const LANG_BY_CODE = {fr:"French", es:"Spanish", ru:"Russian", en:"English"};
-let chosenLens = "Romantic Lens";
-let parsedMsgs = [], speakers = [], session = null, lastKey = null;
+const WORK_MSGS = [
+  "Looking at who starts, who repairs, and what gets avoided.",
+  "Weighing tempo, hedges and the shape of the replies.",
+  "Separating what is said from what is signalled.",
+  "Pulling the quoted lines that back each claim.",
+  "Structuring the reading."
+];
+
+let lens = null, source = null, plat = "ios";
+let parsedMsgs = [], speakers = [], session = null, lastKey = null, workTimer = null;
 
 const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[<>&]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
-function showErr(m){ const e=$("err"); e.textContent=m; e.classList.remove("hide"); window.scrollTo({top:0,behavior:"smooth"}) }
+const esc = s => String(s).replace(/[<>&"]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+function showErr(m){ const e=$("err"); e.innerHTML=m; e.classList.remove("hide"); e.scrollIntoView({behavior:"smooth",block:"center"}) }
 function clearErr(){ $("err").classList.add("hide") }
+function rail(n){ for(let i=1;i<=4;i++) $("r"+i).classList.toggle("on", i<=n) }
 
 function deviceId(){
   let d = localStorage.getItem("pl_device");
@@ -162,77 +320,169 @@ async function loadSession(){
     const r = await fetch(`${API}/web/session?deviceId=${encodeURIComponent(deviceId())}`);
     session = await r.json();
     if(session.deviceId) localStorage.setItem("pl_device", session.deviceId);
-    paintBalance();
-    paintPacks();
-  }catch(e){
-    showErr("Could not reach the Persona Lens service. Check your connection and reload.");
-  }
+    paintBalance(); paintPlans();
+  }catch(e){ showErr("Could not reach Persona Lens. Check your connection and reload the page.") }
 }
 function paintBalance(){
   if(!session) return;
-  if(session.premium){ $("bal").textContent = "unlimited"; return }
+  const b = $("bal");
+  if(session.premium){ b.textContent = "Unlimited"; b.classList.add("premium"); return }
+  b.classList.remove("premium");
   const c = session.credits || 0;
-  $("bal").textContent = c > 0 ? (c === 1 ? "1 reading left" : c + " readings left") : "no readings left";
+  b.textContent = c > 0 ? (c === 1 ? "1 free reading" : c + " readings left") : "No readings left";
 }
-function paintPacks(){
+function paintPlans(){
   if(!session) return;
-  if(session.plans) $("plans").innerHTML = session.plans.map(p =>
-    `<button class="pack" onclick="buy(null,'${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>per ${esc(p.interval)}, cancel any time</span></button>`
-  ).join("");
+  if(session.plans) $("plans").innerHTML = session.plans.map((p,i) =>
+    `<button class="plan${i===1?" best":""}" onclick="buy(null,'${p.id}')">${i===1?"<em>Best value</em>":""}<b>${esc(p.price)}</b><span>per ${esc(p.interval)}<br>unlimited readings<br>cancel any time</span></button>`).join("");
   if(session.packs) $("packs").innerHTML = session.packs.map(p =>
-    `<button class="pack" onclick="buy('${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>one-off</span></button>`
-  ).join("");
+    `<button class="plan" onclick="buy('${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>one-off</span></button>`).join("");
 }
 
-function renderLenses(){
-  $("lenses").innerHTML = LENSES.map(([n,d]) =>
-    `<button class="lens${n===chosenLens?" on":""}" onclick="pickLens('${n}')"><b>${n.replace(" Lens","")}</b><span>${d}</span></button>`
-  ).join("");
+function paintLenses(){
+  $("lensGrid").innerHTML = LENSES.map(l =>
+    `<button class="lens-pick${lens&&lens.id===l.id?" on":""}" style="--lens:${l.color}" onclick="pickLens('${l.id}')">
+       <img src="/assets/${l.icon}" alt=""><span><b>${l.name}</b><span>${l.desc}</span></span></button>`).join("");
 }
-function pickLens(n){ chosenLens = n; renderLenses() }
-
-function loadFile(ev){
-  const f = ev.target.files[0]; if(!f) return;
-  const r = new FileReader();
-  r.onload = () => { $("chat").value = typeof r.result === "string" ? r.result : ""; parseChat() };
-  r.readAsText(f);
+function pickLens(id){
+  lens = LENSES.find(l => l.id === id);
+  paintLenses(); rail(2);
+  $("p2").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-// Parses WhatsApp exports, Telegram text exports and plain "Name: message" lines.
-function parseLines(raw){
+function paintSources(){
+  $("srcGrid").innerHTML = SOURCES.map(s =>
+    `<button class="src${source===s.id?" on":""}" onclick="pickSource('${s.id}')">
+       <img src="/assets/${s.icon}" alt=""><b>${s.name}</b><span>${s.sub}</span></button>`).join("");
+}
+function detectPlat(){
+  const ua = navigator.userAgent;
+  if(/iphone|ipad|ipod/i.test(ua)) return "ios";
+  if(/android/i.test(ua)) return "android";
+  return "desktop";
+}
+function pickSource(id){
+  source = id; paintSources();
+  const h = HOWTO[id];
+  $("howWrap").classList.remove("hide");
+  $("howNote").innerHTML = h.note;
+  if(id === "whatsapp"){
+    $("platTabs").classList.remove("hide");
+    plat = detectPlat(); setPlat(plat);
+    $("fileZone").classList.remove("hide"); $("pasteZone").classList.add("hide");
+  } else if(id === "telegram"){
+    $("platTabs").classList.add("hide");
+    renderSteps(h.desktop);
+    $("fileZone").classList.remove("hide"); $("pasteZone").classList.add("hide");
+  } else {
+    $("platTabs").classList.add("hide");
+    renderSteps(h.any);
+    $("fileZone").classList.add("hide"); $("pasteZone").classList.remove("hide");
+  }
+  if(h.accept){ $("file").setAttribute("accept", h.accept); $("dropHint").textContent = h.hint }
+  $("howWrap").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function setPlat(p){
+  plat = p;
+  document.querySelectorAll("#platTabs .tab").forEach(t => t.classList.toggle("on", t.dataset.plat === p));
+  renderSteps(HOWTO.whatsapp[p]);
+}
+function renderSteps(list){
+  $("howto").innerHTML = list.map((t,i) => `<li><span class="step-num">${i+1}</span><span>${t}</span></li>`).join("");
+}
+
+// ---------- parsing ----------
+function parseWhatsAppText(raw){
   const out = [];
-  const lines = raw.replace(/‎/g,"").split(/\r?\n/);
+  const lines = raw.replace(/‎|‏/g,"").split(/\r?\n/);
   const wa1 = /^\[(.+?)\]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
-  const wa2 = /^(\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},?\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[APap][Mm])?)\s*[-–]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
+  const wa2 = /^(\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},?\s+\d{1,2}:\d{2}(?::\d{2})?(?:\s*[APap]\.?[Mm]\.?)?)\s*[-–]\s*([^:]{1,60}?):\s*([\s\S]*)$/;
   const plain = /^([^:]{1,40}?):\s*([\s\S]*)$/;
   for(const line of lines){
     if(!line.trim()) continue;
     let m = line.match(wa1) || line.match(wa2);
-    if(m){ out.push({ts:m[1].trim(), name:m[2].trim(), content:m[3].trim()}); continue }
+    if(m){ out.push({name:m[2].trim(), content:m[3].trim()}); continue }
     m = line.match(plain);
-    if(m && !/^https?$/i.test(m[1])){ out.push({ts:"", name:m[1].trim(), content:m[2].trim()}); continue }
-    if(out.length){ out[out.length-1].content += " " + line.trim() }
+    if(m && !/^https?$/i.test(m[1])){ out.push({name:m[1].trim(), content:m[2].trim()}); continue }
+    if(out.length) out[out.length-1].content += " " + line.trim();
   }
-  return out.filter(m => m.content && !/^(<Media omitted>|image omitted|video omitted|This message was deleted|null)$/i.test(m.content));
+  return clean(out);
+}
+function parseTelegramJson(text){
+  const data = JSON.parse(text);
+  const msgs = data.messages || [];
+  const out = [];
+  for(const m of msgs){
+    if(m.type !== "message") continue;
+    const who = m.from || m.actor;
+    if(!who) continue;
+    let t = m.text;
+    if(Array.isArray(t)) t = t.map(x => typeof x === "string" ? x : (x && x.text) || "").join("");
+    if(typeof t !== "string") t = "";
+    t = t.trim();
+    if(t) out.push({name: String(who).trim(), content: t});
+  }
+  return clean(out);
+}
+function clean(list){
+  return list.filter(m => m.content &&
+    !/^(<Media omitted>|image omitted|video omitted|audio omitted|sticker omitted|GIF omitted|This message was deleted|You deleted this message|null|Missed voice call|Missed video call)$/i.test(m.content));
 }
 
-function parseChat(){
+function loadFile(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  clearErr();
+  if(/\.zip$/i.test(f.name)){
+    showErr("That is a <b>.zip</b>. Unzip it first and choose the <b>.txt</b> inside. On iPhone, tap the zip in Files and it unpacks into a folder.");
+    return;
+  }
+  const r = new FileReader();
+  r.onload = () => {
+    const text = typeof r.result === "string" ? r.result : "";
+    try{
+      const msgs = /\.json$/i.test(f.name) || text.trim().startsWith("{") ? parseTelegramJson(text) : parseWhatsAppText(text);
+      acceptParsed(msgs, f.name);
+    }catch(e){ showErr("I could not read that file. For Telegram choose <b>Machine-readable JSON</b>, for WhatsApp the <b>.txt</b> export.") }
+  };
+  r.readAsText(f);
+}
+function parsePasted(){
   clearErr();
   const raw = $("chat").value;
-  if(!raw.trim()){ showErr("Paste a conversation first."); return }
-  parsedMsgs = parseLines(raw);
-  if(parsedMsgs.length < 4){ showErr("I could only read " + parsedMsgs.length + " messages. Each line should look like \"Name: message\", or be a WhatsApp or Telegram export."); return }
-  const counts = {};
-  parsedMsgs.forEach(m => counts[m.name] = (counts[m.name]||0)+1);
-  speakers = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
-  const opts = speakers.map(s => `<option value="${esc(s).replace(/"/g,'&quot;')}">${esc(s)} (${counts[s]})</option>`).join("");
-  $("target").innerHTML = opts; $("me").innerHTML = opts;
-  if(speakers[1]) $("me").value = speakers[1];
-  $("parsed").textContent = parsedMsgs.length + " messages, " + speakers.length + " participant" + (speakers.length>1?"s":"") + ": " + speakers.join(", ") + ".";
-  $("step2").classList.remove("hide");
-  $("step2").scrollIntoView({behavior:"smooth",block:"start"});
+  if(!raw.trim()){ showErr("Paste the conversation into the box first."); return }
+  acceptParsed(parseWhatsAppText(raw), null);
 }
 
+function acceptParsed(msgs, fileName){
+  if(!msgs || msgs.length < 4){
+    showErr("I could only read " + (msgs ? msgs.length : 0) + " messages from that. Each line needs to start with who said it, like <b>Sophie: hey</b>.");
+    return;
+  }
+  parsedMsgs = msgs;
+  const counts = {};
+  msgs.forEach(m => counts[m.name] = (counts[m.name]||0)+1);
+  speakers = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  if(speakers.length < 2 && lens && lens.id !== "Self Lens"){
+    showErr("I found only one participant in that conversation. Every lens except <b>Self</b> needs both sides.");
+  }
+  if(speakers.length > 2 && lens && lens.id !== "Group Lens"){
+    showErr("That looks like a group chat with " + speakers.length + " people. Pick the <b>Group</b> lens for it, or import a one to one conversation.");
+  }
+  const opts = speakers.map(s => `<option value="${esc(s)}">${esc(s)} (${counts[s]})</option>`).join("");
+  $("target").innerHTML = opts; $("me").innerHTML = opts;
+  if(speakers[1]) $("me").value = speakers[1];
+  $("parsedLine").innerHTML = (fileName ? esc(fileName) + " &middot; " : "") + "<b>" + msgs.length + " messages</b> from " +
+    speakers.map(s => `<span class="chip">${esc(s)} &middot; ${counts[s]}</span>`).join(" ");
+  const a = ACC.find(x => msgs.length >= x.min);
+  $("accTier").textContent = a.tier + " accuracy";
+  $("accHint").textContent = a.hint;
+  $("bars").innerHTML = [1,2,3,4,5].map(i => `<i class="${i<=a.bars?"f":""}"></i>`).join("");
+  $("p3").classList.remove("hide");
+  rail(3);
+  $("p3").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+// ---------- analysis ----------
 function buildPayload(){
   const targetName = $("target").value, meName = $("me").value;
   const msgs = parsedMsgs.map(m => ({
@@ -243,11 +493,8 @@ function buildPayload(){
   const t = msgs.filter(m=>m.sender==="TARGET").length;
   const words = msgs.reduce((a,m)=>a+m.content.split(/\s+/).length,0);
   return {
-    deviceId: deviceId(),
-    analysis_type: chosenLens,
-    language: $("lang").value,
-    messages: msgs,
-    features: {},
+    deviceId: deviceId(), analysis_type: lens.id, language: $("lang").value,
+    messages: msgs, features: {},
     metadata: {
       total_messages: msgs.length, target_messages: t, other_messages: msgs.length - t,
       avg_message_length_words: Math.round(words / Math.max(msgs.length,1)),
@@ -259,11 +506,16 @@ function buildPayload(){
 
 async function analyze(){
   clearErr();
+  if(!lens){ showErr("Choose a lens first."); return }
   $("paywall").classList.add("hide");
   if(!session || !session.token){ await loadSession(); if(!session) return }
   const btn = $("go");
-  btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Reading the conversation';
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Reading';
   $("out").innerHTML = "";
+  $("working").classList.remove("hide");
+  $("working").scrollIntoView({behavior:"smooth",block:"center"});
+  let i = 0;
+  workTimer = setInterval(() => { i=(i+1)%WORK_MSGS.length; $("workMsg").textContent = WORK_MSGS[i] }, 14000);
   lastKey = "a" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
   try{
     const res = await fetch(API + "/analyze", {
@@ -272,15 +524,15 @@ async function analyze(){
       body: JSON.stringify(buildPayload())
     });
     const data = await res.json();
-    if(res.status === 402){ showPaywall(); return }
-    if(res.status === 429){ throw new Error("That is a lot of readings in a short time. Give it a minute and try again.") }
+    if(res.status === 402){ $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"}); return }
+    if(res.status === 429){ throw new Error("That is a lot of readings in a short time. Give it a minute, then try again.") }
     if(!res.ok){ throw new Error(data.error || ("The service returned " + res.status)) }
-    render(data);
-    consumeCredit();
-    offerInstall();
+    render(data); consumeCredit(); rail(4); offerInstall();
   }catch(e){
-    showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection." : e.message);
+    showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
   }finally{
+    clearInterval(workTimer);
+    $("working").classList.add("hide");
     btn.disabled = false; btn.textContent = "Read this conversation";
   }
 }
@@ -293,13 +545,7 @@ async function consumeCredit(){
     });
     const d = await r.json();
     if(typeof d.credits === "number" && session){ session.credits = d.credits; paintBalance() }
-  }catch(_){ /* the reading already succeeded; balance refreshes on reload */ }
-}
-
-function showPaywall(){
-  paintPacks();
-  $("paywall").classList.remove("hide");
-  $("paywall").scrollIntoView({behavior:"smooth",block:"center"});
+  }catch(_){}
 }
 
 async function buy(pack, plan){
@@ -312,88 +558,94 @@ async function buy(pack, plan){
     const d = await r.json();
     if(!r.ok || !d.url) throw new Error(d.error || "Could not start the payment.");
     location.href = d.url;
-  }catch(e){ showErr(e.message) }
+  }catch(e){ showErr(esc(e.message)) }
 }
 
-// ---- install prompt ----
+// ---------- install ----------
 let deferredPrompt = null;
-window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; });
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e });
 function isStandalone(){ return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true }
 function offerInstall(){
   if(isStandalone()) return;
-  const box = $("installBox"), isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   if(deferredPrompt){
-    $("installText").textContent = "Add Persona Lens to your home screen and it opens like an app.";
+    $("installText").textContent = "Add Persona Lens to your home screen and it opens like an app, full screen, one tap away.";
     $("installBtn").classList.remove("hide");
   } else if(isIOS){
-    $("installText").textContent = "Tap the Share button in Safari, then Add to Home Screen. It then opens full screen, like an app.";
+    $("installText").innerHTML = "Tap the <b>Share</b> button at the bottom of Safari, then <b>Add to Home Screen</b>. It opens full screen with its own icon, like an app.";
   } else {
-    $("installText").textContent = "Bookmark this page, or use your browser's Install option to keep it one tap away.";
+    $("installText").textContent = "Use your browser's Install or Add to Home Screen option to keep Persona Lens one tap away.";
   }
-  box.classList.remove("hide");
+  $("installBox").classList.remove("hide");
 }
 async function doInstall(){
   if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  $("installBtn").classList.add("hide");
+  deferredPrompt.prompt(); await deferredPrompt.userChoice;
+  deferredPrompt = null; $("installBtn").classList.add("hide");
 }
 
-// ---- generic renderer: the report schema differs per lens, so walk the JSON ----
+// ---------- report rendering ----------
 const TITLE = k => k.replace(/_/g," ").replace(/\b\w/g,c=>c.toUpperCase());
 const SKIP = new Set(["_meta","prompt_version","cached","cache_age_ms","pass1_ms","pass2_ms","total_ms","language"]);
-
 function node(k, v, depth){
-  if(SKIP.has(k)) return "";
-  if(v === null || v === undefined || v === "") return "";
+  if(SKIP.has(k) || v === null || v === undefined || v === "") return "";
   if(Array.isArray(v)){
     if(!v.length) return "";
     if(v.every(x => typeof x === "string"))
-      return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p><ul class="list">${v.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
-    return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p>${v.map(x=>typeof x==="object"&&x?`<div style="margin:10px 0">${Object.entries(x).map(([a,b])=>node(a,b,depth+1)).join("")}</div>`:`<p>${esc(x)}</p>`).join("")}</div>`;
+      return `<div class="rep-sec"><p class="rep-lab">${esc(TITLE(k))}</p><ul class="bul">${v.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+    return `<div class="rep-sec"><p class="rep-lab">${esc(TITLE(k))}</p>${v.map(x=>x&&typeof x==="object"?`<div style="margin:12px 0">${Object.entries(x).map(([a,b])=>node(a,b,depth+1)).join("")}</div>`:`<p>${esc(x)}</p>`).join("")}</div>`;
   }
   if(typeof v === "object"){
     const inner = Object.entries(v).map(([a,b]) => node(a,b,depth+1)).join("");
     if(!inner.trim()) return "";
-    return depth === 0
-      ? `<div class="card"><h2 style="margin-top:0">${esc(TITLE(k))}</h2>${inner}</div>`
-      : `<div class="sec"><p class="pill">${esc(TITLE(k))}</p>${inner}</div>`;
+    return depth === 0 ? `<section class="panel"><h2 style="margin-top:0">${esc(TITLE(k))}</h2>${inner}</section>`
+                       : `<div class="rep-sec"><p class="rep-lab">${esc(TITLE(k))}</p>${inner}</div>`;
   }
   if(typeof v === "number") return `<div class="kv"><b>${esc(TITLE(k))}</b><span>${v}</span></div>`;
-  if(typeof v === "string" && v.length > 220)
-    return `<div class="sec"><p class="pill">${esc(TITLE(k))}</p><p style="margin:6px 0;font-size:14.5px">${esc(v)}</p></div>`;
+  if(typeof v === "string" && v.length > 200)
+    return `<div class="rep-sec"><p class="rep-lab">${esc(TITLE(k))}</p><p style="margin:6px 0;font-size:15px;line-height:1.6;color:var(--text-2)">${esc(v)}</p></div>`;
   return `<div class="kv"><b>${esc(TITLE(k))}</b><span>${esc(v)}</span></div>`;
 }
-
 function render(data){
-  let html = `<div class="card"><p class="pill">${esc(chosenLens)}</p><h2 style="margin:0 0 4px">${esc($("target").value)}</h2><p class="sub">${parsedMsgs.length} messages read.</p></div>`;
+  let html = `<section class="panel" style="border-color:${lens.color}">
+      <div style="display:flex;gap:14px;align-items:center">
+        <img src="/assets/${lens.icon}" alt="" style="width:46px;height:46px">
+        <div><p class="rep-lab" style="color:${lens.color};margin:0 0 2px">${esc(lens.name)} Lens</p>
+        <h2 style="margin:0">${esc($("target").value)}</h2></div>
+      </div>
+      <p style="color:var(--text-3);font-size:14px;margin:12px 0 0">${parsedMsgs.length} messages read. Nothing was stored.</p>
+    </section>`;
   html += Object.entries(data).filter(([k]) => !SKIP.has(k)).map(([k,v]) => {
     const r = node(k,v,0);
     if(!r) return "";
-    return r.startsWith('<div class="card"') ? r : `<div class="card">${r}</div>`;
+    return r.startsWith("<section") ? r : `<section class="panel">${r}</section>`;
   }).join("");
   $("out").innerHTML = html;
   $("out").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-// ---- boot ----
+// ---------- drag and drop ----------
+const drop = $("drop");
+["dragenter","dragover"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add("over") }));
+["dragleave","drop"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove("over") }));
+drop.addEventListener("drop", ev => {
+  const f = ev.dataTransfer.files[0];
+  if(f){ const dt = new DataTransfer(); dt.items.add(f); $("file").files = dt.files; loadFile({target:{files:[f]}}) }
+});
+
+// ---------- boot ----------
 (async function(){
-  renderLenses();
+  paintLenses(); paintSources();
   const q = new URLSearchParams(location.search);
-  const lang = LANG_BY_CODE[(q.get("lang")||"").toLowerCase()];
-  if(lang) $("lang").value = lang;
+  const l = LANG_BY_CODE[(q.get("lang")||"").toLowerCase()];
+  if(l) $("lang").value = l;
   await loadSession();
   if(q.get("paid") === "1"){
-    // the Stripe webhook may land a moment after the redirect
     for(let i=0;i<6 && (!session || (!session.credits && !session.premium));i++){
-      await new Promise(r=>setTimeout(r,1500));
-      await loadSession();
+      await new Promise(r=>setTimeout(r,1500)); await loadSession();
     }
     history.replaceState({}, "", location.pathname);
-    if(session && (session.premium || session.credits)){
-      $("paywall").classList.add("hide");
-    }
+    if(session && (session.premium || session.credits)) $("paywall").classList.add("hide");
   }
   if(!isStandalone()) offerInstall();
 })();
