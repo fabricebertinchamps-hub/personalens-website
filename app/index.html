@@ -161,6 +161,65 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
         <div style="height:12px"></div>
         <button class="btn btn-primary btn-wide" onclick="parsePasted()">Read this conversation</button>
       </div>
+
+      <!-- Telegram direct sign-in -->
+      <div id="tgZone" class="hide" style="margin-top:18px">
+        <div id="tgStep0">
+          <button class="btn btn-primary btn-wide" onclick="tgStart()">Connect my Telegram</button>
+          <p style="text-align:center;color:var(--text-3);font-size:13px;margin:10px 0 0">
+            Signs you in to Telegram on this device only. Your session never leaves your phone and we never see your password.
+          </p>
+          <p style="text-align:center;color:var(--text-3);font-size:13px;margin:8px 0 0">
+            <button class="btn" style="background:none;color:var(--text-3);text-decoration:underline;padding:0;font-size:13px" onclick="tgShowExport()">Or import an exported file instead</button>
+          </p>
+        </div>
+
+        <div id="tgPhone" class="hide">
+          <label for="tgNum">Your Telegram phone number</label>
+          <input id="tgNum" type="tel" inputmode="tel" placeholder="+971 50 123 4567"
+                 style="width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-size:16px;background:var(--elevated);color:var(--ink)">
+          <div style="height:12px"></div>
+          <button id="tgSendBtn" class="btn btn-primary btn-wide" onclick="tgSendCode()">Send me the code</button>
+        </div>
+
+        <div id="tgCode" class="hide">
+          <label for="tgCodeIn">Code from Telegram</label>
+          <input id="tgCodeIn" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="12345"
+                 style="width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-size:16px;background:var(--elevated);color:var(--ink)">
+          <p style="color:var(--text-3);font-size:13px;margin:8px 0 0">Telegram sent it to your other devices, or by SMS.</p>
+          <div style="height:12px"></div>
+          <button id="tgCodeBtn" class="btn btn-primary btn-wide" onclick="tgSignIn()">Sign in</button>
+        </div>
+
+        <div id="tgPass" class="hide">
+          <label for="tgPassIn">Telegram cloud password</label>
+          <input id="tgPassIn" type="password" autocomplete="current-password"
+                 style="width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-size:16px;background:var(--elevated);color:var(--ink)">
+          <p style="color:var(--text-3);font-size:13px;margin:8px 0 0">Your two-step verification password. It is sent straight to Telegram, never to us.</p>
+          <div style="height:12px"></div>
+          <button id="tgPassBtn" class="btn btn-primary btn-wide" onclick="tgCheckPassword()">Continue</button>
+        </div>
+
+        <div id="tgChats" class="hide">
+          <label for="tgChatSel">Choose a conversation</label>
+          <select id="tgChatSel"></select>
+          <div style="height:8px"></div>
+          <label for="tgCount">How many recent messages</label>
+          <select id="tgCount">
+            <option value="300">300</option>
+            <option value="600" selected>600</option>
+            <option value="1200">1200</option>
+            <option value="2000">2000</option>
+          </select>
+          <div style="height:14px"></div>
+          <button id="tgLoadBtn" class="btn btn-primary btn-wide" onclick="tgLoadChat()">Load this conversation</button>
+          <p style="text-align:center;margin:10px 0 0">
+            <button class="btn" style="background:none;color:var(--text-3);text-decoration:underline;padding:0;font-size:13px" onclick="tgLogout()">Sign out of Telegram</button>
+          </p>
+        </div>
+
+        <p id="tgStatus" style="color:var(--text-3);font-size:13.5px;margin:12px 0 0;text-align:center"></p>
+      </div>
     </div>
   </section>
 
@@ -364,6 +423,7 @@ function detectPlat(){
 function pickSource(id){
   source = id; paintSources();
   const h = HOWTO[id];
+  $("tgZone").classList.add("hide");
   $("howWrap").classList.remove("hide");
   $("howNote").innerHTML = h.note;
   if(id === "whatsapp"){
@@ -372,8 +432,11 @@ function pickSource(id){
     $("fileZone").classList.remove("hide"); $("pasteZone").classList.add("hide");
   } else if(id === "telegram"){
     $("platTabs").classList.add("hide");
-    renderSteps(h.desktop);
-    $("fileZone").classList.remove("hide"); $("pasteZone").classList.add("hide");
+    $("howto").innerHTML = "";
+    $("howNote").innerHTML = "Sign in once with your phone number, exactly as the iPhone app did, and pick a chat. Nothing is uploaded except the messages you choose to have read.";
+    $("fileZone").classList.add("hide"); $("pasteZone").classList.add("hide");
+    $("tgZone").classList.remove("hide");
+    tgRestore();
   } else {
     $("platTabs").classList.add("hide");
     renderSteps(h.any);
@@ -559,6 +622,183 @@ async function buy(pack, plan){
     if(!r.ok || !d.url) throw new Error(d.error || "Could not start the payment.");
     location.href = d.url;
   }catch(e){ showErr(esc(e.message)) }
+}
+
+// ---------- Telegram: direct sign-in, same flow the iPhone app used ----------
+let tgClient = null, tgPhone = "", tgHash = "", tgDialogs = [];
+const tgSay = m => { $("tgStatus").textContent = m || "" };
+const tgShow = id => ["tgStep0","tgPhone","tgCode","tgPass","tgChats"].forEach(x => $(x).classList.toggle("hide", x !== id));
+
+function loadScript(src){
+  return new Promise((res, rej) => {
+    if(window.PLTelegram) return res();
+    const s = document.createElement("script");
+    s.src = src; s.onload = res; s.onerror = () => rej(new Error("Could not load the Telegram library"));
+    document.head.appendChild(s);
+  });
+}
+
+async function tgCredentials(){
+  if(!session || !session.token) await loadSession();
+  const r = await fetch(API + "/credentials", { headers: { "X-Web-Token": session.token } });
+  if(!r.ok) throw new Error("Telegram is not available right now.");
+  const d = await r.json();
+  return { apiId: Number(d.telegram_api_id), apiHash: d.telegram_api_hash };
+}
+
+async function tgBuildClient(sessionStr){
+  tgSay("Loading the secure Telegram connection…");
+  await loadScript("/app/vendor/teleproto.js");
+  const { TelegramClient, StringSession } = window.PLTelegram;
+  const { apiId, apiHash } = await tgCredentials();
+  const c = new TelegramClient(new StringSession(sessionStr || ""), apiId, apiHash, {
+    connectionRetries: 3, useWSS: true, autoReconnect: true
+  });
+  await c.connect();
+  return c;
+}
+
+function tgSaveSession(){
+  try{ localStorage.setItem("pl_tg", tgClient.session.save()) }catch(_){}
+}
+
+async function tgRestore(){
+  const saved = localStorage.getItem("pl_tg");
+  if(!saved){ tgShow("tgStep0"); tgSay(""); return }
+  try{
+    tgSay("Reconnecting to Telegram…");
+    tgClient = await tgBuildClient(saved);
+    if(await tgClient.isUserAuthorized()){ await tgListChats(); return }
+  }catch(e){ console.warn(e) }
+  localStorage.removeItem("pl_tg");
+  tgShow("tgStep0"); tgSay("");
+}
+
+async function tgStart(){
+  clearErr();
+  try{ tgShow("tgPhone"); tgSay("") }catch(e){ showErr(esc(e.message)) }
+}
+function tgShowExport(){
+  $("tgZone").classList.add("hide");
+  renderSteps(HOWTO.telegram.desktop);
+  $("howNote").innerHTML = HOWTO.telegram.note;
+  $("file").setAttribute("accept", ".json");
+  $("dropHint").textContent = HOWTO.telegram.hint;
+  $("fileZone").classList.remove("hide");
+}
+
+async function tgSendCode(){
+  clearErr();
+  const num = $("tgNum").value.trim().replace(/[^\d+]/g,"");
+  if(num.length < 7){ showErr("Enter your phone number including the country code, like +971 50 123 4567."); return }
+  const btn = $("tgSendBtn"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Connecting';
+  try{
+    tgPhone = num;
+    if(!tgClient) tgClient = await tgBuildClient("");
+    tgSay("Asking Telegram for a code…");
+    const { Api } = window.PLTelegram;
+    const res = await tgClient.invoke(new Api.auth.SendCode({
+      phoneNumber: tgPhone, apiId: tgClient.apiId, apiHash: tgClient.apiHash,
+      settings: new Api.CodeSettings({})
+    }));
+    tgHash = res.phoneCodeHash;
+    tgShow("tgCode"); tgSay("Check your Telegram app, or your SMS.");
+    $("tgCodeIn").focus();
+  }catch(e){
+    showErr(tgError(e));
+  }finally{ btn.disabled = false; btn.textContent = "Send me the code" }
+}
+
+async function tgSignIn(){
+  clearErr();
+  const code = $("tgCodeIn").value.trim();
+  if(!code){ showErr("Enter the code Telegram sent you."); return }
+  const btn = $("tgCodeBtn"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Signing in';
+  try{
+    const { Api } = window.PLTelegram;
+    await tgClient.invoke(new Api.auth.SignIn({ phoneNumber: tgPhone, phoneCodeHash: tgHash, phoneCode: code }));
+    tgSaveSession();
+    await tgListChats();
+  }catch(e){
+    const msg = String(e && e.message || e);
+    if(/SESSION_PASSWORD_NEEDED/i.test(msg)){ tgShow("tgPass"); tgSay("This account has two-step verification."); $("tgPassIn").focus(); }
+    else showErr(tgError(e));
+  }finally{ btn.disabled = false; btn.textContent = "Sign in" }
+}
+
+async function tgCheckPassword(){
+  clearErr();
+  const pw = $("tgPassIn").value;
+  if(!pw){ showErr("Enter your Telegram cloud password."); return }
+  const btn = $("tgPassBtn"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Checking';
+  try{
+    await tgClient.signInWithPassword(
+      { apiId: tgClient.apiId, apiHash: tgClient.apiHash },
+      { password: async () => pw, onError: e => { throw e } }
+    );
+    $("tgPassIn").value = "";
+    tgSaveSession();
+    await tgListChats();
+  }catch(e){ showErr(tgError(e)) }
+  finally{ btn.disabled = false; btn.textContent = "Continue" }
+}
+
+async function tgListChats(){
+  tgSay("Loading your conversations…");
+  const dialogs = await tgClient.getDialogs({ limit: 120 });
+  tgDialogs = dialogs.filter(d => d.isUser || d.isGroup);
+  if(!tgDialogs.length){ showErr("No conversations found in this Telegram account."); tgShow("tgStep0"); return }
+  $("tgChatSel").innerHTML = tgDialogs.map((d,i) =>
+    `<option value="${i}">${esc(d.title || d.name || "Chat")}${d.isGroup ? " (group)" : ""}</option>`).join("");
+  tgShow("tgChats");
+  tgSay("Connected to Telegram.");
+}
+
+async function tgLoadChat(){
+  clearErr();
+  const d = tgDialogs[Number($("tgChatSel").value)];
+  if(!d) return;
+  const limit = Number($("tgCount").value) || 600;
+  const btn = $("tgLoadBtn"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Loading messages';
+  try{
+    tgSay("Reading the last " + limit + " messages…");
+    const msgs = await tgClient.getMessages(d.entity, { limit });
+    const me = await tgClient.getMe();
+    const myId = String(me.id);
+    const out = [];
+    for(const m of msgs.slice().reverse()){
+      const text = (m.message || "").trim();
+      if(!text) continue;
+      let who = "Them";
+      const sid = m.senderId ? String(m.senderId) : null;
+      if(sid && sid === myId) who = (me.firstName || "Me");
+      else if(m.sender && (m.sender.firstName || m.sender.title)) who = m.sender.firstName || m.sender.title;
+      else if(d.isUser) who = d.title || d.name || "Them";
+      out.push({ name: who, content: text });
+    }
+    if(out.length < 4){ showErr("That conversation only has " + out.length + " text messages. Pick one with more, or load more messages."); return }
+    tgSay("");
+    acceptParsed(out, "Telegram: " + (d.title || d.name));
+  }catch(e){ showErr(tgError(e)) }
+  finally{ btn.disabled = false; btn.textContent = "Load this conversation" }
+}
+
+function tgLogout(){
+  try{ if(tgClient) tgClient.disconnect() }catch(_){}
+  localStorage.removeItem("pl_tg"); tgClient = null; tgDialogs = [];
+  tgShow("tgStep0"); tgSay("Signed out of Telegram on this device.");
+}
+
+function tgError(e){
+  const m = String(e && e.message || e);
+  if(/PHONE_NUMBER_INVALID/i.test(m)) return "Telegram does not recognise that number. Include the country code, like +971 50 123 4567.";
+  if(/PHONE_CODE_INVALID/i.test(m)) return "That code was not right. Check Telegram and try again.";
+  if(/PHONE_CODE_EXPIRED/i.test(m)) return "That code expired. Ask for a new one.";
+  if(/PASSWORD_HASH_INVALID|PASSWORD_INVALID/i.test(m)) return "That cloud password was not accepted.";
+  if(/FLOOD_WAIT_(\d+)/i.test(m)){ const s = m.match(/FLOOD_WAIT_(\d+)/i)[1]; return "Telegram is rate limiting this number. Try again in about " + Math.ceil(s/60) + " minutes."; }
+  if(/AUTH_RESTART/i.test(m)) return "Telegram asked to start again. Tap Send me the code once more.";
+  if(/Could not load the Telegram library/i.test(m)) return m;
+  return "Telegram said: " + esc(m);
 }
 
 // ---------- install ----------
