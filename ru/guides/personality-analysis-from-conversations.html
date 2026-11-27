@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Анализ личности по переписке и чатам знакомств</title>
 <meta name="description" content="Можно ли понять характер человека по переписке? Что говорят исследования, что чат или приложение знакомств покажет, а что нет, и как анализировать." />
 <meta name="keywords" content="анализ личности по переписке, анализ характера по сообщениям, психологический анализ переписки, анализ переписки в приложении знакомств, характер по переписке, анализ переписки ИИ, Большая пятёрка по тексту, LIWC" />
@@ -48,8 +48,8 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/ru/"><img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
-    <nav class="site-nav"><a href="/ru/#lenses">Линзы</a><a href="/ru/#how">Как это работает</a><a href="/ru/science.html">Наука</a><a href="/ru/guides/">Руководства</a><a href="/ru/testimonials.html">Отзывы</a><a href="/ru/pricing.html">Цены</a></nav>
-    <div class="lang-picker"><a class="lang-flag flag-en" href="/guides/personality-analysis-from-conversations.html" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/guides/personality-analysis-from-conversations.html" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/guides/personality-analysis-from-conversations.html" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="/app/?lang=ru">Скачать приложение</a>
+    <nav class="site-nav"><a href="/ru/#lenses">Линзы</a><a href="/ru/#how">Как это работает</a><a href="/ru/science.html">Наука</a><a href="/ru/guides/">Руководства</a><a href="/ru/testimonials.html">Примеры</a><a href="/ru/pricing.html">Цены</a></nav>
+    <div class="lang-picker"><a class="lang-flag flag-en" href="/guides/personality-analysis-from-conversations.html" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/guides/personality-analysis-from-conversations.html" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/guides/personality-analysis-from-conversations.html" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="/app/?lens=self&amp;lang=ru&amp;src=header"><span class="hc-long">Попробовать бесплатно</span><span class="hc-short">Попробовать</span></a>
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
 </header>
 
@@ -58,9 +58,9 @@
   <a href="/ru/#how">Как это работает</a>
   <a href="/ru/science.html">Наука</a>
   <a href="/ru/guides/">Руководства</a>
-  <a href="/ru/testimonials.html">Отзывы</a>
+  <a href="/ru/testimonials.html">Примеры</a>
   <a href="/ru/pricing.html">Цены</a>
-  <a class="mobile-cta" href="/app/?lang=ru">Скачать приложение</a>
+  <a class="mobile-cta" href="/app/?lens=self&amp;lang=ru&amp;src=header">Попробовать бесплатно</a>
 </nav>
 
 <main class="legal-page">
@@ -68,6 +68,12 @@
     <p class="legal-meta"><a href="/ru/" style="color: var(--text-3);">← Persona Lens</a> &nbsp;·&nbsp; Руководство &nbsp;·&nbsp; Автор: <a href="/authors/fabrice.html" style="color: var(--text-3);">Fabrice</a> &nbsp;·&nbsp; <time datetime="2026-11-27">Последнее обновление: 27 ноября 2026</time></p>
     <h1>Анализ личности по переписке: что раскрывают ваши чаты и сообщения в приложениях знакомств</h1>
     <p style="font-size: 19px; line-height: 1.6; color: var(--text-2); margin-bottom: 30px;"><strong>Да, по тому, как человек пишет, можно узнать о его характере кое-что настоящее, но меньше, чем обещает большинство приложений.</strong> Десятилетия исследований языка и личности показывают, что обычный выбор слов несёт измеримые сигналы о таких чертах, как экстраверсия, нейротизм и доброжелательность, а компьютерные модели, обученные на больших выборках, оценивают черты Большой пятёрки по тексту с умеренной точностью. Один разговор, и особенно короткий чат в приложении знакомств, даёт набросок, а не приговор: надёжнее всего он показывает то, что видно напрямую, то есть отзывчивость, взаимность, любопытство и то, как человек ведёт себя при разногласиях.</p>
+    <aside class="pl-cta" aria-label="Persona Lens">
+      <p class="pl-cta-text">Хотите попробовать на реальном разговоре? Вставьте переписку и получите прочтение с цитатами за каждой чертой.</p>
+      <a class="btn btn-primary pl-cta-btn" href="/app/?lens=self&amp;lang=ru&amp;src=inline-top">Попробовать бесплатно</a>
+      <p class="pl-cta-privacy"><a href="/ru/guides/is-it-safe-to-upload-chat-to-ai.html">Безопасно ли загружать переписку в ИИ? Читайте руководство.</a></p>
+    </aside>
+
 <h2>Можно ли понять характер человека по переписке?</h2>
     <p>Отчасти. Личность проявляется в языке двумя путями. Первый это <strong>содержание</strong>: о чём человек решает говорить, о чём спрашивает, что замечает. Второй это <strong>стиль</strong>: служебные слова, длина и темп сообщений, как часто человек говорит «я», а как часто «мы», как он смягчает формулировки, как быстро отвечает и подстраивается ли под вас. Стиль сложнее подделать, и в исследованиях он часто оказывается информативнее содержания.</p>
     <p>Чего переписка не может, так это дать клинический ярлык или полную картину. Люди по-разному пишут начальнику, лучшему другу и человеку, с которым вчера совпали в приложении (почему так, мы разбираем в руководстве <a href="/ru/guides/why-text-differently-with-different-people.html">почему мы пишем разным людям по-разному</a>). Переписка показывает, как человек общается <em>с вами и в этом контексте</em>. Это действительно полезно, если не путать это со всей личностью.</p>
@@ -101,6 +107,12 @@
       <li>Почти ничего по очень малому объёму текста. Горстка сообщений это в основном шум; см. <a href="/ru/guides/how-many-messages-to-analyze-personality.html">сколько сообщений нужно</a>.</li>
     </ul>
     <p><strong>Согласие и приватность.</strong> Второй человек не соглашался, чтобы его анализировали. Перечитать собственную переписку, чтобы лучше её понять, это нормально; широко распространять его сообщения или использовать анализ, чтобы им манипулировать, нет. Прежде чем загружать переписку в любой онлайн-сервис, уберите имена и опознавательные детали и проверьте, как он обращается с данными. Мы честно ответили на вопросы <a href="/ru/guides/analyzing-texts-without-consent.html">об этике анализа чужих сообщений</a> и о том, <a href="/ru/guides/is-it-safe-to-upload-chat-to-ai.html">безопасно ли загружать переписку на сайт с ИИ</a>.</p>
+
+    <aside class="pl-cta" aria-label="Persona Lens">
+      <p class="pl-cta-text">Прогоните собственную переписку и оцените результат сами. Первое прочтение бесплатно.</p>
+      <a class="btn btn-primary pl-cta-btn" href="/app/?lens=self&amp;lang=ru&amp;src=inline-mid">Попробовать бесплатно</a>
+      <p class="pl-cta-privacy"><a href="/ru/guides/is-it-safe-to-upload-chat-to-ai.html">Безопасно ли загружать переписку в ИИ? Читайте руководство.</a></p>
+    </aside>
 
     <h2>Чаты в приложениях знакомств: что говорят первые сообщения</h2>
     <p>Переписка в Tinder, Hinge, Bumble и похожих приложениях это особый случай. Она короткая, часто идёт параллельно с другими совпадениями и отчасти является спектаклем. Исследования онлайн-знакомств это подтверждают: Тома, Хэнкок и Эллисон (Toma, Hancock &amp; Ellison, 2008) обнаружили, что большинство пользователей немного искажают в анкетах рост, вес или возраст, обычно ненамного, а «гиперперсональная» модель Джозефа Уолтера (Walther, 1996) описывает, как люди склонны идеализировать того, кого знают только по тексту. Оба эффекта означают, что к первым впечатлениям стоит относиться осторожно.</p>
@@ -148,10 +160,10 @@
     <p>Каким бы методом вы ни пользовались, воспринимайте результат как набор гипотез о стиле общения, а не как приговор человеку. Используйте его, чтобы задавать более точные вопросы («Я заметил(а), что мы общаемся, только когда пишу первым(ой) я. Тебе тоже так кажется?»), а не чтобы выносить вердикт. А если на самом деле вы пытаетесь понять, в безопасности ли вы, никакой инструмент анализа для этого не подходит: поговорите с человеком, которому доверяете, или обратитесь в службу поддержки.</p>
     <p style="color: var(--text-3); font-size: 14px; margin-top: 30px;">Это руководство носит информационный, а не клинический характер. Разбор переписки с помощью ИИ это интерпретация, а не диагноз.</p>
 
-    <section style="margin-top: 50px; padding: 30px; background: #F4F6F9; border-radius: 12px; border-left: 4px solid var(--navy);">
+    <section data-cta-end style="margin-top: 50px; padding: 30px; background: #F4F6F9; border-radius: 12px; border-left: 4px solid var(--navy);">
       <h2 style="margin-top: 0;">Проверьте свою переписку</h2>
       <p style="font-size: 17px; line-height: 1.6; color: var(--text-2);">Persona Lens читает реальный чат WhatsApp или Telegram или вставленный текст через одну из шести линз и связывает каждое наблюдение с цитатами, указывая уровень уверенности в зависимости от объёма текста. Три минуты. Первое прочтение бесплатно, без карты и без аккаунта.</p>
-      <p><a class="btn btn-primary" style="margin-top: 10px;" href="/app/?lang=ru">Попробовать Persona Lens бесплатно</a></p>
+      <p><a class="btn btn-primary" style="margin-top: 10px;" href="/app/?lens=self&amp;lang=ru&amp;src=footer">Попробовать бесплатно</a></p>
     </section>
 
 <section style="margin-top: 50px;"><h2>Часто задаваемые вопросы</h2>
@@ -185,5 +197,6 @@
   </div>
 </footer>
 
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b5433df6084448bfb1126a4a7d790d15"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

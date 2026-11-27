@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Может ли ChatGPT проанализировать переписку? Что он умеет и где ошибается</title>
 <meta name="description" content="Да, ChatGPT прочитает чат из WhatsApp и прокомментирует его. Что чат-бот делает хорошо, в каких пяти местах стабильно ошибается и как получить более честный разбор." />
 <meta name="keywords" content="анализ переписки chatgpt, может ли chatgpt проанализировать переписку, анализ переписки whatsapp нейросетью, анализ переписки с помощью ии, chatgpt анализ отношений по переписке, нейросеть для анализа переписки" />
@@ -48,8 +48,8 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/ru/"><img src="/assets/appicon.png" alt="Persona Lens" class="brand-mark"/><span class="brand-name">Persona Lens</span></a>
-    <nav class="site-nav"><a href="/ru/#lenses">Линзы</a><a href="/ru/#how">Как это работает</a><a href="/ru/science.html">Наука</a><a href="/ru/guides/">Руководства</a><a href="/ru/testimonials.html">Отзывы</a><a href="/ru/pricing.html">Цены</a></nav>
-    <div class="lang-picker"><a class="lang-flag flag-en" href="/guides/can-chatgpt-analyze-text-messages.html" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/guides/can-chatgpt-analyze-text-messages.html" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/guides/can-chatgpt-analyze-text-messages.html" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="/app/?lang=ru">Скачать приложение</a>
+    <nav class="site-nav"><a href="/ru/#lenses">Линзы</a><a href="/ru/#how">Как это работает</a><a href="/ru/science.html">Наука</a><a href="/ru/guides/">Руководства</a><a href="/ru/testimonials.html">Примеры</a><a href="/ru/pricing.html">Цены</a></nav>
+    <div class="lang-picker"><a class="lang-flag flag-en" href="/guides/can-chatgpt-analyze-text-messages.html" aria-label="English"></a><a class="lang-flag flag-fr" href="/fr/guides/can-chatgpt-analyze-text-messages.html" aria-label="Français"></a><a class="lang-flag flag-es" href="/es/guides/can-chatgpt-analyze-text-messages.html" aria-label="Español"></a><span class="lang-flag flag-ru active" aria-label="Русский"></span></div><a class="btn btn-primary header-cta" href="/app/?lang=ru&amp;src=header"><span class="hc-long">Попробовать бесплатно</span><span class="hc-short">Попробовать</span></a>
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
 </header>
 
@@ -58,9 +58,9 @@
   <a href="/ru/#how">Как это работает</a>
   <a href="/ru/science.html">Наука</a>
   <a href="/ru/guides/">Руководства</a>
-  <a href="/ru/testimonials.html">Отзывы</a>
+  <a href="/ru/testimonials.html">Примеры</a>
   <a href="/ru/pricing.html">Цены</a>
-  <a class="mobile-cta" href="/app/?lang=ru">Скачать приложение</a>
+  <a class="mobile-cta" href="/app/?lang=ru&amp;src=header">Попробовать бесплатно</a>
 </nav>
 
 <main class="legal-page">
@@ -68,6 +68,12 @@
     <p class="legal-meta"><a href="/ru/" style="color: var(--text-3);">← Persona Lens</a> &nbsp;·&nbsp; Руководство &nbsp;·&nbsp; Автор: <a href="/authors/fabrice.html" style="color: var(--text-3);">Fabrice</a> &nbsp;·&nbsp; Обновлено в ноябре 2026</p>
     <h1>Может ли ChatGPT проанализировать вашу переписку?</h1>
     <p style="font-size: 19px; line-height: 1.6; color: var(--text-2); margin-bottom: 30px;">Да. Вы можете вставить или загрузить в ChatGPT переписку из WhatsApp или iMessage, он перескажет её, опишет тон и выскажет мнение о том, что, по-видимому, чувствует каждый из собеседников. Но сам по себе он не скажет, насколько уверен в выводах, не приведёт цитаты в подтверждение каждого утверждения, не будет последователен, если спросить дважды, и не устоит перед соблазном сказать то, что вы надеялись услышать. В вопросах об отношениях эти пробелы гораздо важнее, чем в рабочей переписке.</p>
+
+    <aside class="pl-cta" aria-label="Persona Lens">
+      <p class="pl-cta-text">Хотите структурированный разбор без промптов? Вставьте переписку в Persona Lens и получите прочтение с цитатами в качестве доказательств.</p>
+      <a class="btn btn-primary pl-cta-btn" href="/app/?lang=ru&amp;src=inline-top">Попробовать бесплатно</a>
+      <p class="pl-cta-privacy"><a href="/ru/guides/is-it-safe-to-upload-chat-to-ai.html">Безопасно ли загружать переписку в ИИ? Читайте руководство.</a></p>
+    </aside>
 
 <h2>Короткий ответ</h2>
     <p>ChatGPT умеет анализировать переписку, и с некоторыми задачами он справляется по-настоящему хорошо: пересказать длинную ветку, заметить, где сменился тон, переформулировать ответ, который вы боитесь отправить. Сложности начинаются там, с чем к нему чаще всего и приходят,, с суждением о человеке: <em>теряет ли он интерес, манипулирует ли мной мама, не в одни ли ворота эта дружба.</em> Для такого суждения нужны устойчивый метод, понимание того, сколько доказательств достаточно, и готовность вас разочаровать. У универсального чат-бота по умолчанию нет ничего из этого.</p>
@@ -115,6 +121,12 @@
     <p style="background: #F4F6F9; border-radius: 8px; padding: 16px 18px; font-size: 15.5px; line-height: 1.6;">«Ниже, переписка между A и B. Не занимай ничью сторону. (1) Опиши манеру общения каждого: кто начинает разговор, кто первым мирится после конфликта, как каждый ведёт себя при разногласиях. (2) Для каждого наблюдения приведи подтверждающие сообщения. (3) Укажи, какие выводы хорошо обоснованы, а какие, догадки. (4) Дай самое доброжелательное толкование поведения каждого. (5) Скажи, чего по этой переписке понять нельзя».</p>
     <p>Это не устранит непоследовательность от запуска к запуску и не даст модели исходного уровня, которого у неё нет. Но результат станет проверяемым, а это уже половина дела.</p>
 
+    <aside class="pl-cta" aria-label="Persona Lens">
+      <p class="pl-cta-text">Persona Lens создан именно для этих пяти слабых мест: каждый вывод опирается на цитаты, а переписка не хранится.</p>
+      <a class="btn btn-primary pl-cta-btn" href="/app/?lang=ru&amp;src=inline-mid">Попробовать бесплатно</a>
+      <p class="pl-cta-privacy"><a href="/ru/guides/is-it-safe-to-upload-chat-to-ai.html">Безопасно ли загружать переписку в ИИ? Читайте руководство.</a></p>
+    </aside>
+
     <h2>Что даёт специализированный инструмент</h2>
     <p>Разница между универсальным чат-ботом и специальным инструментом для анализа, в основном не в самой модели, а во всём, что её окружает: в фиксированном методе, который каждый раз применяется одинаково; в рамке, выбранной под конкретный тип отношений; в заявленном уровне уверенности, который зависит от объёма текста; и в цитатах, которые приводятся по умолчанию, а не по запросу.</p>
     <p>Именно так устроен Persona Lens. Сначала вы выбираете линзу, потому что разбор переписки с руководителем не должен строиться в той же рамке, что разбор переписки с партнёром. <a href="/ru/lens-romantic.html">Линза «Романтика»</a> смотрит на динамику привязанности и на то, как пара восстанавливает контакт; <a href="/ru/lens-family.html">линза «Семья»</a>, на роли, контроль и паттерны, передающиеся из поколения в поколение. Приложение напрямую читает экспорт чата WhatsApp или переписку из Telegram, подсчитывает сообщения и ещё до разбора сообщает, достаточно ли материала для работы. Каждое утверждение в отчёте ссылается на конкретные строки из вашей переписки.</p>
@@ -126,10 +138,10 @@
 
     <p style="color: var(--text-3); font-size: 14px; margin-top: 30px;">Этот материал носит информационный, а не клинический характер. Разбор переписки с помощью ИИ, это интерпретация, а не диагноз. Если вам тяжело или отношения кажутся небезопасными, обратитесь к квалифицированному специалисту или в местную службу поддержки.</p>
 
-    <section style="margin-top: 50px; padding: 30px; background: #F4F6F9; border-radius: 12px; border-left: 4px solid var(--navy);">
+    <section data-cta-end style="margin-top: 50px; padding: 30px; background: #F4F6F9; border-radius: 12px; border-left: 4px solid var(--navy);">
       <h2 style="margin-top: 0;">Нужен более структурированный разбор?</h2>
       <p style="font-size: 17px; line-height: 1.6; color: var(--text-2);">Persona Lens создан как раз для того, чтобы закрыть эти пробелы. Выберите одну из шести линз («Я», «Романтика», «Дружба», «Работа», «Семья», «Группа»), загрузите экспорт чата WhatsApp или переписку из Telegram и получите разбор, где каждое утверждение подкреплено цитатами, а уровень уверенности указан с самого начала. Первый разбор бесплатно, без карты и без регистрации.</p>
-      <p><a class="btn btn-primary" style="margin-top: 10px;" href="/app/?lang=ru">Попробовать Persona Lens бесплатно</a></p>
+      <p><a class="btn btn-primary" style="margin-top: 10px;" href="/app/?lang=ru&amp;src=footer">Попробовать бесплатно</a></p>
     </section>
 
 <section style="margin-top: 50px;"><h2>Часто задаваемые вопросы</h2>
@@ -159,5 +171,6 @@
   </div>
 </footer>
 
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b5433df6084448bfb1126a4a7d790d15"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

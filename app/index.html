@@ -30,6 +30,16 @@
 .app-head h1{margin:0;flex:1;font-size:clamp(24px,5vw,34px);hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:normal;line-height:1.15}
 .bal{font-size:13px;color:var(--text-3);background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}
 .bal.premium{background:#EEF5F0;border-color:#CADCCF;color:#44705A}
+.code-link{font-size:12.5px;color:var(--text-3);text-decoration:underline;white-space:nowrap}
+.privacy-line{font-size:13.5px;color:var(--text-2);margin:14px 0 0;line-height:1.5}
+.privacy-line a{color:var(--text-2)}
+.sample-row{margin-top:14px;text-align:center}
+.sample-btn{background:transparent;border:1px dashed var(--border);border-radius:var(--radius-sm);padding:12px 16px;width:100%;font:600 14.5px/1.3 inherit;color:var(--ink);cursor:pointer}
+.sample-btn span{display:block;font-weight:400;font-size:12.5px;color:var(--text-3);margin-top:3px}
+.sample-btn:hover{border-style:solid}
+.rep-hero .sampletag{display:inline-block;margin:0 0 14px 8px;background:#FBB35F;color:#25375B;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.sample-cta{background:var(--cream-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin:0 0 16px;font-size:14.5px;color:var(--text-2);line-height:1.5}
+.sample-cta .btn{margin-top:10px}
 .steps-rail{display:flex;gap:6px;margin:22px 0 26px}
 .rail{flex:1;height:4px;border-radius:2px;background:var(--border)}
 .rail.on{background:var(--navy)}
@@ -288,6 +298,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 
   <div class="app-head">
     <h1>Read a conversation</h1>
+    <a href="#" class="code-link" id="codeLink" onclick="openCode();return false">Have a code?</a>
     <span class="bal" id="bal" onclick="if(!(session&&session.premium))openCode()" style="cursor:pointer"></span>
   </div>
   <p class="lede" style="color:var(--text-2);margin:0 0 4px;font-size:16px">Six lenses, one real conversation, a structured reading in about three minutes. Nothing you paste is stored.</p>
@@ -308,6 +319,10 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
     <h2><span class="step-num">2</span>Where is the conversation</h2>
     <p class="lede">Bring in a real chat. The more messages, the sharper the reading.</p>
     <div class="src-grid" id="srcGrid"></div>
+    <p class="privacy-line" id="privacyLine">Your chat is read to write your reading, then discarded. Not stored, no account. <a id="privacyLink" href="/guides/is-it-safe-to-upload-chat-to-ai.html">Is it safe?</a></p>
+    <div class="sample-row">
+      <button type="button" class="sample-btn" id="sampleBtn" onclick="trySample()">No chat handy? Try a sample conversation<span>A short, made-up chat for the lens you picked. Free, and it does not use your reading.</span></button>
+    </div>
 
     <div id="howWrap" class="hide" style="margin-top:22px">
       <div class="tabs hide" id="platTabs">
@@ -556,9 +571,64 @@ const ACC = [
 ];
 
 const LANG_BY_CODE = {fr:"French", es:"Spanish", ru:"Russian", en:"English"};
+const CODE_BY_LANG = {French:"fr", Spanish:"es", Russian:"ru", English:"en"};
+
+// Deep links from the marketing pages: /app/?lens=family&lang=fr&src=guide-x
+const LENS_BY_SLUG = {self:"Self Lens", romantic:"Romantic Lens", friendship:"Friendship Lens",
+  professional:"Professional Lens", family:"Family Lens", group:"Group Lens"};
+const slugOf = id => (Object.keys(LENS_BY_SLUG).find(k => LENS_BY_SLUG[k] === id) || "");
+
+// Share footer, in the language the reading was written in.
+const SHARE_URL = "https://persona-lens.com/app/?src=share";
+const SHARE_LINE = {
+  en: "Get your own free reading: " + SHARE_URL,
+  fr: "Obtenez votre propre lecture gratuite : " + SHARE_URL,
+  es: "Consigue tu propia lectura gratis: " + SHARE_URL,
+  ru: "Получите своё бесплатное прочтение: " + SHARE_URL
+};
+const SAFE_GUIDE = { en:"/guides/is-it-safe-to-upload-chat-to-ai.html", fr:"/fr/guides/is-it-safe-to-upload-chat-to-ai.html",
+  es:"/es/guides/is-it-safe-to-upload-chat-to-ai.html", ru:"/ru/guides/is-it-safe-to-upload-chat-to-ai.html" };
 
 let lens = null, source = null, plat = "ios";
 let parsedMsgs = [], speakers = [], session = null, lastKey = null;
+let sampleId = null, runWasSample = false;   // sample chosen for the next run / the report on screen
+
+// ---------- funnel: anonymous step counts, never any chat content ----------
+// Events are queued and sent in small batches (one KV write per batch on the
+// worker), at the moments that matter and when the page is hidden.
+const FUNNEL = { q: [], once: {} };
+function attribution(){
+  try{ return sessionStorage.getItem("pl_src") || "direct" }catch(_){ return "direct" }
+}
+function track(event, props, opts){
+  try{
+    if(opts && opts.once){ if(FUNNEL.once[event]) return; FUNNEL.once[event] = 1 }
+    FUNNEL.q.push({ event, props: props || {} });
+    if(FUNNEL.q.length >= 20 || (opts && opts.flush)) flushEvents(opts && opts.beacon);
+  }catch(_){}
+}
+function flushEvents(beacon){
+  if(!FUNNEL.q.length || !session || !session.token) return;
+  const body = JSON.stringify({ deviceId: deviceId(), token: session.token, src: attribution(), events: FUNNEL.q.splice(0, 25) });
+  try{
+    // text/plain keeps this a simple request: no CORS preflight, works with sendBeacon
+    if(beacon && navigator.sendBeacon && navigator.sendBeacon(API + "/web/event", new Blob([body], { type:"text/plain" }))) return;
+    fetch(API + "/web/event", { method:"POST", headers:{ "Content-Type":"text/plain" }, body, keepalive:true }).catch(() => {});
+  }catch(_){}
+}
+document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden") flushEvents(true) });
+window.addEventListener("pagehide", () => flushEvents(true));
+function countBucket(n){ return n < 100 ? "lt100" : n < 300 ? "100_299" : n < 800 ? "300_799" : n < 2000 ? "800_1999" : "2000plus" }
+function failCode(e){
+  if(!e) return "other";
+  if(e.code) return e.code;
+  const m = String(e.message || "");
+  if(/Failed to fetch|NetworkError|Load failed/i.test(m)) return "network";
+  if(/without a reading/i.test(m)) return "no_report";
+  if(/stream unavailable/i.test(m)) return "stream";
+  if(/returned 5\d\d|Upstream|structure/i.test(m)) return "server";
+  return "other";
+}
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[<>&"]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
@@ -583,6 +653,7 @@ async function loadSession(){
 function paintBalance(){
   if(!session) return;
   const b = $("bal");
+  $("codeLink").classList.toggle("hide", !!session.premium);
   if(session.premium){ b.textContent = "Unlimited"; b.classList.add("premium"); return }
   b.classList.remove("premium");
   const c = session.credits || 0;
@@ -602,6 +673,7 @@ async function redeemCode(){
       body: JSON.stringify({deviceId: deviceId(), code})});
     const d = await r.json();
     if(d.ok){
+      track("code_redeemed", {}, { flush:true });
       $("codeMsg").textContent = "Unlocked. This device now has unlimited readings.";
       $("paywall").classList.add("hide");
       await loadSession();
@@ -627,6 +699,8 @@ function paintLenses(){
 }
 function pickLens(id){
   lens = LENSES.find(l => l.id === id);
+  if(!lens) return;
+  track("lens_selected", { lens: slugOf(lens.id) });
   paintLenses(); rail(2);
   if(people.length) paintPeople();   // Self Lens flips who gets read
   $("p2").scrollIntoView({behavior:"smooth",block:"start"});
@@ -675,6 +749,35 @@ function setPlat(p){
 }
 function renderSteps(list){
   $("howto").innerHTML = list.map((t,i) => `<li><span class="step-num">${i+1}</span><span>${t}</span></li>`).join("");
+}
+
+// ---------- try with a sample ----------
+// ==samples:start==
+// Fictional conversations for "Try a sample". Every name and event is invented.
+// The worker keeps a SHA-256 of each one (SAMPLE_HASHES) and only waives the
+// credit when the posted messages match exactly, so edit both together.
+const SAMPLES = {
+  self: { me:"Alex", target:"Alex", text:"[03/10/2026, 07:48:07] Alex: ok I did the thing. I told Hana I'm thinking about leaving the agency\n[03/10/2026, 07:49:24] Alex: like actually said it out loud in the kitchen at work\n[03/10/2026, 08:31:41] Sam: WAIT. how did she take it?\n[03/10/2026, 08:33:58] Alex: weirdly well? she said \"I wondered when you'd say that\" which honestly made it worse\n[03/10/2026, 08:33:59] Alex: because if she saw it coming, how long have I been visibly miserable\n[03/10/2026, 08:35:32] Sam: haha you are not visibly miserable. you're visibly tired. different thing\n[03/10/2026, 08:36:49] Alex: is it though\n[03/10/2026, 08:40:06] Sam: what did you say you'd do instead?\n[03/10/2026, 08:52:23] Alex: that's the problem, I didn't. I said \"something with more meaning\" like a person in a yoghurt advert\n[03/10/2026, 08:52:40] Alex: 🙈\n[03/10/2026, 08:53:57] Sam: lol\n[03/10/2026, 08:53:59] Sam: the yoghurt career path is underrated\n[03/10/2026, 09:20:31] Alex: I keep doing this thing where I make the decision in my head, feel relieved for one hour, then spend three days arguing myself out of it\n[03/10/2026, 09:21:48] Alex: I think I like the feeling of having decided more than I like deciding\n[04/10/2026, 22:14:05] Alex: can I think out loud at you for a sec\n[04/10/2026, 22:31:22] Sam: always\n[04/10/2026, 22:33:39] Alex: the things I actually enjoyed this year: the workshop with the school kids, rebuilding the volunteer site, the 10k. none of them were billable 😂\n[04/10/2026, 22:34:56] Alex: every single thing that made me feel useful was something nobody paid me for\n[04/10/2026, 22:34:59] Alex: that's either a sign or a very expensive hobby\n[04/10/2026, 22:40:30] Sam: or both? you could keep the job and do more of the unpaid stuff for a bit, see which one wins\n[04/10/2026, 22:41:47] Alex: that's sensible and I hate it\n[04/10/2026, 22:41:51] Sam: hahaha\n[04/10/2026, 22:47:21] Alex: no you're right. I think I want a dramatic exit because dramatic feels like proof that I mean it\n[04/10/2026, 22:48:38] Alex: but proof for who. nobody is watching\n[04/10/2026, 22:55:55] Sam: you are watching. you're the harshest audience you've got\n[04/10/2026, 23:02:12] Alex: ok that one landed\n[07/10/2026, 18:05:29] Sam: how was the run club thing?\n[07/10/2026, 19:40:46] Alex: sorry only just seeing this! it was good. I did the long route and didn't die\n[07/10/2026, 19:41:03] Alex: there's a guy there who used to work in charity fundraising and I asked him about 400 questions\n[07/10/2026, 19:41:20] Alex: poor man just wanted to stretch\n[07/10/2026, 19:44:37] Sam: haha classic you\n[07/10/2026, 19:45:54] Alex: he said the pay drop was real but he sleeps now. \"I sleep now\" is going on my wall\n[07/10/2026, 19:47:11] Sam: do you sleep now?\n[07/10/2026, 19:58:28] Alex: no. I read job listings at 1am like they're horoscopes\n[12/10/2026, 01:12:45] Alex: ok it's late and I'm doing the horoscope thing\n[12/10/2026, 01:13:02] Alex: there's a coordinator role at the youth climbing charity. part time to start, 4 days\n[12/10/2026, 01:13:19] Alex: I'd lose about a third of my salary. I keep doing the maths hoping it comes out different\n[12/10/2026, 01:15:36] Alex: also I'd be terrible at the admin side. I'm good at people, I'm bad at spreadsheets that don't have colours\n[12/10/2026, 01:22:53] Alex: going to sleep. ignore all of this\n[12/10/2026, 01:24:10] Alex: actually don't ignore it\n[12/10/2026, 10:15:27] Sam: I'm not ignoring it. send me the link\n[12/10/2026, 10:16:44] Sam: also you are not bad at admin, you organised my entire wedding seating plan in a weekend\n[12/10/2026, 10:30:01] Alex: that was fear, not skill\n[12/10/2026, 10:31:18] Sam: those are the same thing in admin\n[12/10/2026, 10:31:35] Alex: haha fair\n[12/10/2026, 10:44:52] Alex: link 👉 it closes on the 30th\n[12/10/2026, 11:02:09] Sam: this is so you it's almost annoying\n[12/10/2026, 11:03:26] Sam: \"comfortable with uncertainty\" ok maybe not that bit\n[12/10/2026, 11:05:43] Alex: 😂 rude but accurate\n[13/10/2026, 19:20:00] Alex: I started the application and then rewrote the first sentence eleven times\n[13/10/2026, 19:21:17] Alex: every version sounds like I'm apologising for existing\n[13/10/2026, 19:21:34] Alex: \"although I don't have direct experience in the sector...\" why am I leading with what I'm not\n[13/10/2026, 19:30:51] Sam: lead with the volunteer site. you literally rebuilt their bookings\n[13/10/2026, 19:32:08] Alex: true. ok\n[13/10/2026, 19:32:25] Alex: why is it so much easier to see this stuff for other people\n[13/10/2026, 19:35:42] Sam: because you're not scared of my life\n[13/10/2026, 19:36:59] Alex: you should charge for this\n[16/10/2026, 21:02:16] Alex: submitted 🎉\n[16/10/2026, 21:02:33] Alex: I feel sick\n[16/10/2026, 21:03:50] Alex: but like the good sick, the before a race sick\n[16/10/2026, 21:10:07] Sam: YESSS I'm proud of you\n[16/10/2026, 21:11:24] Sam: whatever happens you did the scary bit\n[16/10/2026, 21:13:41] Alex: thank you. genuinely. I don't think I'd have sent it without you poking me\n[16/10/2026, 21:14:58] Alex: also sorry for the 1am essays\n[16/10/2026, 21:15:15] Sam: never apologise for the 1am essays, they're the best content I get all week\n[16/10/2026, 21:16:32] Alex: haha ok noted\n[24/10/2026, 16:47:49] Alex: they want to interview me on Thursday\n[24/10/2026, 16:47:54] Alex: THURSDAY\n[24/10/2026, 16:48:23] Alex: I have nothing to wear that says \"calm, competent, and good with teenagers\"\n[24/10/2026, 16:52:40] Sam: !!!! amazing\n[24/10/2026, 16:53:57] Sam: wear the green jumper. it says all three\n[24/10/2026, 16:54:14] Alex: the green jumper does have a calming energy\n[24/10/2026, 17:20:31] Alex: ok I've made a list of stories to tell them. 4 stories. I made a table. with colours\n[24/10/2026, 17:21:48] Sam: told you you're good at admin\n[24/10/2026, 17:21:55] Alex: shh\n[30/10/2026, 13:05:22] Alex: interview done. I talked too fast for the first five minutes and then forgot to be nervous\n[30/10/2026, 13:06:39] Alex: they asked what I'd do in the first month and I just said \"listen a lot\" and they both wrote it down\n[30/10/2026, 13:06:56] Alex: I don't know if that's good or if they were writing \"says obvious things\"\n[30/10/2026, 13:12:13] Sam: that's a great answer, that's exactly what they want to hear\n[30/10/2026, 13:20:30] Alex: whatever happens I think I've learned that I'm allowed to want this\n[30/10/2026, 13:20:47] Alex: which sounds small but it isn't for me\n[30/10/2026, 13:31:04] Sam: it's not small at all\n[30/10/2026, 13:32:21] Alex: ok enough feelings, pub on Saturday? I'm buying either way\n[30/10/2026, 13:33:38] Sam: obviously yes" },
+  romantic: { me:"Theo", target:"Lena", text:"[02/09/2026, 19:12:07] Lena: Hey, it's Lena from the climbing wall. Still not over that orange route that destroyed us both\n[02/09/2026, 19:40:24] Theo: Haha it destroyed me. You actually got to the top which is frankly suspicious\n[02/09/2026, 19:41:41] Theo: Glad you messaged, I was trying to work out if asking for your number was weird\n[02/09/2026, 19:44:58] Lena: Not weird. Slightly slow but not weird 😄\n[02/09/2026, 19:45:15] Theo: Fair. I'll take slow\n[02/09/2026, 20:02:32] Lena: Are you going Thursday?\n[02/09/2026, 20:03:49] Theo: Planning to. Want to try the overhang one together? I'll be your cautionary example\n[02/09/2026, 20:05:06] Lena: Deal\n[04/09/2026, 22:18:23] Theo: That was so fun. Sorry again about the chalk bag incident\n[04/09/2026, 22:19:40] Lena: Honestly it was the highlight. You looked like a ghost 👻\n[04/09/2026, 22:20:57] Theo: My dignity is still on the mat\n[04/09/2026, 22:31:14] Lena: Do you want to get food sometime? Not at the gym, somewhere with chairs\n[04/09/2026, 22:33:31] Theo: Yes. Very much yes. Saturday?\n[04/09/2026, 22:35:48] Lena: Saturday works. There's a Georgian place near the canal I've been wanting to try\n[04/09/2026, 22:35:55] Theo: Perfect\n[06/09/2026, 23:47:22] Theo: I had a really good time tonight. Like genuinely\n[06/09/2026, 23:51:39] Lena: Me too. The khachapuri was a religious experience\n[06/09/2026, 23:52:56] Lena: And you're easier to talk to than I expected\n[06/09/2026, 23:52:59] Theo: Expected?? what did you expect\n[06/09/2026, 23:53:30] Lena: Haha I don't know! Climbing guys can be a lot. You asked questions and listened to the answers\n[06/09/2026, 23:55:47] Theo: Low bar but I'll take it 😂\n[07/09/2026, 00:04:04] Lena: Go to sleep, you have the early shift\n[07/09/2026, 00:05:21] Theo: Says the person also awake\n[07/09/2026, 00:05:38] Lena: Touché. Night x\n[09/09/2026, 12:30:55] Theo: How did the presentation go?\n[09/09/2026, 14:52:12] Lena: Sorry, chaos day. It went ok! My boss asked a question I couldn't answer and I said \"great question, I'll follow up\" like a politician\n[09/09/2026, 14:53:29] Theo: That's the correct answer to every question honestly\n[09/09/2026, 14:53:46] Lena: Haha\n[09/09/2026, 14:54:03] Lena: Thanks for remembering it was today\n[09/09/2026, 14:58:20] Theo: Of course\n[13/09/2026, 10:05:37] Theo: Morning! Any plans for today?\n[13/09/2026, 10:06:54] Theo: I was thinking about the market by the station if you're free\n[13/09/2026, 16:40:11] Theo: No worries if you're busy\n[13/09/2026, 21:17:28] Lena: Sorry, I've been a bit underwater this weekend. Family stuff\n[13/09/2026, 21:18:45] Lena: Not ignoring you, I promise\n[13/09/2026, 21:20:02] Theo: Totally fine. Hope everything's ok?\n[13/09/2026, 21:31:19] Lena: Yeah, just my sister going through a breakup and I'm the designated listener\n[13/09/2026, 21:32:36] Theo: That's a lot. Don't worry about replying fast\n[13/09/2026, 21:40:53] Lena: Thank you, that actually helps to hear\n[17/09/2026, 19:05:10] Lena: Climbing tomorrow?\n[17/09/2026, 19:06:27] Theo: Yes!! I was hoping you'd ask\n[17/09/2026, 19:06:44] Theo: I mean. Cool. Sure. Casual yes\n[17/09/2026, 19:07:01] Lena: 😂😂 smooth\n[18/09/2026, 21:44:18] Theo: Can I say something slightly vulnerable\n[18/09/2026, 21:46:35] Lena: Of course\n[18/09/2026, 21:49:52] Theo: Last weekend when you went quiet I spiralled a bit. Told myself I'd said something wrong. Which I know is my thing, not yours\n[18/09/2026, 21:50:09] Theo: Just didn't want to pretend I'm more relaxed than I am\n[18/09/2026, 21:58:26] Lena: I really appreciate you saying that\n[18/09/2026, 21:59:43] Lena: I'm not great at texting when life gets busy. It's not a signal, it's just me being bad at phones\n[18/09/2026, 22:00:00] Lena: But I'll try to send a quick \"alive, busy\" next time\n[18/09/2026, 22:01:17] Theo: That would be perfect. Alive busy is all I need\n[18/09/2026, 22:01:34] Lena: Alive busy ❤️\n[20/09/2026, 01:12:51] Lena: Are you awake\n[20/09/2026, 01:13:08] Theo: Yes, unfortunately\n[20/09/2026, 01:13:25] Lena: Can't sleep. Thinking about whether I should take the Lisbon secondment\n[20/09/2026, 01:14:42] Theo: The six month one?\n[20/09/2026, 01:15:59] Lena: Yeah. Part of me really wants it and part of me is annoyed that I want it now\n[20/09/2026, 01:16:16] Theo: Because of us?\n[20/09/2026, 01:18:33] Lena: Maybe a little. Is that too much to say three weeks in\n[20/09/2026, 01:20:50] Theo: No. I like that you said it\n[20/09/2026, 01:21:07] Theo: For what it's worth I don't want to be a reason you don't go somewhere\n[20/09/2026, 01:22:24] Lena: That's a very good answer and also slightly annoying\n[20/09/2026, 01:22:41] Theo: Haha sorry\n[20/09/2026, 01:25:58] Lena: Don't be sorry. It was kind\n[20/09/2026, 01:31:15] Lena: Ok I'll try to sleep. Thank you for being awake\n[20/09/2026, 01:32:32] Theo: Anytime. Night x\n[24/09/2026, 18:10:49] Theo: Thinking of cooking on Friday. Something ambitious that might fail. You in?\n[24/09/2026, 18:45:06] Lena: Absolutely. Failure dinners are my favourite kind\n[24/09/2026, 18:46:23] Lena: What are we failing at?\n[24/09/2026, 18:47:40] Theo: Homemade pasta. I bought a machine. I've watched four videos\n[24/09/2026, 18:48:57] Lena: Four whole videos, wow, a professional\n[24/09/2026, 18:48:59] Theo: lol\n[27/09/2026, 00:41:31] Lena: Pasta was a triumph and I will hear no criticism\n[27/09/2026, 00:42:48] Theo: The ravioli exploded\n[27/09/2026, 00:42:55] Lena: The ravioli was rustic\n[27/09/2026, 00:43:22] Theo: hahaha\n[27/09/2026, 00:45:39] Lena: Thank you for tonight. I liked seeing your flat. It's very you\n[27/09/2026, 00:46:56] Theo: Is that a compliment\n[27/09/2026, 00:46:59] Lena: The plants are thriving and the sofa is falling apart. So yes\n[01/10/2026, 13:15:30] Lena: So. I said yes to Lisbon. I start in January\n[01/10/2026, 13:16:47] Lena: I wanted to tell you before I told anyone else\n[01/10/2026, 13:40:04] Theo: Wow. Congratulations, seriously. That's huge\n[01/10/2026, 13:41:21] Theo: I'm happy for you. And a bit sad for me, both at once\n[01/10/2026, 13:44:38] Lena: Me too. Both at once\n[01/10/2026, 13:45:55] Lena: Can we talk properly this weekend? About what we want this to be\n[01/10/2026, 13:46:12] Theo: Yes. I'd really like that\n[01/10/2026, 13:46:29] Lena: Ok. Sunday walk?\n[01/10/2026, 13:47:46] Theo: Sunday walk 🙂" },
+  friendship: { me:"Marco", target:"Priya", text:"[01/09/2026, 18:22:07] Priya: Marcooo it's been a month. Dinner this week? I'll book\n[01/09/2026, 18:59:24] Marco: Pri!! yes 100%. Thursday?\n[01/09/2026, 19:00:41] Priya: Thursday. That ramen place, 7:30\n[01/09/2026, 19:01:58] Marco: Perfect see you there\n[04/09/2026, 17:48:15] Marco: ahhh Pri I'm so sorry, work's exploded, can we move tonight?\n[04/09/2026, 17:49:32] Marco: I feel terrible\n[04/09/2026, 17:55:49] Priya: Ah no worries. Next week?\n[04/09/2026, 17:56:06] Marco: Yes definitely, you pick\n[04/09/2026, 17:57:23] Priya: Ok I'll look and send options\n[05/09/2026, 11:03:40] Priya: Options: Tue, Wed or Sat brunch\n[05/09/2026, 11:04:57] Priya: Also how did the work thing go?\n[05/09/2026, 15:29:14] Marco: Sat brunch!! work thing was a disaster lol, client changed everything at 5pm\n[05/09/2026, 15:30:31] Priya: Ugh sorry. Sat brunch it is, I'll book Lou's for 11\n[05/09/2026, 15:31:48] Marco: you're the best\n[12/09/2026, 11:02:05] Priya: Here, by the window\n[12/09/2026, 11:14:22] Marco: 10 mins away sorry!!\n[12/09/2026, 11:15:39] Priya: haha classic. I'll order you a coffee\n[12/09/2026, 13:40:56] Marco: That was so good. I needed that\n[12/09/2026, 13:41:13] Marco: Sorry I talked about the job the whole time\n[12/09/2026, 13:44:30] Priya: Don't be silly. That's what I'm here for\n[12/09/2026, 13:44:47] Priya: Next time you're paying though 😄\n[12/09/2026, 13:45:04] Marco: deal 😂\n[18/09/2026, 20:10:21] Priya: Hey, random question. Do you still have that tent? Mira and I want to camp in October\n[18/09/2026, 21:55:38] Marco: yes it's in my parents' garage, I can grab it for you\n[18/09/2026, 21:56:55] Priya: Amazing, thank you\n[25/09/2026, 09:12:12] Priya: Morning! Any chance of the tent this weekend?\n[25/09/2026, 09:13:29] Priya: No stress if not\n[25/09/2026, 14:30:46] Priya: Also I had the interview yesterday for the hospital job\n[25/09/2026, 22:05:03] Marco: oh no the tent, I totally forgot. I'll get it next week I promise\n[25/09/2026, 22:06:20] Marco: how was the interview?? \n[25/09/2026, 22:10:37] Priya: It went well I think! They asked me to come back for a second round\n[25/09/2026, 22:11:54] Marco: amazing!! you'll smash it\n[03/10/2026, 19:40:11] Priya: Can I vent for a minute\n[03/10/2026, 19:41:28] Priya: Second round was today and I froze on a question I knew the answer to. Like completely blanked\n[03/10/2026, 19:41:45] Priya: I've been replaying it all afternoon\n[03/10/2026, 19:42:02] Priya: I know it's probably fine but it was the one job I really wanted\n[03/10/2026, 19:44:19] Priya: Sorry, long message incoming\n[03/10/2026, 19:47:36] Priya: It's just that I've been in the same role for five years and every time something good gets close I find a way to mess it up, and I'm starting to wonder if it's actually me\n[04/10/2026, 12:30:53] Marco: Pri I'm so sorry I didn't see these last night, I was out with the team\n[04/10/2026, 12:31:10] Marco: it is NOT you. one blank in an interview doesn't decide anything\n[04/10/2026, 12:31:27] Marco: when do you hear back?\n[04/10/2026, 12:45:44] Priya: Friday. Thanks\n[04/10/2026, 12:46:01] Priya: It's ok, I was just in a mood\n[04/10/2026, 12:47:18] Marco: wanna get a drink thursday? my treat this time\n[04/10/2026, 12:49:35] Priya: Ok. Let's actually do it this time though 😅\n[04/10/2026, 12:50:52] Marco: haha fair. I deserve that\n[09/10/2026, 18:01:09] Priya: I got it!!!!! 🎉🎉🎉\n[09/10/2026, 18:02:26] Priya: they called this afternoon\n[09/10/2026, 18:02:43] Marco: WHAT!!! 🎉 I knew it\n[09/10/2026, 18:03:00] Marco: I'm so happy for you. seriously\n[09/10/2026, 18:03:17] Marco: champagne this weekend, I'm buying, no cancelling, I swear on the tent\n[09/10/2026, 18:04:34] Priya: hahaha the tent oath. I'm holding you to it\n[09/10/2026, 18:05:51] Marco: as you should 😂\n[11/10/2026, 20:31:08] Priya: Tonight was so lovely. Thank you for celebrating with me\n[11/10/2026, 20:33:25] Marco: you deserved it. honestly I'm sorry I've been a flaky friend lately\n[11/10/2026, 20:34:42] Marco: you always plan everything and I just show up late\n[11/10/2026, 20:36:59] Priya: I'm not going to pretend it hasn't bothered me a bit\n[11/10/2026, 20:36:59] Priya: But I appreciate you saying it\n[11/10/2026, 20:38:33] Marco: I want to do better. next one's on me. I'll plan it, you just turn up\n[11/10/2026, 20:39:50] Priya: I'll believe it when I see it 😄\n[11/10/2026, 20:39:53] Marco: watch this space\n[19/10/2026, 10:15:24] Marco: ok. planning. Saturday the 1st, cooking class, Thai food, 2pm. booked and paid\n[19/10/2026, 10:16:41] Marco: also the tent is in my car right now. it is real\n[19/10/2026, 10:22:58] Priya: Marco!!! that's amazing\n[19/10/2026, 10:22:59] Priya: and the tent lives 😂\n[19/10/2026, 10:24:32] Marco: the tent and I have both grown as people\n[19/10/2026, 10:24:49] Priya: hahaha\n[19/10/2026, 10:30:06] Priya: Thank you. This really means a lot\n[19/10/2026, 10:31:23] Marco: you mean a lot. took me a while to show it\n[01/11/2026, 19:12:40] Priya: Best day. My curry was objectively better than yours\n[01/11/2026, 19:13:57] Marco: lies but I'll allow it today\n[01/11/2026, 19:14:14] Priya: Same time next month? You plan again 😉\n[01/11/2026, 19:15:31] Marco: haha ok ok, deal. I'm getting good at this\n[01/11/2026, 19:15:48] Priya: you are actually ❤️" },
+  professional: { me:"Ravi", target:"Dana", text:"[05/10/2026, 08:42:07] Dana: Morning Ravi. Can you send me the launch checklist before 10? Leadership review moved up\n[05/10/2026, 08:58:24] Ravi: Morning! Yes, on it. Most of it's done, I just need QA sign off on the payments flow\n[05/10/2026, 08:59:41] Dana: Ok. Flag anything that's red, I'd rather know now\n[05/10/2026, 09:46:58] Ravi: Sent. Two reds: payments QA and the help centre articles\n[05/10/2026, 09:47:15] Ravi: Payments should be green by Wednesday. Help centre is blocked on legal\n[05/10/2026, 09:50:32] Dana: Thanks. Clear and early, that's exactly what I need\n[05/10/2026, 09:51:49] Dana: I'll chase legal myself, they ignore everyone below director\n[05/10/2026, 09:52:06] Ravi: Appreciated 🙏\n[06/10/2026, 17:05:23] Dana: Leadership asked if we can launch a week earlier\n[06/10/2026, 17:05:40] Dana: I said I'd check with you before committing to anything\n[06/10/2026, 17:30:57] Ravi: Honestly? Possible but risky. We'd skip the second beta round\n[06/10/2026, 17:31:14] Ravi: If we do, I'd want to cut the referral feature from v1\n[06/10/2026, 17:35:31] Dana: Agreed. Write me three lines on the trade off and I'll take it back to them\n[06/10/2026, 17:36:48] Ravi: Will do tonight\n[06/10/2026, 22:48:05] Ravi: Sent. Sorry it's late\n[07/10/2026, 07:15:22] Dana: No apology needed, but please don't work at 11pm for a three line note. It could have waited till morning\n[07/10/2026, 07:20:39] Ravi: Noted 😅\n[08/10/2026, 14:12:56] Dana: Quick one. In the meeting earlier, when Marcus pushed back on the timeline you went quiet\n[08/10/2026, 14:13:13] Dana: You had the data. I'd like you to say it next time, even if it's uncomfortable\n[08/10/2026, 14:30:30] Ravi: Fair. I wasn't sure it was my place with him being VP\n[08/10/2026, 14:31:47] Dana: It's your project. The data is your place\n[08/10/2026, 14:32:04] Dana: I'll back you in the room, but I can't speak for you\n[08/10/2026, 14:40:21] Ravi: Ok. That's helpful to hear honestly\n[08/10/2026, 14:41:38] Ravi: Can we practise the pushback bit before Friday? I tend to over-explain when I'm nervous\n[08/10/2026, 14:43:55] Dana: Yes. 15 mins Thursday at 4\n[09/10/2026, 16:20:12] Dana: That was much better. Shorter, numbers first\n[09/10/2026, 16:21:29] Ravi: Thanks. Still sounded wobbly in my head\n[09/10/2026, 16:22:46] Dana: Nobody can hear your head. They heard \"we lose 3 weeks of QA, risk is payments failing at launch\"\n[09/10/2026, 16:22:52] Ravi: haha true\n[13/10/2026, 11:05:20] Ravi: Payments QA is green ✅\n[13/10/2026, 11:05:37] Ravi: Help centre still blocked on legal though\n[13/10/2026, 11:20:54] Dana: Legal says Friday. I'll believe it on Friday\n[13/10/2026, 11:21:11] Ravi: 😂\n[17/10/2026, 18:55:28] Ravi: Legal sent comments. 42 of them\n[17/10/2026, 18:55:45] Ravi: Some are just commas but six change the refund wording properly\n[17/10/2026, 18:56:02] Ravi: I don't think we can turn those around before Monday without dropping something else\n[17/10/2026, 19:10:19] Dana: Ok. What would you drop?\n[17/10/2026, 19:14:36] Ravi: The onboarding video. We can ship with the static walkthrough and add the video in week two\n[17/10/2026, 19:15:53] Dana: Good call. Do it. I'll tell Marcus\n[17/10/2026, 19:16:10] Ravi: Thanks for not making me tell him 😅\n[17/10/2026, 19:17:27] Dana: That one's mine. You've got enough on\n[20/10/2026, 07:58:44] Dana: Launch day. However it goes, the prep was excellent\n[20/10/2026, 07:59:01] Ravi: Thank you. Very nervous, very caffeinated\n[20/10/2026, 08:00:18] Dana: Perfect launch state\n[20/10/2026, 12:33:35] Ravi: 1,200 sign ups in the first 4 hours. No payment errors so far\n[20/10/2026, 12:35:52] Dana: That's brilliant. Well done\n[20/10/2026, 12:36:09] Dana: Can you put a short note in the channel crediting QA and the help centre team? They'll want to see it from you\n[20/10/2026, 12:37:26] Ravi: Of course, doing it now\n[20/10/2026, 21:40:43] Ravi: Small issue, refund emails going out twice for some users. Looking into it\n[20/10/2026, 21:41:00] Ravi: Sorry, I know you're off now\n[20/10/2026, 21:52:17] Dana: Thanks for flagging. Is it customer facing harm or just noise?\n[20/10/2026, 21:55:34] Ravi: Noise mostly. No double refunds, just double emails\n[20/10/2026, 21:56:51] Dana: Ok. Log it, fix tomorrow. Go to bed\n[20/10/2026, 21:56:57] Ravi: Will do\n[24/10/2026, 15:10:25] Dana: Do you have 20 mins Monday for a proper debrief? I want to talk about what's next for you, not just the launch\n[24/10/2026, 15:30:42] Ravi: Yes, definitely. Should I prepare anything?\n[24/10/2026, 15:33:59] Dana: Just think about what you enjoyed and what drained you. Honest answers only\n[24/10/2026, 15:34:16] Ravi: Honest answers might involve legal 😂\n[24/10/2026, 15:35:33] Dana: Ha. Allowed\n[27/10/2026, 10:40:50] Ravi: Thanks for the chat this morning. I didn't expect the lead role conversation, still processing\n[27/10/2026, 10:45:07] Dana: You've earned it. Take the week to think, no pressure either way\n[27/10/2026, 10:46:24] Ravi: I will. One honest worry: I'm not sure I'm good at saying no to people\n[27/10/2026, 10:49:41] Dana: Then that's what we work on next. It's a skill, not a personality trait\n[27/10/2026, 10:50:58] Ravi: Ok. I like that framing\n[27/10/2026, 10:51:15] Dana: Me too, I stole it from my old boss 🙂" },
+  family: { me:"Clara", target:"Mum", text:"[02/11/2026, 09:15:07] Mum: Morning darling. Have you booked your train for Christmas yet?\n[02/11/2026, 09:16:24] Mum: Your aunt is asking who's coming so she can plan the table\n[02/11/2026, 11:48:41] Clara: Morning! Not yet, still working out plans with Tom\n[02/11/2026, 11:49:58] Mum: Plans? I thought you were coming here like always\n[02/11/2026, 11:52:15] Clara: We were thinking of doing Christmas Day at his parents this year and coming to you on the 27th\n[02/11/2026, 11:59:32] Mum: Oh\n[02/11/2026, 12:00:49] Mum: Well. If that's what you want\n[02/11/2026, 12:01:06] Mum: I'll tell your aunt you won't be there then\n[02/11/2026, 12:15:23] Clara: Mum it's not that I don't want to come. We did yours three years running\n[02/11/2026, 12:16:40] Clara: His mum's been on her own since his dad died, it matters to him\n[02/11/2026, 12:30:57] Mum: I know, I'm not saying anything\n[02/11/2026, 12:31:14] Mum: It's just that your father always carves on Christmas Day and he likes everyone there\n[02/11/2026, 12:40:31] Clara: I know. I'll call him tonight\n[02/11/2026, 20:30:48] Clara: Talked to Dad. He said it's fine and he'll save me the crispy bits on the 27th\n[02/11/2026, 20:42:05] Mum: Your father says everything is fine\n[02/11/2026, 20:43:22] Mum: He's not the one who cooks\n[02/11/2026, 20:45:39] Clara: I can help with the cooking on the 27th if that helps?\n[02/11/2026, 20:47:56] Mum: We'll see\n[05/11/2026, 08:02:13] Mum: Did you see the news about the storms up north? Is your flat ok?\n[05/11/2026, 08:30:30] Clara: All fine here! Just windy. Thanks for checking\n[05/11/2026, 08:31:47] Mum: Make sure you close the bathroom window. You always leave it open\n[05/11/2026, 08:32:04] Clara: Mum I'm 34 😅\n[05/11/2026, 08:32:21] Mum: 34 and leaves the window open\n[05/11/2026, 08:33:38] Clara: haha ok fine it's closed\n[09/11/2026, 19:05:55] Mum: Sorry about the other day, about Christmas. I was disappointed but I shouldn't have been short with you\n[09/11/2026, 19:20:12] Clara: Thank you for saying that. I know it's hard when things change\n[09/11/2026, 19:21:29] Clara: I don't want you to feel like we're picking his family over you\n[09/11/2026, 19:25:46] Mum: I know you're not. I suppose I'm just used to all of you being here\n[09/11/2026, 19:26:03] Mum: When your grandmother started going to your uncle's I was cross for a whole year 😂\n[09/11/2026, 19:27:20] Clara: haha I remember! You made three puddings out of spite\n[09/11/2026, 19:27:37] Mum: They were very good puddings\n[09/11/2026, 19:28:54] Clara: they were incredible puddings\n[14/11/2026, 10:40:11] Mum: Your brother says he's bringing his new girlfriend on the 27th. Do you know anything about her?\n[14/11/2026, 10:52:28] Clara: Only that her name is Juno and she's a vet\n[14/11/2026, 10:53:45] Mum: A vet! Well that's something\n[14/11/2026, 10:53:48] Mum: Is she vegetarian? I need to know for the menu\n[14/11/2026, 10:55:19] Clara: No idea Mum, ask Leo\n[14/11/2026, 10:56:36] Mum: Leo never answers his phone\n[14/11/2026, 10:56:53] Mum: You're the only one who answers\n[14/11/2026, 10:58:10] Clara: I know. I'm the family switchboard 😂\n[14/11/2026, 11:00:27] Mum: You always were\n[18/11/2026, 21:14:44] Clara: Mum can I ask something\n[18/11/2026, 21:20:01] Mum: Of course\n[18/11/2026, 21:24:18] Clara: When I said we weren't coming Christmas Day, you said \"if that's what you want\" and then went quiet. That's the bit that hurts more than anything you actually say\n[18/11/2026, 21:25:35] Clara: I'd rather you just tell me you're upset\n[18/11/2026, 21:40:52] Mum: I didn't realise it came across like that\n[18/11/2026, 21:41:09] Mum: My mother used to do that to me and I swore I wouldn't\n[18/11/2026, 21:43:26] Mum: I'm sorry love. I am upset. And I also understand. Both\n[18/11/2026, 21:45:43] Clara: Thank you. Both is fine. Both I can work with ❤️\n[18/11/2026, 21:47:00] Mum: ❤️\n[22/11/2026, 14:05:17] Mum: I've decided we're doing a second Christmas on the 27th. Full turkey. Crackers. The lot\n[22/11/2026, 14:06:34] Mum: Your father is thrilled, he gets to carve twice\n[22/11/2026, 14:10:51] Clara: Mum that's brilliant 😂\n[22/11/2026, 14:11:08] Clara: Can I bring the pudding this year? Tom's mum gave me her recipe\n[22/11/2026, 14:20:25] Mum: Her recipe?\n[22/11/2026, 14:21:42] Mum: Well. Bring it. We'll have two puddings. A competition\n[22/11/2026, 14:22:59] Clara: oh no\n[22/11/2026, 14:22:59] Mum: You started it\n[22/11/2026, 14:23:33] Clara: hahaha I really didn't\n[22/11/2026, 14:30:50] Mum: Love you. Train times when you have them please\n[22/11/2026, 14:31:07] Clara: Love you too. Booking tonight, promise\n[22/11/2026, 21:05:24] Clara: Booked. Arriving 11:42 on the 26th, staying till the 29th\n[22/11/2026, 21:08:41] Mum: Wonderful. I'll make up your room. Window closed 😉" },
+  group: { me:"Bea", target:"Jonas", text:"[06/10/2026, 19:02:07] Jonas: Ok team. Hiking weekend. 7 to 9 November. Lake District. Who's in\n[06/10/2026, 19:03:24] Felix: in. as long as nobody makes me get up before 8\n[06/10/2026, 19:03:41] Bea: IN 🙌\n[06/10/2026, 19:05:58] Jonas: Felix we're climbing Helvellyn, we are getting up before 8\n[06/10/2026, 19:05:59] Felix: then I am out\n[06/10/2026, 19:05:59] Felix: (I'm in)\n[06/10/2026, 19:06:49] Bea: hahaha\n[06/10/2026, 19:30:06] Ines: I'm in too. Can I let you know about Friday though? Might have to work\n[06/10/2026, 19:31:23] Jonas: Sure. I'll find a cottage for 4 and we can sort the details later\n[06/10/2026, 19:32:40] Bea: Jonas the planner strikes again\n[06/10/2026, 19:32:57] Jonas: someone has to 😂\n[08/10/2026, 13:15:14] Jonas: Found two cottages. Option A: Grasmere, cosy, £95 each. Option B: Glenridding, by the lake, £120 each but has a hot tub\n[08/10/2026, 13:16:31] Felix: B. it's not even a question\n[08/10/2026, 13:16:48] Bea: B obviously 🛁\n[08/10/2026, 13:20:05] Jonas: Ines?\n[08/10/2026, 16:02:22] Jonas: @Ines?\n[08/10/2026, 18:44:39] Ines: Sorry, been in meetings all day. B is a bit much for me right now honestly. Could we do A?\n[08/10/2026, 18:46:56] Felix: hot tub though 😭\n[08/10/2026, 18:47:13] Bea: I'm happy with A! Cosy is good\n[08/10/2026, 18:50:30] Jonas: Ok A it is. Booking now so we don't lose it\n[08/10/2026, 18:51:47] Felix: rip hot tub, gone but not forgotten\n[08/10/2026, 18:52:04] Ines: Thanks guys, I appreciate it 🙏\n[15/10/2026, 20:10:21] Bea: Car sharing? I can drive, 4 seats\n[15/10/2026, 20:11:38] Felix: I call shotgun. I bring snacks and opinions\n[15/10/2026, 20:12:55] Jonas: I'll ride with Bea. Ines?\n[15/10/2026, 20:40:12] Ines: Still waiting to hear about Friday 😞 I might have to come up Saturday morning by train\n[15/10/2026, 20:41:29] Bea: No stress, we'll work it out\n[15/10/2026, 20:42:46] Jonas: Train gets into Windermere at 10ish, one of us can pick you up\n[15/10/2026, 20:43:03] Ines: That's so kind, thank you\n[22/10/2026, 11:00:20] Jonas: Kit check. Waterproofs, proper boots, head torch, layers. It'll be cold at the top\n[22/10/2026, 11:01:37] Felix: does a hoodie count as layers\n[22/10/2026, 11:01:54] Jonas: no\n[22/10/2026, 11:02:11] Felix: two hoodies?\n[22/10/2026, 11:02:28] Bea: 😂😂\n[22/10/2026, 11:03:45] Jonas: Felix I'm begging you\n[22/10/2026, 11:05:02] Felix: fine I'll borrow my brother's coat. it has a fur hood. I will look magnificent\n[22/10/2026, 11:06:19] Bea: we're going to have so many photos of you\n[22/10/2026, 11:30:36] Ines: Good news, I got Friday off! I can come with you all 🎉\n[22/10/2026, 11:31:53] Bea: YESSS\n[22/10/2026, 11:31:59] Jonas: Amazing 🙌\n[22/10/2026, 11:32:27] Felix: the gang is complete\n[30/10/2026, 21:15:44] Jonas: Proposed plan. Sat: Helvellyn via Striding Edge, leave 7:30. Sun: easy lake walk then pub lunch\n[30/10/2026, 21:17:01] Bea: Love it\n[30/10/2026, 21:20:18] Felix: 7:30 is a crime but I accept the plan\n[30/10/2026, 21:35:35] Ines: Can I say something? I'm a bit nervous about Striding Edge. I've read it's quite exposed and I'm not great with heights\n[30/10/2026, 21:37:52] Ines: I don't want to slow everyone down\n[30/10/2026, 21:39:09] Bea: You won't slow anyone down! We can do the other route up together if you want\n[30/10/2026, 21:40:26] Felix: honestly I'm also scared of it, I was just going to pretend I wasn't\n[30/10/2026, 21:40:43] Ines: haha really?\n[30/10/2026, 21:41:00] Felix: 100%. I have a fur hood, not a death wish\n[30/10/2026, 21:42:17] Jonas: Ok good to know. Let's do the Swirral Edge path instead, still great views, less scrambling\n[30/10/2026, 21:43:34] Jonas: Should have checked with everyone before planning the hard route, my bad\n[30/10/2026, 21:44:51] Ines: Thank you, that's a relief 🙏\n[07/11/2026, 18:20:08] Bea: Leaving mine in 10. Felix you better be outside\n[07/11/2026, 18:31:25] Felix: I'm outside. I've been outside for 6 minutes. I am a changed man\n[07/11/2026, 18:32:42] Bea: who are you\n[07/11/2026, 18:32:59] Jonas: screenshot this\n[07/11/2026, 22:47:16] Ines: The cottage is perfect. Thank you for organising Jonas\n[07/11/2026, 22:48:33] Jonas: Team effort 😊\n[07/11/2026, 22:50:50] Felix: the fireplace is my new best friend\n[07/11/2026, 22:51:07] Bea: we have known you for 9 years Felix\n[08/11/2026, 06:55:24] Jonas: Morning! Porridge in 15\n[08/11/2026, 06:58:41] Felix: why is it dark. why do we live like this\n[08/11/2026, 07:00:58] Bea: 😂\n[08/11/2026, 16:40:15] Jonas: What a day. Everyone made it up and down in one piece\n[08/11/2026, 16:41:32] Ines: I'm so glad I came. That view from the top 😍\n[08/11/2026, 16:42:49] Bea: Ines you were brilliant on the ridge\n[08/11/2026, 16:43:06] Ines: I was scared the whole time haha but it was worth it\n[08/11/2026, 16:44:23] Felix: I cried a bit at the summit but it was the wind\n[08/11/2026, 16:44:40] Bea: sure Felix\n[08/11/2026, 16:45:57] Felix: the wind 😤\n[10/11/2026, 09:30:14] Bea: Photos are in the shared album! Felix in the fur hood is my new wallpaper\n[10/11/2026, 09:45:31] Felix: I look like a heroic yak\n[10/11/2026, 09:46:48] Ines: majestic yak\n[10/11/2026, 09:50:05] Jonas: Same time next year? I'll start a list\n[10/11/2026, 09:51:22] Felix: of course you will\n[10/11/2026, 09:52:39] Bea: Jonas never change\n[10/11/2026, 09:55:56] Ines: Count me in. And maybe a hot tub next time? 😄\n[10/11/2026, 09:56:13] Felix: FINALLY. justice" },
+};
+// ==samples:end==
+function trySample(){
+  clearErr();
+  if(!lens){
+    showErr("Pick a lens first, then try the sample conversation for it.");
+    $("p1").scrollIntoView({behavior:"smooth",block:"start"});
+    return;
+  }
+  const key = slugOf(lens.id), s = SAMPLES[key];
+  if(!s) return;
+  source = null; paintSources();
+  $("howWrap").classList.add("hide");
+  track("import_method", { method: "sample" });
+  acceptParsed(parseConversation(s.text), "Sample conversation, fictional", { sampleId: key, me: s.me, target: s.target });
 }
 
 // ---------- parsing ----------
@@ -821,6 +924,7 @@ async function readZipText(buf){
 function loadFile(ev){
   const f = ev.target.files && ev.target.files[0]; if(!f) return;
   clearErr();
+  track("import_method", { method: /\.zip$/i.test(f.name) ? "zip" : /\.json$/i.test(f.name) || source === "telegram" ? "telegram" : "whatsapp" });
   const done = (text, label) => {
     try{
       const msgs = /\.json$/i.test(label) || text.trim().startsWith("{")
@@ -849,6 +953,7 @@ function parsePasted(){
   clearErr();
   const raw = $("chat").value;
   if(!raw.trim()){ showErr("Paste the conversation into the box first."); return }
+  track("import_method", { method: "paste" });
   acceptParsed(parseConversation(raw), null);
 }
 
@@ -898,7 +1003,9 @@ function paintPeople(){
 function setMe(n){ meName = n; if(targetName === n) targetName = ""; paintPeople() }
 function setTarget(n){ targetName = n; paintPeople() }
 
-function acceptParsed(msgs, fileName){
+function acceptParsed(msgs, fileName, opts){
+  // Any real import clears the sample; only trySample() sets it.
+  sampleId = (opts && opts.sampleId) || null;
   if(!msgs || msgs.length < 4){
     showErr("I could only read " + (msgs ? msgs.length : 0) + " messages from that. If you pasted text, each line needs to start with who said it, like <b>Sophie: hey</b>.");
     return;
@@ -928,6 +1035,12 @@ function acceptParsed(msgs, fileName){
     targetName = people[0] ? people[0].name : "";
     if(people.length > 2) targetName = "";
   }
+  // A sample knows who "you" are, so the who-is-who step is already right.
+  if(opts && opts.me && counts[opts.me]){
+    meName = opts.me;
+    targetName = isSelfLens() ? meName : (opts.target && counts[opts.target] && opts.target !== meName ? opts.target : targetName);
+  }
+  track("parsed_ok", { bucket: countBucket(msgs.length) });
 
   const total = msgs.length.toLocaleString();
   $("parsedLine").innerHTML = (fileName ? esc(fileName) + " &middot; " : "") +
@@ -1400,7 +1513,11 @@ function buildPayload(){
   })).slice(-600);
   const t = msgs.filter(m=>m.sender==="TARGET").length;
   const words = msgs.reduce((a,m)=>a+m.content.split(/\s+/).length,0);
+  const extra = sampleId ? { sample: true, sampleId } : {};
   return {
+    ...extra,
+    // noStore: the /analyze fallback must not keep a cached copy of the report
+    noStore: true,
     deviceId: deviceId(), analysis_type: lens.id, language: $("lang").value,
     messages: msgs, features: {},
     metadata: {
@@ -1466,6 +1583,9 @@ async function analyze(){
   waitStart();
   $("working").scrollIntoView({behavior:"smooth",block:"start"});
   lastKey = "a" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  const isSample = !!sampleId, t0 = Date.now();
+  RUN.t0 = t0; RUN.firstText = false;
+  track("reading_started", { lens: slugOf(lens.id), sample: isSample }, { flush:true });
 
   const headers = { "Content-Type":"application/json", "X-Web-Token": session.token, "X-Device-Id": deviceId() };
 
@@ -1474,21 +1594,35 @@ async function analyze(){
     try{
       report = await streamAnalyze(payload, headers);
     }catch(streamErr){
-      if(streamErr && streamErr.paywall) throw streamErr;
+      if(streamErr && (streamErr.paywall || streamErr.final)) throw streamErr;
+      // Samples run only on the streamed route, where the server can waive the credit.
+      if(isSample){
+        const e = new Error("The sample reading did not come through. Give it a minute and try again.");
+        e.code = failCode(streamErr); throw e;
+      }
       console.warn("stream failed, falling back:", streamErr && streamErr.message);
       waitFallback();
       const res = await fetch(API + "/analyze", { method:"POST", headers, body: payload });
       const data = await res.json();
       if(res.status === 402){ const e = new Error("paywall"); e.paywall = true; throw e }
-      if(res.status === 429) throw new Error("That is a lot of readings in a short time. Give it a minute, then try again.");
+      if(res.status === 429){ const e = new Error("That is a lot of readings in a short time. Give it a minute, then try again."); e.code = "rate_limit"; throw e }
       if(!res.ok) throw new Error(data.error || ("The service returned " + res.status));
       report = data;
     }
     waitDone();
-    render(report); consumeCredit(); rail(4); offerInstall();
+    runWasSample = isSample;
+    render(report);
+    if(!isSample) consumeCredit();   // the sample never spends the reading
+    rail(4); offerInstall();
+    track("reading_done", { secs: Math.round((Date.now() - t0) / 1000), sample: isSample }, { flush:true });
   }catch(e){
-    if(e && e.paywall){ $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"}) }
-    else showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
+    if(e && e.paywall){
+      $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"});
+      track("paywall_shown", {}, { flush:true });
+    } else {
+      track("reading_failed", { code: failCode(e) }, { flush:true });
+      showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
+    }
   }finally{
     waitStop();
     $("working").classList.add("hide");
@@ -1496,9 +1630,17 @@ async function analyze(){
   }
 }
 
+const RUN = { t0: 0, firstText: false };
 async function streamAnalyze(payload, headers){
   const res = await fetch(API + "/analyze/stream", { method:"POST", headers, body: payload });
   if(res.status === 402){ const e = new Error("paywall"); e.paywall = true; throw e }
+  if(res.status === 429){
+    const d = await res.json().catch(() => ({}));
+    const e = new Error(d.error === "sample_limit"
+      ? "That is the sample run as many times as it can be today. Try it with one of your own conversations, it reads exactly the same way."
+      : "That is a lot of readings in a short time. Give it a minute, then try again.");
+    e.code = d.error === "sample_limit" ? "sample_limit" : "rate_limit"; e.final = true; throw e;
+  }
   if(!res.ok || !res.body) throw new Error("stream unavailable (" + res.status + ")");
 
   const reader = res.body.getReader();
@@ -1518,6 +1660,7 @@ async function streamAnalyze(payload, headers){
       let d; try{ d = JSON.parse(dl) }catch(_){ continue }
       if(ev === "stage"){ waitStage(d.stage, d.label) }
       else if(ev === "delta"){
+        if(!RUN.firstText && d.t){ RUN.firstText = true; track("first_text", { secs: Math.round((Date.now() - RUN.t0) / 1000) }) }
         prose += d.t || "";
         waitProse(prose);
       }
@@ -1543,6 +1686,7 @@ async function consumeCredit(){
 
 async function buy(pack, plan){
   clearErr();
+  track("checkout_clicked", { plan: plan || pack || "" }, { flush:true, beacon:true });
   try{
     const r = await fetch(API + "/web/checkout", {
       method:"POST", headers:{"Content-Type":"application/json"},
@@ -1710,6 +1854,7 @@ async function tgLoadChat(){
     }
     if(out.length < 4){ showErr("That conversation only has " + out.length + " text messages. Pick one with more, or load more messages."); return }
     tgSay("");
+    track("import_method", { method: "telegram" });
     acceptParsed(out, "Telegram: " + (d.title || d.name));
   }catch(e){ showErr(tgError(e)) }
   finally{ btn.disabled = false; btn.textContent = "Load this conversation" }
@@ -1775,6 +1920,7 @@ function offerInstall(){
     $("installText").textContent = "Use the install icon in your browser's address bar to keep Persona Lens one click away.";
   }
   box.classList.remove("hide");
+  track("install_prompt_shown", { kind: deferredPrompt ? "prompt" : isIOS ? "ios" : isAndroid ? "android" : "desktop" }, { once:true });
 }
 async function doInstall(){
   if(!deferredPrompt) return;
@@ -1897,8 +2043,10 @@ function render(data){
   if(cut){ headline = cut[1]; rest = cut[2] }
   const headCls = headline.length > 150 ? " long" : "";
 
-  let html = `<div class="rep-hero">
-      <span class="lenstag"><img src="/assets/${lens ? lens.icon : "appicon.png"}" alt="">${esc(lens ? lens.name : "")} Lens</span>
+  let html = runWasSample ? `<div class="sample-cta"><b>This is a sample reading of a made-up conversation.</b> Yours reads your real chat the same way, and the first one is free.
+      <br><button class="btn btn-primary" onclick="readMine()">Read my own conversation</button></div>` : "";
+  html += `<div class="rep-hero">
+      <span class="lenstag"><img src="/assets/${lens ? lens.icon : "appicon.png"}" alt="">${esc(lens ? lens.name : "")} Lens</span>${runWasSample ? `<span class="sampletag">Sample reading</span>` : ""}
       ${headline ? `<h2 class="${headCls.trim()}">${esc(headline)}</h2>` : ""}
       ${rest ? `<p class="hero-rest">${esc(rest)}</p>` : ""}
       <p class="who">${esc(targetName)} &middot; ${parsedMsgs.length.toLocaleString()} messages read</p>
@@ -1945,7 +2093,8 @@ function render(data){
 function reportAsText(){
   if(!lastReport) return "";
   const lines = [];
-  lines.push(`Persona Lens — ${lens ? lens.name : ""} Lens reading of ${targetName}`);
+  lines.push(`Persona Lens: ${lens ? lens.name : ""} Lens reading of ${targetName}`);
+  if(runWasSample) lines.push("Sample reading of a made-up conversation");
   lines.push(`${parsedMsgs.length} messages read`);
   if(lastReport.executive_summary) lines.push("", lastReport.executive_summary);
   const walk = (o, depth) => {
@@ -1963,8 +2112,12 @@ function reportAsText(){
   };
   const rest = Object.assign({}, lastReport); delete rest.executive_summary; delete rest._meta;
   lines.push(""); walk(rest, 0);
-  lines.push("", "Read your own at persona-lens.com");
+  lines.push("", shareLine());
   return lines.join("\n");
+}
+function shareLine(){ return SHARE_LINE[CODE_BY_LANG[$("lang").value] || "en"] || SHARE_LINE.en }
+function readMine(){
+  $("p2").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function printReport(){
   document.querySelectorAll("#out details.sect").forEach(d => d.open = true);
@@ -1972,9 +2125,10 @@ function printReport(){
 }
 async function shareReport(){
   const text = reportAsText();
-  const title = `Persona Lens — ${lens ? lens.name : ""} reading`;
+  const title = `Persona Lens: ${lens ? lens.name : ""} reading`;
   try{
-    if(navigator.share){ await navigator.share({ title, text, url: "https://persona-lens.com/app/" }); return }
+    // The link is already the last line of the text; passing url too makes many apps paste it twice.
+    if(navigator.share){ await navigator.share({ title, text }); return }
     await navigator.clipboard.writeText(text);
     toast("Copied. Paste it wherever you like.");
   }catch(e){ if(String(e.name) !== "AbortError") toast("Could not share on this device.") }
@@ -2002,13 +2156,39 @@ drop.addEventListener("drop", ev => {
 });
 
 // ---------- boot ----------
+// ==deeplink:start==
+// Pure: what a marketing link asks for. Unknown or missing values come back null.
+function parseDeepLink(search){
+  const q = new URLSearchParams(search || "");
+  const ls = (q.get("lens") || "").trim().toLowerCase();
+  const lc = (q.get("lang") || "").trim().toLowerCase();
+  const src = (q.get("src") || "").trim().toLowerCase();
+  return {
+    lensId: LENS_BY_SLUG[ls] || null,
+    langCode: LANG_BY_CODE[lc] ? lc : null,
+    language: LANG_BY_CODE[lc] || null,
+    src: /^[a-z0-9][a-z0-9_.-]{0,39}$/.test(src) ? src : null
+  };
+}
+// ==deeplink:end==
+function applyLangCode(code){
+  $("privacyLink").href = SAFE_GUIDE[code] || SAFE_GUIDE.en;
+  document.querySelectorAll(".lang-picker .lang-flag").forEach(f => f.classList.toggle("active", f.classList.contains("flag-" + code)));
+}
+$("lang").addEventListener("change", () => { $("privacyLink").href = SAFE_GUIDE[CODE_BY_LANG[$("lang").value]] || SAFE_GUIDE.en });
+
 (async function(){
   paintLenses(); paintSources();
-  const q = new URLSearchParams(location.search);
-  const l = LANG_BY_CODE[(q.get("lang")||"").toLowerCase()];
-  if(l) $("lang").value = l;
+  const dl = parseDeepLink(location.search);
+  if(dl.language){ $("lang").value = dl.language; applyLangCode(dl.langCode) }
+  try{ if(dl.src) sessionStorage.setItem("pl_src", dl.src) }catch(_){}
+  // a lens in the link behaves exactly like tapping it
+  if(dl.lensId) pickLens(dl.lensId);
   await loadSession();
-  if(q.get("paid") === "1"){
+  let opened = false;
+  try{ opened = !!sessionStorage.getItem("pl_opened"); sessionStorage.setItem("pl_opened", "1") }catch(_){}
+  if(!opened) track("app_open", Object.assign({ src: attribution() }, dl.lensId ? { lens: slugOf(dl.lensId) } : {}, dl.langCode ? { lang: dl.langCode } : {}));
+  if(new URLSearchParams(location.search).get("paid") === "1"){
     for(let i=0;i<6 && (!session || (!session.credits && !session.premium));i++){
       await new Promise(r=>setTimeout(r,1500)); await loadSession();
     }
@@ -2018,5 +2198,6 @@ drop.addEventListener("drop", ev => {
   if(!isStandalone()) offerInstall();
 })();
 </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b5433df6084448bfb1126a4a7d790d15"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
