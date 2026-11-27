@@ -243,7 +243,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 
   <div class="app-head">
     <h1>Read a conversation</h1>
-    <span class="bal" id="bal"></span>
+    <span class="bal" id="bal" onclick="if(!(session&&session.premium))openCode()" style="cursor:pointer"></span>
   </div>
   <p class="lede" style="color:var(--text-2);margin:0 0 4px;font-size:16px">Six lenses, one real conversation, a structured reading in about three minutes. Nothing you paste is stored.</p>
 
@@ -401,6 +401,16 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
     <div class="plan-grid" id="plans"></div>
     <label style="margin-top:18px">Or pay as you go</label>
     <div class="plan-grid" id="packs"></div>
+    <p style="margin:18px 0 0;text-align:center"><a href="#" onclick="openCode();return false" style="color:var(--text-2);font-size:14px">Have a code?</a></p>
+  </section>
+
+  <section class="panel hide" id="codeBox">
+    <label style="margin-top:0">Access code</label>
+    <div style="display:flex;gap:8px">
+      <input id="codeIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter your code" style="flex:1;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px">
+      <button class="btn btn-primary" id="codeBtn" onclick="redeemCode()">Unlock</button>
+    </div>
+    <p id="codeMsg" style="margin:10px 0 0;font-size:14px;color:var(--text-2)"></p>
   </section>
 
   <!-- REPORT -->
@@ -528,6 +538,30 @@ function paintBalance(){
   b.classList.remove("premium");
   const c = session.credits || 0;
   b.textContent = c > 0 ? (c === 1 ? "1 free reading" : c + " readings left") : "No readings left";
+}
+function openCode(){
+  $("codeBox").classList.remove("hide");
+  $("codeBox").scrollIntoView({behavior:"smooth",block:"center"});
+  setTimeout(() => $("codeIn").focus(), 300);
+}
+async function redeemCode(){
+  const code = $("codeIn").value.trim();
+  if(!code) return;
+  $("codeBtn").disabled = true; $("codeMsg").textContent = "Checking…";
+  try{
+    const r = await fetch(`${API}/web/redeem`, {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({deviceId: deviceId(), code})});
+    const d = await r.json();
+    if(d.ok){
+      $("codeMsg").textContent = "Unlocked. This device now has unlimited readings.";
+      $("paywall").classList.add("hide");
+      await loadSession();
+      setTimeout(() => $("codeBox").classList.add("hide"), 2500);
+    } else {
+      $("codeMsg").textContent = d.error || "That code is not valid.";
+    }
+  }catch(e){ $("codeMsg").textContent = "Could not reach Persona Lens. Try again." }
+  $("codeBtn").disabled = false;
 }
 function paintPlans(){
   if(!session) return;
