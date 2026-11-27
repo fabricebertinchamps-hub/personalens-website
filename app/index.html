@@ -135,7 +135,7 @@ label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:var(-
 .pw-trust{margin:10px 0 0;text-align:center;font-size:12.5px;color:var(--text-3);line-height:1.5}
 .pw-more{margin-top:14px}
 .pw-links{margin:16px 0 0;text-align:center;font-size:13.5px;line-height:2}
-.pw-links a{color:var(--text-2)}
+.pw-links a{color:var(--text-2);white-space:nowrap}
 .pw-links span{color:var(--text-3);margin:0 7px}
 .upsell{margin:22px 0 8px;border:1.5px solid var(--border);border-radius:16px;padding:18px;background:var(--elevated)}
 .upsell h3{margin:0 0 6px;font-size:18px}
@@ -816,7 +816,7 @@ const PW = {
       yearly:"Yearly, unlimited", monthly:"Monthly, unlimited", single:"Just one reading",
       perMonth:"a month", billedYear:p=>`${p} billed once a year`, billedMonth:"Billed monthly, cancel any time", oneOff:"One-off, never expires",
       save:n=>`Save ${n}%`, cta:{yearly:"Continue with yearly", monthly:"Continue with monthly", single:"Buy one reading", five:"Buy 5 readings", ten:"Buy 10 readings"},
-      trust:"Secure payment by Stripe. Cancel any time by email. Prices in USD; your bank may show your own currency.",
+      trust:"Secure payment by Stripe. Cancel any time by email. Prices in USD; checkout may show your local currency.",
       more:"More reading packs", less:"Fewer options", code:"Have a code?", restore:"Restore a purchase",
       pack:n=>`${n} readings`, packSub:"One-off, never expire",
       upTitle:"Liked your reading?", upText:"Your free reading is used. Unlimited readings in all six lenses start at $4.17 a month.", upCta:"See options"},
@@ -825,7 +825,7 @@ const PW = {
       yearly:"Annuel, illimité", monthly:"Mensuel, illimité", single:"Une seule lecture",
       perMonth:"par mois", billedYear:p=>`${p} facturés une fois par an`, billedMonth:"Facturé chaque mois, sans engagement", oneOff:"Achat unique, n'expire jamais",
       save:n=>`-${n} %`, cta:{yearly:"Continuer avec l'annuel", monthly:"Continuer avec le mensuel", single:"Acheter une lecture", five:"Acheter 5 lectures", ten:"Acheter 10 lectures"},
-      trust:"Paiement sécurisé par Stripe. Résiliable à tout moment par e-mail. Prix en USD ; votre banque peut afficher votre devise.",
+      trust:"Paiement sécurisé par Stripe. Résiliable à tout moment par e-mail. Prix en USD ; le paiement peut s'afficher dans votre devise.",
       more:"Plus de packs de lectures", less:"Moins d'options", code:"Vous avez un code ?", restore:"Restaurer un achat",
       pack:n=>`${n} lectures`, packSub:"Achat unique, n'expirent jamais",
       upTitle:"Votre lecture vous a plu ?", upText:"Votre lecture gratuite est utilisée. Les lectures illimitées dans les six lentilles commencent à 4,17 $ par mois.", upCta:"Voir les options"},
@@ -834,7 +834,7 @@ const PW = {
       yearly:"Anual, ilimitado", monthly:"Mensual, ilimitado", single:"Solo una lectura",
       perMonth:"al mes", billedYear:p=>`${p} cobrados una vez al año`, billedMonth:"Cobro mensual, cancela cuando quieras", oneOff:"Pago único, no caduca",
       save:n=>`Ahorra ${n} %`, cta:{yearly:"Continuar con el anual", monthly:"Continuar con el mensual", single:"Comprar una lectura", five:"Comprar 5 lecturas", ten:"Comprar 10 lecturas"},
-      trust:"Pago seguro con Stripe. Cancela cuando quieras por correo. Precios en USD; tu banco puede mostrar tu moneda.",
+      trust:"Pago seguro con Stripe. Cancela cuando quieras por correo. Precios en USD; el pago puede mostrarse en tu moneda.",
       more:"Más paquetes de lecturas", less:"Menos opciones", code:"¿Tienes un código?", restore:"Restaurar una compra",
       pack:n=>`${n} lecturas`, packSub:"Pago único, no caducan",
       upTitle:"¿Te gustó tu lectura?", upText:"Ya usaste tu lectura gratis. Las lecturas ilimitadas en las seis lentes empiezan en 4,17 $ al mes.", upCta:"Ver opciones"},
@@ -843,7 +843,7 @@ const PW = {
       yearly:"Год, без ограничений", monthly:"Месяц, без ограничений", single:"Один разбор",
       perMonth:"в месяц", billedYear:p=>`${p} раз в год`, billedMonth:"Оплата ежемесячно, отмена в любой момент", oneOff:"Разовая покупка, без срока",
       save:n=>`Экономия ${n}%`, cta:{yearly:"Продолжить с годовым", monthly:"Продолжить с месячным", single:"Купить один разбор", five:"Купить 5 разборов", ten:"Купить 10 разборов"},
-      trust:"Безопасная оплата через Stripe. Отмена в любой момент по почте. Цены в USD; банк может показать вашу валюту.",
+      trust:"Безопасная оплата через Stripe. Отмена в любой момент по почте. Цены в USD; при оплате может отображаться ваша валюта.",
       more:"Другие пакеты", less:"Меньше вариантов", code:"Есть код?", restore:"Восстановить покупку",
       pack:n=>`${n} разборов`, packSub:"Разовая покупка, без срока",
       upTitle:"Понравился разбор?", upText:"Бесплатный разбор использован. Безлимит во всех шести линзах от $4.17 в месяц.", upCta:"Посмотреть варианты"},
