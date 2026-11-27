@@ -1,0 +1,59 @@
+name: Ping IndexNow
+
+# Every push to main tells Bing (and through it ChatGPT search and Copilot),
+# Yandex, Seznam and Naver which pages changed, so they recrawl within minutes.
+# The IndexNow key is public by design: it is served at the site root.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Wait for GitHub Pages to publish
+        run: sleep 90
+
+      - name: Collect changed pages and ping
+        env:
+          KEY: bfaf3f643bfa96c2826615be38c0bcc7
+          HOST: persona-lens.com
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, urllib.request
+          before = os.environ.get("GITHUB_EVENT_BEFORE") or "HEAD~1"
+          try:
+              out = subprocess.check_output(["git", "diff", "--name-only", "HEAD~1", "HEAD"], text=True)
+          except subprocess.CalledProcessError:
+              out = ""
+          urls = []
+          for f in out.split():
+              if not f.endswith(".html") or f.startswith(".") or os.path.basename(f).startswith("google"):
+                  continue
+              if not os.path.exists(f):
+                  continue  # deleted pages
+              path = f[:-len("index.html")] if f.endswith("index.html") else f
+              urls.append(f"https://{os.environ['HOST']}/{path}")
+          if not urls:
+              print("No page changes, nothing to ping.")
+              raise SystemExit(0)
+          body = json.dumps({
+              "host": os.environ["HOST"],
+              "key": os.environ["KEY"],
+              "keyLocation": f"https://{os.environ['HOST']}/{os.environ['KEY']}.txt",
+              "urlList": urls[:10000],
+          }).encode()
+          for endpoint in ("https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"):
+              req = urllib.request.Request(endpoint, data=body, method="POST",
+                    headers={"Content-Type": "application/json; charset=utf-8"})
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      print(endpoint, r.status, len(urls), "urls")
+              except Exception as e:
+                  print(endpoint, "failed:", e)
+          PY
