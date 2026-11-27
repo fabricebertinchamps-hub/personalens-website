@@ -974,7 +974,7 @@ async function streamAnalyze(payload, headers){
       const dl = (f.match(/^data: ([\s\S]*)$/m) || [])[1];
       if(!ev || !dl) continue;
       let d; try{ d = JSON.parse(dl) }catch(_){ continue }
-      if(ev === "stage"){ $("workMsg").textContent = d.label || "" }
+      if(ev === "stage"){ clearInterval(workTimer); $("workMsg").textContent = d.label || "" }
       else if(ev === "delta"){
         prose += d.t || "";
         if(prose.length > 40 && $("liveWrap").classList.contains("hide")) $("liveWrap").classList.remove("hide");
