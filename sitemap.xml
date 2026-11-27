@@ -13,12 +13,12 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://persona-lens.com/ru/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://persona-lens.com/" />
   </url>
-  <url><loc>https://persona-lens.com/lens-self.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/lens-romantic.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/lens-friendship.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/lens-professional.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/lens-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/lens-group.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-self.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-romantic.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-friendship.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-professional.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-family.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/lens-group.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/pricing.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/science.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/testimonials.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -27,7 +27,7 @@
   <url><loc>https://persona-lens.com/press.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <!-- Guides hub -->
-  <url><loc>https://persona-lens.com/guides/</loc><lastmod>2026-11-26</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/</loc><lastmod>2026-11-27</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
 
   <!-- Cornerstone diagnostic pages (Phase 2A) -->
   <url><loc>https://persona-lens.com/guides/emotionally-unavailable-partner.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -36,7 +36,7 @@
   <url><loc>https://persona-lens.com/guides/read-your-boss.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/group-chat-dynamics.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/big-five-from-real-behavior.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://persona-lens.com/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://persona-lens.com/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/should-you-break-up.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <!-- Category essays (Phase 2B) -->
@@ -45,7 +45,7 @@
   <url><loc>https://persona-lens.com/guides/friend-group-vs-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/inherited-language.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/boundaries-with-toxic-relatives.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/guides/reading-between-lines.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/guides/reading-between-lines.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/reply-tempo-meaning.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/communication-archaeology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/guides/what-your-emojis-say.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -54,21 +54,21 @@
   <url><loc>https://persona-lens.com/guides/anxious-or-just-attentive.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Phase 2C: long-tail high-volume queries (May 17, 2026 expansion) -->
-  <url><loc>https://persona-lens.com/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/signs-your-relationship-is-over.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/why-attracted-to-unavailable-people.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/am-i-the-toxic-one.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://persona-lens.com/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/workplace-bullying-signs.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
   <!-- French -->
   <url><loc>https://persona-lens.com/fr/</loc><lastmod>2026-11-26</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-self.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-romantic.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-friendship.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-professional.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/fr/lens-group.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-self.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-romantic.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-friendship.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-professional.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-family.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/fr/lens-group.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/fr/pricing.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/fr/science.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/fr/testimonials.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -77,12 +77,12 @@
 
   <!-- Spanish -->
   <url><loc>https://persona-lens.com/es/</loc><lastmod>2026-11-26</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-self.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-romantic.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-friendship.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-professional.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/es/lens-group.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-self.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-romantic.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-friendship.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-professional.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-family.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/es/lens-group.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/es/pricing.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/es/science.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/es/testimonials.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -91,12 +91,12 @@
 
   <!-- Russian -->
   <url><loc>https://persona-lens.com/ru/</loc><lastmod>2026-11-26</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-self.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-romantic.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-friendship.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-professional.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://persona-lens.com/ru/lens-group.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-self.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-romantic.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-friendship.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-professional.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-family.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://persona-lens.com/ru/lens-group.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://persona-lens.com/ru/pricing.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/ru/science.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://persona-lens.com/ru/testimonials.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -105,26 +105,26 @@
 
 
   <!-- Phase 2C translations (FR/ES/RU) for 6 new guides -->
-  <url><loc>https://persona-lens.com/fr/guides/</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://persona-lens.com/fr/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/signs-your-relationship-is-over.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/why-attracted-to-unavailable-people.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/am-i-the-toxic-one.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/fr/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/workplace-bullying-signs.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/es/guides/</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://persona-lens.com/es/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/signs-your-relationship-is-over.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/why-attracted-to-unavailable-people.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/am-i-the-toxic-one.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/es/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/workplace-bullying-signs.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/silent-treatment-psychology.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/signs-your-relationship-is-over.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/why-attracted-to-unavailable-people.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/am-i-the-toxic-one.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/why-parents-dont-apologize.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/workplace-bullying-signs.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
 
@@ -137,6 +137,7 @@
   <url><loc>https://persona-lens.com/guides/how-to-stop-people-pleasing.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/anxious-attachment-recovery.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://persona-lens.com/guides/why-does-my-partner-shut-down.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://persona-lens.com/guides/personality-analysis-from-conversations.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/can-chatgpt-analyze-text-messages.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/how-to-export-whatsapp-chat.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://persona-lens.com/guides/is-it-safe-to-upload-chat-to-ai.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -156,14 +157,14 @@
   <url><loc>https://persona-lens.com/fr/guides/read-your-boss.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/group-chat-dynamics.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/big-five-from-real-behavior.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/fr/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/should-you-break-up.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/therapy-alternatives-2026.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/personality-apps-compared.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/friend-group-vs-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/inherited-language.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/boundaries-with-toxic-relatives.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/fr/guides/reading-between-lines.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/reading-between-lines.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/reply-tempo-meaning.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/communication-archaeology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/what-your-emojis-say.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
@@ -178,6 +179,7 @@
   <url><loc>https://persona-lens.com/fr/guides/anxious-attachment-recovery.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/why-does-my-partner-shut-down.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/gaslighting-signs-in-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/fr/guides/personality-analysis-from-conversations.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/can-chatgpt-analyze-text-messages.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/how-to-export-whatsapp-chat.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/fr/guides/is-it-safe-to-upload-chat-to-ai.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
@@ -193,14 +195,14 @@
   <url><loc>https://persona-lens.com/es/guides/read-your-boss.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/group-chat-dynamics.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/big-five-from-real-behavior.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/es/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/should-you-break-up.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/therapy-alternatives-2026.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/personality-apps-compared.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/friend-group-vs-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/inherited-language.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/boundaries-with-toxic-relatives.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/es/guides/reading-between-lines.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/reading-between-lines.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/reply-tempo-meaning.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/communication-archaeology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/what-your-emojis-say.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
@@ -215,6 +217,7 @@
   <url><loc>https://persona-lens.com/es/guides/anxious-attachment-recovery.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/why-does-my-partner-shut-down.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/gaslighting-signs-in-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/es/guides/personality-analysis-from-conversations.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/can-chatgpt-analyze-text-messages.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/how-to-export-whatsapp-chat.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/is-it-safe-to-upload-chat-to-ai.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
@@ -224,20 +227,20 @@
   <url><loc>https://persona-lens.com/es/guides/passive-aggressive-work-messages.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/es/guides/why-text-differently-with-different-people.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/press.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.55</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/emotionally-unavailable-partner.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/emotionally-unavailable-partner.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/emotionally-immature-parent.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/one-sided-friendship.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/read-your-boss.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/group-chat-dynamics.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/big-five-from-real-behavior.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/attachment-style-from-texts.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/should-you-break-up.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/therapy-alternatives-2026.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/personality-apps-compared.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/friend-group-vs-family.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/inherited-language.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/boundaries-with-toxic-relatives.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://persona-lens.com/ru/guides/reading-between-lines.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/reading-between-lines.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/reply-tempo-meaning.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/communication-archaeology.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/what-your-emojis-say.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
@@ -252,6 +255,7 @@
   <url><loc>https://persona-lens.com/ru/guides/anxious-attachment-recovery.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/why-does-my-partner-shut-down.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/gaslighting-signs-in-texts.html</loc><lastmod>2026-11-26</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://persona-lens.com/ru/guides/personality-analysis-from-conversations.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/can-chatgpt-analyze-text-messages.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/how-to-export-whatsapp-chat.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://persona-lens.com/ru/guides/is-it-safe-to-upload-chat-to-ai.html</loc><lastmod>2026-11-27</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
