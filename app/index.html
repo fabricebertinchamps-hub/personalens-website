@@ -172,6 +172,12 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:14px 0 10px;background:linear-gradient(to top,var(--cream) 68%,transparent);margin-top:6px;z-index:5}
 #out{padding-bottom:6px}
 .repbar .btn{flex:1}
+.live{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;max-height:290px;overflow:auto;font-size:15px;line-height:1.62;color:var(--text-2)}
+.live h4{margin:14px 0 6px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.live h4:first-child{margin-top:0}
+.live p{margin:0 0 10px}
+.live .cursor{display:inline-block;width:7px;height:16px;background:var(--rose);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
 /* ---------- live stats while it crunches ---------- */
 .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}
 .stat{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;opacity:0;transform:translateY(8px);animation:rise .5s forwards}
@@ -373,6 +379,10 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
       <div class="bars" style="justify-content:center;margin:0 auto 14px;height:34px"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div>
       <h2 style="margin:0">Reading the conversation</h2>
       <p id="workMsg">Looking at who starts, who repairs, and what gets avoided.</p>
+    </div>
+    <div id="liveWrap" class="hide">
+      <p style="font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:18px 0 8px">Reading it now</p>
+      <div id="live" class="live"></div>
     </div>
     <p style="font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:20px 0 0">What the messages already show</p>
     <div class="statgrid" id="statgrid"></div>
@@ -887,6 +897,19 @@ function buildPayload(){
   };
 }
 
+function renderLive(md){
+  // light markdown: headings and paragraphs, enough to read comfortably
+  const html = md.split(/\n{2,}/).map(block => {
+    const b = block.trim();
+    if(!b) return "";
+    const h = b.match(/^#{1,6}\s+(.*)$/);
+    if(h) return `<h4>${esc(h[1])}</h4>`;
+    return `<p>${esc(b.replace(/^#+\s*/,"")).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")}</p>`;
+  }).join("");
+  $("live").innerHTML = html + '<span class="cursor"></span>';
+  $("live").scrollTop = $("live").scrollHeight;
+}
+
 async function analyze(){
   clearErr();
   if(!lens){ showErr("Choose a lens first."); return }
@@ -895,30 +918,75 @@ async function analyze(){
   const btn = $("go");
   btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Reading';
   $("out").innerHTML = "";
+  $("live").innerHTML = ""; $("liveWrap").classList.add("hide");
   $("working").classList.remove("hide");
   showStats();
   $("working").scrollIntoView({behavior:"smooth",block:"center"});
   let i = 0;
   workTimer = setInterval(() => { i=(i+1)%WORK_MSGS.length; $("workMsg").textContent = WORK_MSGS[i] }, 14000);
   lastKey = "a" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+
+  const payload = JSON.stringify(buildPayload());
+  const headers = { "Content-Type":"application/json", "X-Web-Token": session.token, "X-Device-Id": deviceId() };
+
   try{
-    const res = await fetch(API + "/analyze", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json", "X-Web-Token": session.token, "X-Device-Id": deviceId() },
-      body: JSON.stringify(buildPayload())
-    });
-    const data = await res.json();
-    if(res.status === 402){ $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"}); return }
-    if(res.status === 429){ throw new Error("That is a lot of readings in a short time. Give it a minute, then try again.") }
-    if(!res.ok){ throw new Error(data.error || ("The service returned " + res.status)) }
-    render(data); consumeCredit(); rail(4); offerInstall();
+    let report = null;
+    try{
+      report = await streamAnalyze(payload, headers);
+    }catch(streamErr){
+      if(streamErr && streamErr.paywall) throw streamErr;
+      console.warn("stream failed, falling back:", streamErr && streamErr.message);
+      const res = await fetch(API + "/analyze", { method:"POST", headers, body: payload });
+      const data = await res.json();
+      if(res.status === 402){ const e = new Error("paywall"); e.paywall = true; throw e }
+      if(res.status === 429) throw new Error("That is a lot of readings in a short time. Give it a minute, then try again.");
+      if(!res.ok) throw new Error(data.error || ("The service returned " + res.status));
+      report = data;
+    }
+    render(report); consumeCredit(); rail(4); offerInstall();
   }catch(e){
-    showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
+    if(e && e.paywall){ $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"}) }
+    else showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
   }finally{
     clearInterval(workTimer);
     $("working").classList.add("hide");
     btn.disabled = false; btn.textContent = "Read this conversation";
   }
+}
+
+async function streamAnalyze(payload, headers){
+  const res = await fetch(API + "/analyze/stream", { method:"POST", headers, body: payload });
+  if(res.status === 402){ const e = new Error("paywall"); e.paywall = true; throw e }
+  if(!res.ok || !res.body) throw new Error("stream unavailable (" + res.status + ")");
+
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "", prose = "", report = null, failed = null;
+
+  while(true){
+    const { done, value } = await reader.read();
+    if(done) break;
+    buf += dec.decode(value, { stream:true });
+    const frames = buf.split("\n\n");
+    buf = frames.pop() || "";
+    for(const f of frames){
+      const ev = (f.match(/^event: (.+)$/m) || [])[1];
+      const dl = (f.match(/^data: ([\s\S]*)$/m) || [])[1];
+      if(!ev || !dl) continue;
+      let d; try{ d = JSON.parse(dl) }catch(_){ continue }
+      if(ev === "stage"){ $("workMsg").textContent = d.label || "" }
+      else if(ev === "delta"){
+        prose += d.t || "";
+        if(prose.length > 40 && $("liveWrap").classList.contains("hide")) $("liveWrap").classList.remove("hide");
+        renderLive(prose);
+      }
+      else if(ev === "report"){ report = d }
+      else if(ev === "error"){ failed = d.error || "stream error" }
+    }
+  }
+  if(failed) throw new Error(failed);
+  if(!report) throw new Error("stream ended without a reading");
+  return report;
 }
 
 async function consumeCredit(){
