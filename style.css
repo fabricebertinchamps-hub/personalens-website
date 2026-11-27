@@ -1724,3 +1724,20 @@ img { max-width: 100%; display: block; }
 
 /* Example excerpts (replaces testimonials) */
 @media (min-width: 861px) { .testi-grid-2 { grid-template-columns: repeat(2, 1fr); max-width: 900px; margin-left: auto; margin-right: auto; } }
+
+/* ---------- Header never wraps (27 Nov 2026) ---------- */
+/* "Persona Lens" is one name: keep it on one line, tight. */
+.brand-name { white-space: nowrap; line-height: 1; letter-spacing: -0.01em; }
+.brand { flex-shrink: 0; }
+.site-nav a { white-space: nowrap; }
+.lang-picker { flex-shrink: 0; }
+/* Mid-width screens: tighten the menu before anything has to wrap. */
+@media (max-width: 1280px) and (min-width: 1101px) {
+  .site-nav { gap: 16px; font-size: 14px; }
+  .header-inner { gap: 12px; }
+}
+/* Below 1100px the full menu no longer fits in FR/ES/RU: use the menu button. */
+@media (max-width: 1100px) {
+  .site-nav { display: none; }
+  .nav-toggle { display: flex; }
+}
