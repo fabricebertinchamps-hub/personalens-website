@@ -110,6 +110,37 @@ label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:var(-
 .plan.best{border-color:var(--navy);background:#fff}
 .plan b{display:block;font-size:24px;margin-bottom:3px;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif}
 .plan span{font-size:13px;color:var(--text-3);line-height:1.4;display:block}
+.pw-kicker{margin:0 0 4px;font-size:13px;color:var(--text-3)}
+.pw-title{margin:0 0 12px;font-size:clamp(22px,5vw,27px);line-height:1.2}
+.pw-perks{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:7px}
+.pw-perks li{font-size:14.5px;color:var(--text-2);padding-left:24px;position:relative;line-height:1.45}
+.pw-perks li:before{content:"";position:absolute;left:2px;top:6px;width:11px;height:6px;border-left:2px solid var(--sage);border-bottom:2px solid var(--sage);transform:rotate(-45deg)}
+.pw-options{display:grid;gap:10px}
+.pw-opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1.5px solid var(--border);background:var(--elevated);border-radius:14px;padding:14px 16px;cursor:pointer;font:inherit;color:var(--ink);transition:border-color .15s,background .15s}
+.pw-opt:hover{border-color:var(--navy)}
+.pw-opt[aria-checked="true"]{border:2px solid var(--navy);background:#fff;padding:13.5px 15.5px}
+.pw-radio{flex:0 0 18px;height:18px;border-radius:50%;border:1.5px solid var(--text-3);position:relative}
+.pw-opt[aria-checked="true"] .pw-radio{border-color:var(--navy)}
+.pw-opt[aria-checked="true"] .pw-radio:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--navy)}
+.pw-main{flex:1;min-width:0}
+.pw-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:600;font-size:15px}
+.pw-badge{font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;background:var(--sage);border-radius:999px;padding:2px 8px}
+.pw-sub{display:block;font-size:12.5px;color:var(--text-3);margin-top:2px}
+.pw-price{text-align:right;white-space:nowrap}
+.pw-price b{display:block;font-size:20px;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;line-height:1.1}
+.pw-price small{font-size:12px;color:var(--text-3)}
+.pw-opt.small{padding:11px 16px}
+.pw-opt.small .pw-name{font-weight:500;font-size:14.5px}
+.pw-cta{width:100%;margin-top:16px;min-height:50px;font-size:16px}
+.pw-trust{margin:10px 0 0;text-align:center;font-size:12.5px;color:var(--text-3);line-height:1.5}
+.pw-more{margin-top:14px}
+.pw-links{margin:16px 0 0;text-align:center;font-size:13.5px;line-height:2}
+.pw-links a{color:var(--text-2)}
+.pw-links span{color:var(--text-3);margin:0 7px}
+.upsell{margin:22px 0 8px;border:1.5px solid var(--border);border-radius:16px;padding:18px;background:var(--elevated)}
+.upsell h3{margin:0 0 6px;font-size:18px}
+.upsell p{margin:0 0 12px;color:var(--text-2);font-size:14.5px;line-height:1.5}
+@media print{.upsell{display:none!important}}
 .plan em{display:inline-block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:6px}
 .rep-sec{border-top:1px solid var(--border);padding-top:16px;margin-top:16px}
 .rep-sec:first-child{border-top:0;padding-top:0;margin-top:0}
@@ -470,15 +501,18 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 
   <!-- PAYWALL -->
   <section class="panel hide" id="paywall">
-    <h2 style="margin-top:0">Your free reading is used</h2>
-    <p class="lede">Keep going with a plan you can cancel any time, or pay once for a pack. No account needed, payment handled by Stripe.</p>
-    <label>Unlimited</label>
-    <div class="plan-grid" id="plans"></div>
-    <label style="margin-top:18px">Or pay as you go</label>
-    <div class="plan-grid" id="packs"></div>
-    <p style="margin:18px 0 0;text-align:center"><a href="#" onclick="openCode();return false" style="color:var(--text-2);font-size:14px">Have a code?</a>
-      <span style="color:var(--text-3);font-size:14px">&nbsp;·&nbsp;</span>
-      <a href="#" onclick="openRestore();return false" style="color:var(--text-2);font-size:14px">Restore a purchase</a></p>
+    <p class="pw-kicker" id="pwKicker">Persona Lens</p>
+    <h2 class="pw-title" id="pwTitle">Keep reading the people in your life</h2>
+    <ul class="pw-perks" id="pwPerks"></ul>
+    <div class="pw-options" id="plans" role="radiogroup" aria-label="Choose a plan"></div>
+    <button class="btn btn-primary pw-cta" id="pwCta" onclick="pwContinue()">Continue</button>
+    <p class="pw-trust" id="pwTrust"></p>
+    <div class="pw-more hide" id="pwMore"><div class="pw-options" id="packs"></div></div>
+    <p class="pw-links">
+      <a href="#" id="pwMoreLink" onclick="pwToggleMore();return false">More reading packs</a><span>&middot;</span>
+      <a href="#" id="pwCodeLink" onclick="openCode();return false">Have a code?</a><span>&middot;</span>
+      <a href="#" id="pwRestoreLink" onclick="openRestore();return false">Restore a purchase</a>
+    </p>
   </section>
 
   <section class="panel hide" id="codeBox">
@@ -776,12 +810,93 @@ document.addEventListener("visibilitychange", () => {
   if(document.visibilityState === "visible" && Date.now() - restoreCheckedAt > 60000) checkRestore();
 });
 // ==restore-ui:end==
+const PW = {
+  en:{kicker:"Persona Lens", title:"Keep reading the people in your life",
+      perks:["All six lenses, any conversation","Full report with scores and quoted evidence","Share it or save it as a PDF"],
+      yearly:"Yearly, unlimited", monthly:"Monthly, unlimited", single:"Just one reading",
+      perMonth:"a month", billedYear:p=>`${p} billed once a year`, billedMonth:"Billed monthly, cancel any time", oneOff:"One-off, never expires",
+      save:n=>`Save ${n}%`, cta:{yearly:"Continue with yearly", monthly:"Continue with monthly", single:"Buy one reading", five:"Buy 5 readings", ten:"Buy 10 readings"},
+      trust:"Secure payment by Stripe. Cancel any time by email. Prices in USD; your bank may show your own currency.",
+      more:"More reading packs", less:"Fewer options", code:"Have a code?", restore:"Restore a purchase",
+      pack:n=>`${n} readings`, packSub:"One-off, never expire",
+      upTitle:"Liked your reading?", upText:"Your free reading is used. Unlimited readings in all six lenses start at $4.17 a month.", upCta:"See options"},
+  fr:{kicker:"Persona Lens", title:"Continuez à lire les personnes de votre vie",
+      perks:["Les six lentilles, n'importe quelle conversation","Rapport complet avec scores et citations à l'appui","À partager ou à enregistrer en PDF"],
+      yearly:"Annuel, illimité", monthly:"Mensuel, illimité", single:"Une seule lecture",
+      perMonth:"par mois", billedYear:p=>`${p} facturés une fois par an`, billedMonth:"Facturé chaque mois, sans engagement", oneOff:"Achat unique, n'expire jamais",
+      save:n=>`-${n} %`, cta:{yearly:"Continuer avec l'annuel", monthly:"Continuer avec le mensuel", single:"Acheter une lecture", five:"Acheter 5 lectures", ten:"Acheter 10 lectures"},
+      trust:"Paiement sécurisé par Stripe. Résiliable à tout moment par e-mail. Prix en USD ; votre banque peut afficher votre devise.",
+      more:"Plus de packs de lectures", less:"Moins d'options", code:"Vous avez un code ?", restore:"Restaurer un achat",
+      pack:n=>`${n} lectures`, packSub:"Achat unique, n'expirent jamais",
+      upTitle:"Votre lecture vous a plu ?", upText:"Votre lecture gratuite est utilisée. Les lectures illimitées dans les six lentilles commencent à 4,17 $ par mois.", upCta:"Voir les options"},
+  es:{kicker:"Persona Lens", title:"Sigue leyendo a las personas de tu vida",
+      perks:["Las seis lentes, cualquier conversación","Informe completo con puntuaciones y citas como prueba","Compártelo o guárdalo en PDF"],
+      yearly:"Anual, ilimitado", monthly:"Mensual, ilimitado", single:"Solo una lectura",
+      perMonth:"al mes", billedYear:p=>`${p} cobrados una vez al año`, billedMonth:"Cobro mensual, cancela cuando quieras", oneOff:"Pago único, no caduca",
+      save:n=>`Ahorra ${n} %`, cta:{yearly:"Continuar con el anual", monthly:"Continuar con el mensual", single:"Comprar una lectura", five:"Comprar 5 lecturas", ten:"Comprar 10 lecturas"},
+      trust:"Pago seguro con Stripe. Cancela cuando quieras por correo. Precios en USD; tu banco puede mostrar tu moneda.",
+      more:"Más paquetes de lecturas", less:"Menos opciones", code:"¿Tienes un código?", restore:"Restaurar una compra",
+      pack:n=>`${n} lecturas`, packSub:"Pago único, no caducan",
+      upTitle:"¿Te gustó tu lectura?", upText:"Ya usaste tu lectura gratis. Las lecturas ilimitadas en las seis lentes empiezan en 4,17 $ al mes.", upCta:"Ver opciones"},
+  ru:{kicker:"Persona Lens", title:"Продолжайте понимать людей в своей жизни",
+      perks:["Все шесть линз, любая переписка","Полный разбор с оценками и цитатами","Можно поделиться или сохранить в PDF"],
+      yearly:"Год, без ограничений", monthly:"Месяц, без ограничений", single:"Один разбор",
+      perMonth:"в месяц", billedYear:p=>`${p} раз в год`, billedMonth:"Оплата ежемесячно, отмена в любой момент", oneOff:"Разовая покупка, без срока",
+      save:n=>`Экономия ${n}%`, cta:{yearly:"Продолжить с годовым", monthly:"Продолжить с месячным", single:"Купить один разбор", five:"Купить 5 разборов", ten:"Купить 10 разборов"},
+      trust:"Безопасная оплата через Stripe. Отмена в любой момент по почте. Цены в USD; банк может показать вашу валюту.",
+      more:"Другие пакеты", less:"Меньше вариантов", code:"Есть код?", restore:"Восстановить покупку",
+      pack:n=>`${n} разборов`, packSub:"Разовая покупка, без срока",
+      upTitle:"Понравился разбор?", upText:"Бесплатный разбор использован. Безлимит во всех шести линзах от $4.17 в месяц.", upCta:"Посмотреть варианты"},
+};
+function pwT(){ const c = (typeof CODE_BY_LANG !== "undefined" && $("lang")) ? (CODE_BY_LANG[$("lang").value] || "en") : "en"; return PW[c] || PW.en }
+let pwChoice = "yearly";
+function pwOpt(id, name, sub, price, priceSmall, badge, small){
+  return `<button type="button" class="pw-opt${small ? " small" : ""}" role="radio" aria-checked="${pwChoice === id}" onclick="pwPick('${id}')">
+      <span class="pw-radio" aria-hidden="true"></span>
+      <span class="pw-main"><span class="pw-name">${esc(name)}${badge ? `<span class="pw-badge">${esc(badge)}</span>` : ""}</span>${sub ? `<span class="pw-sub">${esc(sub)}</span>` : ""}</span>
+      <span class="pw-price"><b>${esc(price)}</b>${priceSmall ? `<small>${esc(priceSmall)}</small>` : ""}</span>
+    </button>`;
+}
 function paintPlans(){
   if(!session) return;
-  if(session.plans) $("plans").innerHTML = session.plans.map((p,i) =>
-    `<button class="plan${i===1?" best":""}" onclick="buy(null,'${p.id}')">${i===1?"<em>Best value</em>":""}<b>${esc(p.price)}</b><span>per ${esc(p.interval)}<br>unlimited readings<br>cancel any time</span></button>`).join("");
-  if(session.packs) $("packs").innerHTML = session.packs.map(p =>
-    `<button class="plan" onclick="buy('${p.id}')"><b>${esc(p.price)}</b><span>${esc(p.label)}<br>one-off</span></button>`).join("");
+  const t = pwT();
+  $("pwKicker").textContent = t.kicker; $("pwTitle").textContent = t.title;
+  $("pwPerks").innerHTML = t.perks.map(x => `<li>${esc(x)}</li>`).join("");
+  const plans = Object.fromEntries((session.plans || []).map(p => [p.id, p]));
+  const packs = Object.fromEntries((session.packs || []).map(p => [p.id, p]));
+  let main = "";
+  if(plans.yearly) main += pwOpt("yearly", t.yearly, t.billedYear(plans.yearly.price), plans.yearly.perMonth, t.perMonth, plans.yearly.savePct ? t.save(plans.yearly.savePct) : "", false);
+  if(plans.monthly) main += pwOpt("monthly", t.monthly, t.billedMonth, plans.monthly.price, t.perMonth, "", false);
+  if(packs.single) main += pwOpt("single", t.single, t.oneOff, packs.single.price, "", "", true);
+  $("plans").innerHTML = main;
+  $("packs").innerHTML = ["five","ten"].filter(id => packs[id]).map(id => pwOpt(id, t.pack(packs[id].credits), t.packSub, packs[id].price, "", "", true)).join("");
+  $("pwCta").textContent = t.cta[pwChoice] || t.cta.yearly;
+  $("pwTrust").textContent = t.trust;
+  $("pwMoreLink").textContent = $("pwMore").classList.contains("hide") ? t.more : t.less;
+  $("pwCodeLink").textContent = t.code; $("pwRestoreLink").textContent = t.restore;
+}
+function pwPick(id){ pwChoice = id; if(id === "five" || id === "ten") $("pwMore").classList.remove("hide"); paintPlans() }
+function pwToggleMore(){ $("pwMore").classList.toggle("hide"); paintPlans() }
+function pwContinue(){
+  const isPlan = pwChoice === "yearly" || pwChoice === "monthly";
+  buy(isPlan ? null : pwChoice, isPlan ? pwChoice : null);
+}
+function openPaywall(){
+  paintPlans();
+  $("paywall").classList.remove("hide");
+  $("paywall").scrollIntoView({behavior:"smooth", block:"start"});
+  track("paywall_shown", {}, { flush:true });
+}
+async function showUpsell(){
+  try{ await loadSession() }catch(_){}
+  if(!session || session.premium || (session.credits || 0) > 0 || runWasSample) return;
+  const t = pwT(), out = $("out");
+  if(!out || out.querySelector(".upsell")) return;
+  const bar = out.querySelector(".repbar");
+  const card = document.createElement("div");
+  card.className = "upsell";
+  card.innerHTML = `<h3>${esc(t.upTitle)}</h3><p>${esc(t.upText)}</p><button class="btn btn-primary" style="width:100%" onclick="openPaywall()">${esc(t.upCta)}</button>`;
+  if(bar) out.insertBefore(card, bar); else out.appendChild(card);
 }
 
 function paintLenses(){
@@ -1704,13 +1819,12 @@ async function analyze(){
     waitDone();
     runWasSample = isSample;
     render(report);
-    if(!isSample) consumeCredit();   // the sample never spends the reading
+    if(!isSample){ consumeCredit(); setTimeout(showUpsell, 1500) }   // the sample never spends the reading
     rail(4); offerInstall();
     track("reading_done", { secs: Math.round((Date.now() - t0) / 1000), sample: isSample }, { flush:true });
   }catch(e){
     if(e && e.paywall){
-      $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"});
-      track("paywall_shown", {}, { flush:true });
+      openPaywall();
     } else {
       track("reading_failed", { code: failCode(e) }, { flush:true });
       showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
@@ -2268,6 +2382,7 @@ function applyLangCode(code){
   document.querySelectorAll(".lang-picker .lang-flag").forEach(f => f.classList.toggle("active", f.classList.contains("flag-" + code)));
 }
 $("lang").addEventListener("change", () => { $("privacyLink").href = SAFE_GUIDE[CODE_BY_LANG[$("lang").value]] || SAFE_GUIDE.en });
+$("lang").addEventListener("change", () => paintPlans());
 
 (async function(){
   paintLenses(); paintSources();
