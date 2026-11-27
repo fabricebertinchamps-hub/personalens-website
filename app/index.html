@@ -26,7 +26,9 @@
 <style>
 /* App-specific components, built on the site's brand tokens */
 .app-wrap{max-width:760px;margin:0 auto;padding:30px 20px 80px}
-.app-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.app-head{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:6px}
+.app-head .head-links{order:3;flex-basis:100%;display:flex;flex-direction:row;align-items:center;gap:16px;font-size:13px}
+.app-head .head-links a{white-space:nowrap}
 .app-head h1{margin:0;flex:1;font-size:clamp(24px,5vw,34px);hyphens:none;-webkit-hyphens:none;overflow-wrap:normal;word-break:normal;line-height:1.15}
 .bal{font-size:13px;color:var(--text-3);background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}
 .bal.premium{background:#EEF5F0;border-color:#CADCCF;color:#44705A}
@@ -334,7 +336,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
       <a href="#" class="code-link" id="codeLink" onclick="openCode();return false">Have a code?</a>
       <a href="#" class="code-link" id="restoreLink" onclick="openRestore();return false">Restore a purchase</a>
     </span>
-    <span class="bal" id="bal" onclick="if(!(session&&session.premium))openCode()" style="cursor:pointer"></span>
+    <span class="bal" id="bal" onclick="if(session&&!session.premium&&!(session.credits>0))openPaywall()" style="cursor:pointer"></span>
   </div>
   <p class="lede" style="color:var(--text-2);margin:0 0 4px;font-size:16px">Six lenses, one real conversation, a structured reading in about three minutes. Nothing you paste is stored.</p>
 
