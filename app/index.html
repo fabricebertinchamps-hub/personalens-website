@@ -177,18 +177,63 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:14px 0 12px;background:var(--cream);box-shadow:0 -14px 18px -10px var(--cream);margin-top:18px;z-index:5}
 #out{padding-bottom:6px}
 .repbar .btn{flex:1}
-.live{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;max-height:290px;overflow:auto;font-size:15px;line-height:1.62;color:var(--text-2)}
-.live h4{margin:14px 0 6px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+/* ---------- the wait: progress, findings, the draft, assembly ---------- */
+.wait-head h2{margin:0 0 4px;font-size:20px}
+.wait-msg{color:var(--text-2);font-size:14.5px;line-height:1.5;margin:0 0 14px;min-height:3em}
+.prog{position:relative;height:8px;border-radius:99px;background:var(--cream-warm);overflow:hidden}
+.prog i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:var(--lensc,var(--navy));transition:width .45s linear;overflow:hidden}
+.prog i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-100%);animation:shimmer 1.8s ease-in-out infinite}
+@keyframes shimmer{to{transform:translateX(100%)}}
+.phases{display:flex;justify-content:space-between;list-style:none;margin:8px 0 0;padding:0}
+.phases li{font-size:11.5px;font-weight:600;letter-spacing:.04em;color:var(--text-3);opacity:.5;transition:opacity .3s}
+.phases li.done{opacity:.85}
+.phases li.done::before{content:"\2713\00a0";color:var(--sage)}
+.phases li.on{opacity:1;color:var(--ink)}
+.wait-meta{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--text-3);margin:9px 0 0;font-variant-numeric:tabular-nums}
+.wlab{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:22px 0 8px}
+.feat{min-height:132px}
+.fcard{background:var(--elevated);border:1px solid var(--border);border-left:3px solid var(--lensc,var(--navy));border-radius:var(--radius-sm);padding:15px 16px;animation:fin .5s ease-out both}
+.fcard .fn{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin:0 0 6px}
+.fcard b{display:block;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;font-size:30px;line-height:1.1;color:var(--ink);overflow-wrap:anywhere}
+.fcard .fl{display:block;font-size:15px;color:var(--ink);margin:4px 0 0;line-height:1.4}
+.fcard .fd{display:block;font-size:13.5px;color:var(--text-3);margin-top:6px;line-height:1.45}
+.fcard blockquote{margin:8px 0 0;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;font-size:18.5px;line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
+.fcard cite{display:block;font-style:normal;font-size:13px;color:var(--text-3);margin-top:8px}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}}
+.found{list-style:none;margin:0;padding:0}
+.found li{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-2);line-height:1.4;animation:fin .4s ease-out both}
+.found li:last-child{border-bottom:0}
+.found li b{flex:0 0 72px;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;font-size:16px;color:var(--ink);overflow-wrap:anywhere}
+.found li em{font-style:normal;color:var(--text-3)}
+.seclist{list-style:none;margin:0;padding:0}
+.seclist li{display:flex;align-items:center;gap:10px;font-size:14px;padding:5px 0;color:var(--text-3);transition:color .3s}
+.seclist li i{position:relative;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);flex:0 0 auto;transition:background .3s,border-color .3s}
+.seclist li.on{color:var(--ink);font-weight:600}
+.seclist li.on i{border-color:var(--lensc,var(--navy));animation:pulse 1.2s ease-in-out infinite}
+.seclist li.done{color:var(--text-2)}
+.seclist li.done i{background:var(--sage);border-color:var(--sage)}
+.seclist li.done i::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+@keyframes pulse{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--lensc,var(--navy)) 20%,transparent)}}
+.live{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;max-height:260px;overflow:auto;overscroll-behavior:contain;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;font-size:16px;line-height:1.65;color:var(--ink);transition:opacity .4s}
+.live.scrolled{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40px);mask-image:linear-gradient(to bottom,transparent 0,#000 40px)}
+.live.open{max-height:none;-webkit-mask-image:none;mask-image:none}
+.live.settled{opacity:.72}
+.live h4{margin:16px 0 6px;font-family:inherit;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-2)}
 .live h4:first-child{margin-top:0}
-.live p{margin:0 0 10px}
-.live .cursor{display:inline-block;width:7px;height:16px;background:var(--rose);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+.live p{margin:0 0 11px}
+.live ul{margin:0 0 11px;padding-left:20px}
+.live li{margin-bottom:5px}
+.live .cursor{display:inline-block;width:7px;height:16px;background:var(--lensc,var(--rose));vertical-align:-2px;animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
-/* ---------- live stats while it crunches ---------- */
-.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:18px}
-.stat{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;opacity:0;transform:translateY(8px);animation:rise .5s forwards}
-.stat b{display:block;font-size:23px;font-family:'TeX Gyre Bonum','Bookman',Georgia,serif;color:var(--ink);line-height:1.1}
-.stat span{display:block;font-size:12.5px;color:var(--text-3);margin-top:4px;line-height:1.35}
-@keyframes rise{to{opacity:1;transform:none}}
+.live-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;font-size:12.5px;color:var(--text-3);font-variant-numeric:tabular-nums}
+.live-more{border:0;background:none;font:600 13px/1 inherit;color:var(--navy);cursor:pointer;padding:8px 0}
+@media (prefers-reduced-motion:reduce){
+  .prog i{transition:none}
+  .prog i::after{animation:none;display:none}
+  .fcard,.found li{animation:none}
+  .seclist li.on i{animation:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--lensc,var(--navy)) 20%,transparent)}
+  .live .cursor{animation:none}
+}
 
 @media (max-width:560px){
   .panel{padding:18px 16px}
@@ -378,19 +423,30 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
     <p style="text-align:center;color:var(--text-3);font-size:13.5px;margin:12px 0 0">Takes about two to three minutes. Keep this page open.</p>
   </section>
 
-  <!-- WORKING -->
+  <!-- WORKING: the wait, see waitStart() -->
   <section class="panel hide" id="working">
-    <div class="work" style="padding:22px 4px 6px">
-      <div class="bars" style="justify-content:center;margin:0 auto 14px;height:34px"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></div>
-      <h2 style="margin:0">Reading the conversation</h2>
-      <p id="workMsg">Looking at who starts, who repairs, and what gets avoided.</p>
+    <div class="wait-head">
+      <h2>Reading the conversation</h2>
+      <p id="workMsg" class="wait-msg">Counting what is there before anything is read.</p>
+      <div class="prog" id="prog" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="progFill"></i></div>
+      <ol class="phases" id="phases"><li>Count</li><li>Read</li><li>Write</li><li>Assemble</li></ol>
+      <p class="wait-meta"><span id="waitEta">Usually 2 to 3 minutes</span><span id="waitClock">0:00</span></p>
+    </div>
+    <p class="wlab">From your conversation</p>
+    <div id="feat" class="feat" aria-live="polite"></div>
+    <div id="assemble" class="hide">
+      <p class="wlab">Assembling your report</p>
+      <ol id="secList" class="seclist"></ol>
     </div>
     <div id="liveWrap" class="hide">
-      <p style="font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:18px 0 8px">Reading it now</p>
+      <p class="wlab" id="liveLab">The reading, as it is written</p>
       <div id="live" class="live"></div>
+      <div class="live-foot"><span id="liveCount"></span><button type="button" class="live-more" id="liveMore" onclick="toggleLive()">Show all</button></div>
     </div>
-    <p style="font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin:20px 0 0">What the messages already show</p>
-    <div class="statgrid" id="statgrid"></div>
+    <div id="foundWrap" class="hide">
+      <p class="wlab">Found so far</p>
+      <ul id="found" class="found"></ul>
+    </div>
   </section>
 
   <!-- PAYWALL -->
@@ -500,16 +556,9 @@ const ACC = [
 ];
 
 const LANG_BY_CODE = {fr:"French", es:"Spanish", ru:"Russian", en:"English"};
-const WORK_MSGS = [
-  "Looking at who starts, who repairs, and what gets avoided.",
-  "Weighing tempo, hedges and the shape of the replies.",
-  "Separating what is said from what is signalled.",
-  "Pulling the quoted lines that back each claim.",
-  "Structuring the reading."
-];
 
 let lens = null, source = null, plat = "ios";
-let parsedMsgs = [], speakers = [], session = null, lastKey = null, workTimer = null;
+let parsedMsgs = [], speakers = [], session = null, lastKey = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[<>&"]/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
@@ -655,7 +704,7 @@ function parseConversation(raw){
   for(const l of lines){ if(WA1.test(l) || WA2.test(l)) dated++; if(dated >= 3) break }
   const isExport = dated >= 3;
   const out = [];
-  const push = (n,c) => out.push({name:n.trim(), content:c.trim()});
+  const push = (n,c,st) => { const o = {name:n.trim(), content:c.trim()}; if(st) o.stamp = st; out.push(o) };
   const append = line => { if(out.length && line.trim()) out[out.length-1].content += "\n" + line.trim() };
 
   if(isExport){
@@ -663,7 +712,7 @@ function parseConversation(raw){
     // belongs to the message above it, even when it contains a colon.
     for(const line of lines){
       const m = line.match(WA1) || line.match(WA2);
-      if(m) push(m[2], m[3]); else append(line);
+      if(m) push(m[2], m[3], m[1]); else append(line);
     }
   } else {
     // Pasted text: a real sender says more than one thing.
@@ -680,7 +729,38 @@ function parseConversation(raw){
       if(m && isNameish(m[1]) && accept(m[1].trim())) push(m[1], m[2]); else append(line);
     }
   }
-  return out.filter(m => !isNoise(m.content));
+  const kept = out.filter(m => !isNoise(m.content));
+  resolveTimes(kept);
+  return kept;
+}
+
+// WhatsApp stamps come as 27/09/2026, 19:04:11 or 9/27/26, 7:04 PM or
+// 2026-09-27 19:04 depending on the phone. Day/month order is decided once for
+// the whole file: any first field above 12 means D/M, any second above 12 means
+// M/D, otherwise D/M. Only used for the local findings shown while waiting.
+function stampParts(s){
+  const m = String(s).match(/(\d{1,4})[\/.\-](\d{1,2})[\/.\-](\d{1,4}),?\s+(\d{1,2})[:.](\d{2})(?:[:.](\d{2}))?\s*([APap])?/);
+  if(!m) return null;
+  let h = +m[4];
+  const ap = (m[7] || "").toLowerCase();
+  if(ap === "p" && h < 12) h += 12;
+  if(ap === "a" && h === 12) h = 0;
+  return { a:+m[1], b:+m[2], c:+m[3], h, mi:+m[5], se:+(m[6]||0), ymd: m[1].length === 4 };
+}
+function resolveTimes(msgs){
+  const parts = msgs.map(m => m.stamp ? stampParts(m.stamp) : null);
+  let dmy = true;
+  if(parts.some(p => p && !p.ymd && p.b > 12)) dmy = false;
+  if(parts.some(p => p && !p.ymd && p.a > 12)) dmy = true;
+  msgs.forEach((m, i) => {
+    delete m.stamp;
+    const p = parts[i]; if(!p) return;
+    let y, mo, d;
+    if(p.ymd){ y = p.a; mo = p.b; d = p.c }
+    else { y = p.c < 100 ? 2000 + p.c : p.c; if(dmy){ d = p.a; mo = p.b } else { mo = p.a; d = p.b } }
+    const t = new Date(y, mo - 1, d, p.h, p.mi, p.se).getTime();
+    if(isFinite(t)) m.time = t;
+  });
 }
 function parseTelegramJson(text){
   const data = JSON.parse(text);
@@ -693,7 +773,8 @@ function parseTelegramJson(text){
     if(Array.isArray(t)) t = t.map(x => typeof x === "string" ? x : (x && x.text) || "").join("");
     if(typeof t !== "string") t = "";
     t = t.trim();
-    if(t) out.push({name: String(who).trim(), content: t});
+    const tm = m.date_unixtime ? Number(m.date_unixtime) * 1000 : Date.parse(m.date);
+    if(t) out.push(isFinite(tm) ? {name: String(who).trim(), content: t, time: tm} : {name: String(who).trim(), content: t});
   }
   return out.filter(m => !isNoise(m.content));
 }
@@ -863,60 +944,450 @@ function acceptParsed(msgs, fileName){
   $("p3").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-// ---------- instant local stats, shown while the model works ----------
-// Everything here is computed in the browser from the messages already parsed,
-// so the wait has something true in it from the first second.
-function computeStats(){
-  const mine = parsedMsgs.filter(m => m.name === meName);
-  const theirs = parsedMsgs.filter(m => m.name !== meName);
-  const words = a => a.reduce((n,m) => n + m.content.trim().split(/\s+/).length, 0);
-  const qs = a => a.filter(m => /\?\s*$/.test(m.content.trim())).length;
-  const emoji = a => a.filter(m => /[⌚-➿⬀-⯿\uD83C-􏰀-\uDFFF]/.test(m.content)).length;
-  const longest = a => a.reduce((mx,m) => Math.max(mx, m.content.length), 0);
+// ---------- findings: real facts from the conversation, shown while the model works ----------
+// Pure function, no DOM: computed in the browser from the parsed messages, so
+// every card in the wait is true and specific to this conversation. Findings
+// that would be empty or silly on a short chat are simply not produced.
+// ==findings:start==
+const FIND_STOP = new Set((
+  "the and you that for are was with have this not but what all can your just like get got its it's i'm i've i'll you're don't dont didn't can't im ive ill youre "+
+  "too out about from they she him her his our their them then than there here when will would could should been were has had did does doing one some more "+
+  "very really yeah yes yep okay how why who where which also into over only well know think going gonna want see now still even back much way any "+
+  "les des une est pas que qui pour dans sur avec mais tout bien oui non moi toi elle nous vous ils elles c'est j'ai suis ton mon mes tes ses son cette aussi comme "+
+  "fait faire plus très tres alors donc quand être etre avoir ça j'suis t'es qu'il qu'on lui leur par sont été "+
+  "los las una por con para pero como más mas muy esta está estoy eso esto del que qué hay ese esa también tambien porque cuando "+
+  "что это как так все она они его мне меня тебя ты вы мы но да нет на по за от из для уже там тут вот если или ещё еще был была было быть "+
+  "und ich der die das nicht ist mit auf aber ein eine was wie sich auch noch").split(/\s+/));
+const LAUGH = /^(?:(?:ha|he|hi|ah|ja|je|ji|ха|хе|ах|кек){2,}h?|lol+|lmao+|lmfao|rofl|mdr+|ptdr+|xd+|хд+|jsjs+|kkkk+)$/i;
+const SORRY = /(sorry|apologi[sz]e|d[ée]sol[ée]|perd[oó]n|lo siento|disculpa|прости|извини|entschuldig)/i;
 
-  const total = parsedMsgs.length || 1;
-  const share = Math.round(theirs.length / total * 100);
-  const myWords = mine.length ? Math.round(words(mine)/mine.length) : 0;
-  const theirWords = theirs.length ? Math.round(words(theirs)/theirs.length) : 0;
+function computeFindings(msgs, me){
+  const list = [], extra = [];
+  const N = msgs.length;
+  if(!N) return { list, extra };
+  const cnt = {};
+  msgs.forEach(m => cnt[m.name] = (cnt[m.name]||0) + 1);
+  const ppl = Object.keys(cnt).sort((a,b) => cnt[b] - cnt[a]);
+  const meN = cnt[me] ? me : ppl[0];
+  const other = ppl.find(n => n !== meN) || null;
+  const group = ppl.length > 2;
+  const who = n => n === meN ? "You" : n;
+  const whoL = n => n === meN ? "you" : n;
+  const poss = n => n === meN ? "your" : n + "’s";
+  const duo = !!other && cnt[meN] >= 3 && cnt[other] >= 3;
+  const fmt = n => Number(n).toLocaleString("en-US");
+  const pct = (a,b) => Math.round(a / Math.max(b,1) * 100);
+  const cut = (s, n) => { s = String(s).replace(/\s+/g," ").trim(); if(s.length <= n) return s; const c = s.slice(0, n); return c.slice(0, Math.max(c.lastIndexOf(" "), n*0.6|0)).replace(/[\s,;:.-]+$/,"") + "…" };
+  const words = s => (String(s).trim().match(/\S+/g) || []).length;
+  const tokens = s => String(s).toLowerCase().split(/[^\p{L}\p{N}'’]+/u).filter(Boolean);
+  const day = t => { const d = new Date(t); return d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate() };
+  const dateFmt = t => new Date(t).toLocaleDateString("en-GB", { day:"numeric", month:"long", year:"numeric" });
+  const hourFmt = h => (h % 12 || 12) + (h < 12 ? " am" : " pm");
+  const dur = ms => { const m = Math.round(ms/60000); if(m < 1) return "under a minute"; if(m < 60) return m + " min"; const h = Math.floor(m/60), r = m % 60; return h + " h" + (r ? " " + r + " min" : "") };
+  const median = a => { if(!a.length) return 0; const s = a.slice().sort((x,y)=>x-y); return s[s.length>>1] };
+  const timed = msgs.filter(m => typeof m.time === "number" && isFinite(m.time));
+  const hasTime = timed.length >= 10 && timed.length >= N * 0.6;
+  const used = new Set();
+  const nameToks = new Set(ppl.flatMap(n => tokens(n)));
 
-  // who opens: a message that follows a different speaker counts as a turn start
-  let turns = 0, theirTurns = 0;
-  for(let i = 1; i < parsedMsgs.length; i++){
-    if(parsedMsgs[i].name !== parsedMsgs[i-1].name){ turns++; if(parsedMsgs[i].name !== meName) theirTurns++ }
+  // 1. volume and span
+  const totalWords = msgs.reduce((a,m) => a + words(m.content), 0);
+  let spanTxt = "";
+  if(hasTime){
+    const t0 = timed[0].time, t1 = timed[timed.length-1].time;
+    const days = Math.round((t1 - t0) / 864e5);
+    if(days >= 2) spanTxt = "Across " + fmt(days) + " days, from " + dateFmt(t0) + " to " + dateFmt(t1) + ".";
   }
-  const initiation = turns ? Math.round(theirTurns / turns * 100) : 50;
+  list.push({ id:"volume", v: fmt(N), l: "messages read, " + (totalWords < 200 ? fmt(totalWords) : "about " + fmt(Math.round(totalWords/10)*10)) + " words",
+    d: spanTxt || (ppl.length + (ppl.length === 1 ? " person" : " people") + " in this conversation.") });
 
-  // longest unbroken run by one person
-  let run = 1, best = 1, who = parsedMsgs[0] ? parsedMsgs[0].name : "";
-  for(let i = 1; i < parsedMsgs.length; i++){
-    if(parsedMsgs[i].name === parsedMsgs[i-1].name){ run++; if(run > best){ best = run; who = parsedMsgs[i].name } }
-    else run = 1;
+  // 2. share
+  if(group){
+    const top = ppl[0];
+    list.push({ id:"share", v: pct(cnt[top], N) + "%", l: "of the messages are " + (top === meN ? "yours" : top + "’s"),
+      d: ppl.length + " people here. The quietest, " + whoL(ppl[ppl.length-1]) + ", wrote " + pct(cnt[ppl[ppl.length-1]], N) + "%." });
+  } else if(other){
+    const s = pct(cnt[other], N);
+    list.push({ id:"share", v: s + "%", l: "of the messages are " + other + "’s",
+      d: "You wrote the other " + (100 - s) + "%." + (Math.abs(s - 50) <= 3 ? " Almost perfectly even." : "") });
   }
-  const other = theirs.length ? (theirs[0].name) : "they";
-  return [
-    { v: total.toLocaleString(), l: "messages read" },
-    { v: share + "%", l: "written by " + other },
-    { v: theirWords, l: "words per message, " + other },
-    { v: myWords, l: "words per message, you" },
-    { v: qs(theirs), l: "questions " + other + " asked" },
-    { v: qs(mine), l: "questions you asked" },
-    { v: initiation + "%", l: "of turns " + other + " starts" },
-    { v: best, l: "longest run without a reply", sub: who },
-    { v: emoji(theirs) + emoji(mine), l: "messages carrying emoji" },
-    { v: longest(parsedMsgs) + " ch", l: "longest single message" }
-  ];
-}
-function showStats(){
-  const g = $("statgrid");
-  const items = computeStats();
-  g.innerHTML = "";
-  items.forEach((it, i) => {
-    const d = document.createElement("div");
-    d.className = "stat";
-    d.style.animationDelay = (i * 0.9) + "s";
-    d.innerHTML = `<b>${esc(String(it.v))}</b><span>${esc(it.l)}</span>`;
-    g.appendChild(d);
+
+  // 3. how it starts
+  if(N >= 12 && msgs[0].content.length >= 2 && !/https?:/i.test(msgs[0].content)){
+    list.push({ id:"first", l: "How it starts", q: cut(msgs[0].content, 120),
+      qw: who(msgs[0].name) + (hasTime && msgs[0].time ? ", " + dateFmt(msgs[0].time) : "") });
+    used.add(0);
+  }
+
+  // 4. who opens: a new conversation is the first message after a 6 hour gap
+  if(hasTime){
+    const opens = {}; let S = 0, prev = null;
+    msgs.forEach(m => { if(typeof m.time !== "number") return;
+      if(prev === null || m.time - prev >= 6*36e5){ opens[m.name] = (opens[m.name]||0) + 1; S++ } prev = m.time });
+    if(S >= 4 && other){
+      const top = Object.keys(opens).sort((a,b) => opens[b]-opens[a])[0];
+      const subject = group ? top : other;
+      list.push({ id:"opens", v: (opens[subject]||0) + " of " + S, l: "conversations started by " + whoL(subject),
+        d: "A new conversation here means a gap of six hours or more." + (group ? "" : " You started " + (opens[meN]||0) + ".") });
+    }
+  }
+
+  // 5. reply speed, replies within six hours only
+  if(hasTime && duo){
+    const g = {};
+    for(let i = 1; i < N; i++){
+      const a = msgs[i-1], b = msgs[i];
+      if(a.name === b.name || typeof a.time !== "number" || typeof b.time !== "number") continue;
+      const d = b.time - a.time;
+      if(d >= 0 && d < 6*36e5) (g[b.name] = g[b.name] || []).push(d);
+    }
+    if((g[other]||[]).length >= 5 && (g[meN]||[]).length >= 5){
+      list.push({ id:"reply", v: dur(median(g[other])), l: "typical reply time, " + other,
+        d: "Yours is " + dur(median(g[meN])) + ". The middle value, counting replies within six hours." });
+    }
+  }
+
+  // 6. words per message
+  if(duo && cnt[meN] >= 5 && cnt[other] >= 5){
+    const avg = n => { const a = msgs.filter(m => m.name === n); return a.reduce((s,m) => s + words(m.content), 0) / a.length };
+    const ao = avg(other), am = avg(meN), r = ao / Math.max(am, 0.1);
+    list.push({ id:"length", v: (Math.round(ao*10)/10).toString(), l: "words per message, " + other,
+      d: "You average " + (Math.round(am*10)/10) + "." + (r >= 1.7 ? " " + other + " writes well over half as much again." : r <= 0.6 ? " You write noticeably more per message." : "") });
+  }
+
+  // 7. questions
+  if(duo){
+    const q = n => msgs.filter(m => m.name === n && m.content.includes("?")).length;
+    const qo = q(other), qm = q(meN);
+    if(qo + qm >= 3) list.push({ id:"questions", v: fmt(qo), l: (qo === 1 ? "message" : "messages") + " from " + other + " with a question in it",
+      d: "You sent " + fmt(qm) + "." });
+  }
+
+  // 8. busiest hour, 9. late night
+  if(hasTime && timed.length >= 30){
+    const hc = new Array(24).fill(0);
+    timed.forEach(m => hc[new Date(m.time).getHours()]++);
+    const h = hc.indexOf(Math.max(...hc));
+    list.push({ id:"hour", v: hourFmt(h), l: "the busiest hour of the day in this conversation",
+      d: pct(hc[h], timed.length) + "% of all messages are sent between " + hourFmt(h) + " and " + hourFmt((h+1)%24) + "." });
+    const late = timed.filter(m => new Date(m.time).getHours() < 5);
+    if(late.length >= 5 && late.length >= timed.length * 0.04){
+      const lc = {}; late.forEach(m => lc[m.name] = (lc[m.name]||0) + 1);
+      const top = Object.keys(lc).sort((a,b) => lc[b]-lc[a])[0];
+      list.push({ id:"late", v: pct(late.length, timed.length) + "%", l: "of messages sent between midnight and 5 am",
+        d: "Most of those come from " + whoL(top) + "." });
+    }
+  }
+
+  // 10. laughter
+  const lg = {}; let lgT = 0;
+  msgs.forEach(m => { const k = tokens(m.content).filter(t => LAUGH.test(t)).length; if(k){ lg[m.name] = (lg[m.name]||0) + k; lgT += k } });
+  if(lgT >= 3) list.push({ id:"laugh", v: fmt(lgT), l: "laughs typed out (haha, lol, mdr…)",
+    d: duo ? other + ": " + fmt(lg[other]||0) + ". You: " + fmt(lg[meN]||0) + "." : "" });
+
+  // 11. longest run without a reply
+  if(ppl.length > 1){
+    let run = 1, best = 1, bw = msgs[0].name;
+    for(let i = 1; i < N; i++){
+      if(msgs[i].name === msgs[i-1].name){ run++; if(run > best){ best = run; bw = msgs[i].name } } else run = 1;
+    }
+    if(best >= 4) list.push({ id:"run", v: fmt(best), l: "messages in a row without a reply", d: "Sent by " + whoL(bw) + "." });
+  }
+
+  // 12. emoji
+  const em = {}, emBy = {}; let emT = 0;
+  msgs.forEach(m => {
+    for(const ch of (m.content.match(/\p{Extended_Pictographic}\uFE0F?/gu) || [])){
+      const cp = ch.codePointAt(0); if(cp < 0x2190) continue;
+      em[ch] = (em[ch]||0) + 1; emT++;
+      const b = emBy[m.name] = emBy[m.name] || {}; b[ch] = (b[ch]||0) + 1;
+    }
   });
+  if(emT >= 5){
+    const top = o => Object.keys(o||{}).sort((a,b) => o[b]-o[a])[0];
+    const e = top(em);
+    const to = duo && top(emBy[other]), tm = duo && top(emBy[meN]);
+    list.push({ id:"emoji", v: e, l: "the most used emoji, " + fmt(em[e]) + " times",
+      d: duo && to && tm ? other + "’s favourite: " + to + ". Yours: " + tm + "." : fmt(emT) + " emoji in all." });
+  }
+
+  // ---- the strongest material goes last, so it lands during the quiet structuring pass ----
+
+  // 13. most used word
+  const topWord = n => {
+    const c = {};
+    msgs.forEach(m => { if(m.name !== n) return; tokens(m.content).forEach(t => {
+      if(t.length < 3 || FIND_STOP.has(t) || LAUGH.test(t) || nameToks.has(t) || /^\d/.test(t) || /^(http|www|omitted|media)/.test(t)) return;
+      c[t] = (c[t]||0) + 1 }) });
+    const w = Object.keys(c).sort((a,b) => c[b]-c[a])[0];
+    return w && c[w] >= 3 ? { w, c: c[w] } : null;
+  };
+  if(other && cnt[other] >= 8){
+    const wo = topWord(other), wm = cnt[meN] >= 8 ? topWord(meN) : null;
+    if(wo) list.push({ id:"word", v: "“" + wo.w + "”", l: other + "’s most used word, " + fmt(wo.c) + " times",
+      d: wm ? "Yours is “" + wm.w + "”, " + fmt(wm.c) + " times." : "Leaving out the small words everyone uses." });
+  } else if(!other && cnt[meN] >= 8){
+    const wm = topWord(meN);
+    if(wm) list.push({ id:"word", v: "“" + wm.w + "”", l: "your most used word, " + fmt(wm.c) + " times", d: "Leaving out the small words everyone uses." });
+  }
+
+  // 14. apologies
+  const so = {}; let soT = 0;
+  msgs.forEach(m => { if(SORRY.test(m.content)){ so[m.name] = (so[m.name]||0) + 1; soT++ } });
+  if(soT >= 2) list.push({ id:"sorry", v: fmt(soT), l: "messages with an apology in them",
+    d: duo ? other + ": " + fmt(so[other]||0) + ". You: " + fmt(so[meN]||0) + "." : "" });
+
+  // 15. busiest day
+  if(hasTime){
+    const dc = {}; timed.forEach(m => { const k = day(m.time); dc[k] = (dc[k]||0) + 1 });
+    const ks = Object.keys(dc);
+    if(ks.length >= 3){
+      const k = ks.sort((a,b) => dc[b]-dc[a])[0];
+      const avg = timed.length / ks.length;
+      if(dc[k] >= 10 && dc[k] >= avg * 2){
+        const t = timed.find(m => String(day(m.time)) === k).time;
+        list.push({ id:"day", v: fmt(dc[k]), l: "messages on " + dateFmt(t) + ", the busiest day",
+          d: "A typical day with messages has about " + fmt(Math.max(1, Math.round(avg))) + "." });
+      }
+    }
+  }
+
+  // 16. the longest message
+  let li = -1, lw = 0;
+  msgs.forEach((m, i) => { const w = words(m.content); if(w > lw){ lw = w; li = i } });
+  if(li >= 0 && lw >= 15 && !used.has(li)){
+    list.push({ id:"longest", l: "The longest single message", q: cut(msgs[li].content, 150), qw: who(msgs[li].name) + ", " + fmt(lw) + " words" });
+    used.add(li);
+  }
+
+  // 17. real lines, picked from across the conversation
+  const cands = n => msgs.map((m, i) => ({ m, i })).filter(({ m, i }) => {
+    if(m.name !== n || used.has(i)) return false;
+    const c = m.content.trim();
+    if(c.length < 18 || c.length > 120 || /\n|https?:|www\./i.test(c) || words(c) < 4) return false;
+    return (c.match(/\p{L}/gu) || []).length >= c.length * 0.55;
+  });
+  const pick = (arr, k) => {
+    const out = [];
+    for(let j = 0; j < k && arr.length; j++){
+      const lo = Math.floor(arr.length * j / k), hi = Math.max(lo + 1, Math.floor(arr.length * (j+1) / k));
+      const band = arr.slice(lo, hi);
+      const best = band.reduce((b, x) => Math.abs(x.m.content.length - 65) < Math.abs(b.m.content.length - 65) ? x : b, band[0]);
+      if(best && !used.has(best.i)){ out.push(best); used.add(best.i) }
+    }
+    return out;
+  };
+  const qOther = other ? pick(cands(other), 3) : [];
+  const qMe = pick(cands(meN), 3);
+  const qcard = (x, i) => ({ id:"quote", l: i === 0 ? "In " + poss(x.m.name) + " words" : "Another line from " + whoL(x.m.name),
+    q: cut(x.m.content, 120), qw: who(x.m.name) + (hasTime && x.m.time ? ", " + dateFmt(x.m.time) : "") });
+  if(qOther[0]) list.push(qcard(qOther[0], 0));
+  if(qMe[0]) list.push(qcard(qMe[0], 0));
+  // spare lines, used only if the wait runs long
+  for(let j = 1; j < 3; j++){ if(qOther[j]) extra.push(qcard(qOther[j], j)); if(qMe[j]) extra.push(qcard(qMe[j], j)) }
+  return { list, extra };
+}
+// ==findings:end==
+
+// ---------- the wait ----------
+// Four honest phases. Progress is driven by what actually happens (stage
+// events, how much prose has arrived) with a slow time-based creep inside
+// each phase so the bar never freezes. It stops short of 100% until the
+// report is really here.
+const SECTIONS = {
+  "Self Lens":         ["portrait","identity","connection","emotional_world","patterns","superpowers","growth_roadmap","persona_card"],
+  "Romantic Lens":     ["relationship_energy","interest_signals","communication_dynamic","emotional_depth","attachment_indicators","green_flags","caution_areas","your_patterns","growth_roadmap","relationship_trajectory"],
+  "Friendship Lens":   ["archetype_card","friendship_pulse","give_and_take","green_flags","watch_zones","your_patterns","communication_dna","emotional_depth","growth_roadmap","trajectory"],
+  "Professional Lens": ["dynamic_card","power_influence","communication_effectiveness","green_flags","watch_zones","your_patterns","collaboration","emotional_intelligence","growth_roadmap","trajectory"],
+  "Family Lens":       ["family_dynamic_card","roles_and_scripts","boundary_landscape","green_flags","watch_zones","communication_archaeology","emotional_ledger","your_patterns","attachment_and_loyalty","growth_roadmap","trajectory"],
+  "Group Lens":        ["cast_of_characters","group_vibe","power_map","green_flags","watch_zones","awards_ceremony"]
+};
+const PHASE_ORDER = ["count","read","write","structure"];
+const PHASE_MSG = {
+  count:     "Counting what is there before anything is read.",
+  read:      "Handing the conversation over to be read. The first words usually appear within fifteen seconds.",
+  write:     "Writing the reading. You can follow it below as it arrives.",
+  structure: "The writing is done. Now sorting it into scores, evidence and the sections of your report.",
+  fallback:  "Reading and writing it in one go. This route shows no draft, so it is quieter, but it is working."
+};
+const PHASE_ETA = {
+  count: "Usually 2 to 3 minutes", read: "Usually 2 to 3 minutes", write: "About a minute more after the writing stops",
+  structure: "Last step, usually under a minute", fallback: "Usually 2 to 3 minutes"
+};
+const WAIT = { timer:null };
+
+function waitStart(){
+  waitStop();
+  const f = computeFindings(parsedMsgs, meName);
+  const now = Date.now();
+  Object.assign(WAIT, {
+    t0: now, phase: "count", phaseT: now, pending: null, prog: 0, prose: 0, fbFrom: 0,
+    list: f.list, extra: f.extra, shown: 0, nextRecycle: 0, lastReveal: 0, featured: null, nth: 0,
+    reserve: Math.min(7, Math.floor(f.list.length * 0.45)), secs: [], secT: [], secDone: -1, liveStick: true, liveMd: ""
+  });
+  $("working").style.setProperty("--lensc", lens ? lens.color : "var(--navy)");
+  $("feat").innerHTML = ""; $("found").innerHTML = ""; $("foundWrap").classList.add("hide");
+  $("assemble").classList.add("hide"); $("secList").innerHTML = "";
+  $("live").innerHTML = ""; $("live").className = "live"; $("liveWrap").classList.add("hide");
+  $("liveLab").textContent = "The reading, as it is written"; $("liveMore").textContent = "Show all"; $("liveCount").textContent = "";
+  $("workMsg").textContent = PHASE_MSG.count;
+  waitTick();
+  WAIT.timer = setInterval(waitTick, 400);
+}
+function waitStop(){ if(WAIT.timer) clearInterval(WAIT.timer); WAIT.timer = null }
+
+function waitPhase(p){
+  if(WAIT.phase === "fallback") return;
+  const cur = PHASE_ORDER.indexOf(WAIT.phase), nxt = PHASE_ORDER.indexOf(p);
+  if(nxt <= cur) return;
+  // let the local count finish its short run before moving on
+  if(WAIT.phase === "count" && Date.now() - WAIT.phaseT < 2600){
+    if(!WAIT.pending || PHASE_ORDER.indexOf(WAIT.pending) < nxt) WAIT.pending = p;
+    return;
+  }
+  WAIT.phase = p; WAIT.phaseT = Date.now();
+  $("workMsg").textContent = PHASE_MSG[p];
+  if(p === "structure") startAssemble();
+}
+function waitStage(stage, label){
+  if(stage === "reading" || stage === "thinking") waitPhase("read");
+  else if(stage === "structuring") waitPhase("structure");
+  else if(label) $("workMsg").textContent = label;
+}
+function waitProse(md){
+  WAIT.prose = md.length;
+  if(WAIT.phase === "read" || WAIT.phase === "count") waitPhase("write");
+  renderLive(md);
+}
+function waitFallback(){
+  WAIT.fbFrom = WAIT.prog; WAIT.phase = "fallback"; WAIT.phaseT = Date.now(); WAIT.pending = null;
+  $("workMsg").textContent = PHASE_MSG.fallback;
+}
+function waitDone(){
+  WAIT.prog = 100; paintProgress();
+  $("secList").querySelectorAll("li").forEach(li => { li.className = "done" });
+  waitStop();
+}
+
+function phaseTarget(now){
+  const dt = now - WAIT.phaseT, ex = (tau) => 1 - Math.exp(-dt / tau);
+  switch(WAIT.phase){
+    case "count":     return 5 * Math.min(1, dt / 2600);
+    case "read":      return 5 + 7 * ex(10000);
+    case "write": {
+      // ~12,000 characters of prose is a typical full draft
+      const byText = Math.min(WAIT.prose / 13000, 1), byTime = 0.85 * ex(50000);
+      return 12 + 50 * Math.min(0.97, Math.max(byText, byTime));
+    }
+    case "structure": return 62 + 35 * ex(35000);
+    case "fallback":  return WAIT.fbFrom + (95 - WAIT.fbFrom) * ex(75000);
+  }
+  return WAIT.prog;
+}
+const PHASE_CAP = { count:5, read:11.8, write:61.5, structure:97, fallback:95 };
+
+function waitTick(){
+  if(WAIT.prog >= 100) return;
+  const now = Date.now();
+  if(WAIT.phase === "count" && now - WAIT.phaseT >= 2600){
+    WAIT.phase = "read"; WAIT.phaseT = now; $("workMsg").textContent = PHASE_MSG.read;
+    if(WAIT.pending && WAIT.pending !== "read"){ const p = WAIT.pending; WAIT.pending = null; waitPhase(p) }
+    WAIT.pending = null;
+  }
+  // always a little forward, never past what the phase has earned
+  WAIT.prog = Math.min(PHASE_CAP[WAIT.phase] || 95, Math.max(WAIT.prog + 0.04, phaseTarget(now)));
+  paintProgress();
+  revealDue(now);
+  if(WAIT.phase === "structure") tickAssemble(now);
+}
+
+function paintProgress(){
+  const p = Math.round(WAIT.prog * 10) / 10;
+  $("progFill").style.width = p + "%";
+  $("prog").setAttribute("aria-valuenow", String(Math.round(p)));
+  const s = Math.floor((Date.now() - WAIT.t0) / 1000);
+  $("waitClock").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+  $("waitEta").textContent = WAIT.prog >= 100 ? "Done" : PHASE_ETA[WAIT.phase] || "";
+  const idx = WAIT.phase === "fallback" ? 2 : PHASE_ORDER.indexOf(WAIT.phase);
+  $("phases").querySelectorAll("li").forEach((li, i) => {
+    li.className = WAIT.prog >= 100 || i < idx ? "done" : i === idx ? "on" : "";
+  });
+}
+
+// One finding every few seconds: a quick burst while counting, a slower pace
+// while the prose is streaming (the prose is the show then), and the reserved
+// strongest ones every ~7 s through the quiet structuring pass.
+function revealDue(now){
+  const el = now - WAIT.t0, L = WAIT.list, n = L.length;
+  if(WAIT.phase === "count"){
+    const burst = Math.min(3, Math.max(1, n - WAIT.reserve));
+    if(WAIT.shown < burst && el >= 500 + WAIT.shown * 800) revealNext();
+    return;
+  }
+  const quiet = WAIT.phase === "structure" || WAIT.phase === "fallback";
+  const gap = quiet ? 7000 : WAIT.phase === "read" ? 5000 : 9000;
+  if(now - WAIT.lastReveal < gap) return;
+  if(!quiet){ if(WAIT.shown < n - WAIT.reserve) revealNext(); return }
+  if(WAIT.shown < n) return revealNext();
+  if(WAIT.extra.length){ WAIT.list.push(WAIT.extra.shift()); return revealNext() }
+  // nothing new left: bring back an earlier one rather than freeze
+  if(n > 1){
+    const f = L[WAIT.nextRecycle % n]; WAIT.nextRecycle++;
+    if(f !== WAIT.featured) feature(f, "Worth another look");
+    WAIT.lastReveal = now;
+  }
+}
+function revealNext(){
+  const f = WAIT.list[WAIT.shown++];
+  WAIT.lastReveal = Date.now();
+  WAIT.nth++;
+  feature(f, "Finding " + WAIT.nth, true);
+}
+function feature(f, tag, isNew){
+  const prev = WAIT.featured;
+  if(prev && !prev._filed){ prev._filed = true; fileFound(prev) }
+  if(!isNew) f._filed = true;
+  WAIT.featured = f;
+  const card = document.createElement("div");
+  card.className = "fcard";
+  card.innerHTML = `<p class="fn">${esc(tag)}</p>` + (f.q
+    ? `<p class="fl">${esc(f.l)}</p><blockquote>“${esc(f.q)}”</blockquote><cite>${esc(f.qw || "")}</cite>`
+    : `<b>${esc(f.v)}</b><span class="fl">${esc(f.l)}</span>${f.d ? `<span class="fd">${esc(f.d)}</span>` : ""}`);
+  const host = $("feat");
+  host.innerHTML = ""; host.appendChild(card);
+}
+function fileFound(f){
+  const li = document.createElement("li");
+  li.innerHTML = f.q
+    ? `<b>“”</b><span>${esc(f.q.length > 70 ? f.q.slice(0, 68) + "…" : f.q)} <em>${esc(f.qw ? f.qw.split(",")[0] : "")}</em></span>`
+    : `<b>${esc(f.v)}</b><span>${esc(f.l)}</span>`;
+  $("found").prepend(li);
+  $("foundWrap").classList.remove("hide");
+}
+
+function startAssemble(){
+  const keys = (lens && SECTIONS[lens.id]) || [];
+  WAIT.secs = ["Headline", ...keys.map(k => TITLE(k))];
+  // spread over the typical 40 to 80 s; the last one only completes when the report is really here
+  const T = 60000, n = WAIT.secs.length;
+  WAIT.secT = WAIT.secs.map((_, i) => (i + 1) / n * T * (0.85 + ((i * 37) % 30) / 100));
+  for(let i = 1; i < n; i++) WAIT.secT[i] = Math.max(WAIT.secT[i], WAIT.secT[i-1] + 1500);
+  WAIT.secDone = -2;
+  $("secList").innerHTML = WAIT.secs.map(s => `<li><i></i>${esc(s)}</li>`).join("");
+  $("assemble").classList.remove("hide");
+  $("live").classList.add("settled");
+  $("liveLab").textContent = "The draft, now being put in order";
+  paintLive();
+  tickAssemble(Date.now());
+}
+function tickAssemble(now){
+  const dt = now - WAIT.phaseT, n = WAIT.secs.length;
+  if(!n) return;
+  let k = 0;
+  while(k < n - 1 && WAIT.secT[k] <= dt) k++;
+  if(k === WAIT.secDone) return;
+  WAIT.secDone = k;
+  $("secList").querySelectorAll("li").forEach((li, i) => { li.className = i < k ? "done" : i === k ? "on" : "" });
 }
 
 // ---------- analysis ----------
@@ -941,36 +1412,61 @@ function buildPayload(){
   };
 }
 
+// The draft as it is written: light markdown, painted at most once a frame,
+// and it only follows the newest line while the reader is at the bottom. If
+// they scroll up to reread something, it stays where they put it.
+let liveRaf = 0;
 function renderLive(md){
-  // light markdown: headings and paragraphs, enough to read comfortably
+  WAIT.liveMd = md;
+  if(liveRaf) return;
+  liveRaf = (window.requestAnimationFrame || setTimeout)(() => { liveRaf = 0; paintLive() });
+}
+function mdInline(t){ return esc(t).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/(^|\W)\*(?!\s)(.+?)\*(?=\W|$)/g,"$1<em>$2</em>") }
+function paintLive(){
+  const md = WAIT.liveMd || "", el = $("live");
   const html = md.split(/\n{2,}/).map(block => {
     const b = block.trim();
     if(!b) return "";
     const h = b.match(/^#{1,6}\s+(.*)$/);
-    if(h) return `<h4>${esc(h[1])}</h4>`;
-    return `<p>${esc(b.replace(/^#+\s*/,"")).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")}</p>`;
+    if(h) return `<h4>${esc(h[1].replace(/\*\*/g,""))}</h4>`;
+    const lines = b.split(/\n/);
+    if(lines.every(l => /^\s*([-*\u2022]|\d+[.)])\s+/.test(l)))
+      return `<ul>${lines.map(l => `<li>${mdInline(l.replace(/^\s*([-*\u2022]|\d+[.)])\s+/,""))}</li>`).join("")}</ul>`;
+    return `<p>${mdInline(b.replace(/^#+\s*/,"")).replace(/\n/g,"<br>")}</p>`;
   }).join("");
-  $("live").innerHTML = html + '<span class="cursor"></span>';
-  $("live").scrollTop = $("live").scrollHeight;
+  const settled = el.classList.contains("settled");
+  el.innerHTML = html + (settled ? "" : '<span class="cursor"></span>');
+  if(WAIT.liveStick && !el.classList.contains("open")) el.scrollTop = el.scrollHeight;
+  const w = (md.match(/\S+/g) || []).length;
+  $("liveCount").textContent = w ? w.toLocaleString("en-US") + (settled ? " words written" : " words so far") : "";
+  if(md.length > 40) $("liveWrap").classList.remove("hide");
 }
+function toggleLive(){
+  const el = $("live"), open = el.classList.toggle("open");
+  $("liveMore").textContent = open ? "Show less" : "Show all";
+  if(!open){ WAIT.liveStick = true; el.scrollTop = el.scrollHeight }
+}
+$("live").addEventListener("scroll", () => {
+  const el = $("live");
+  WAIT.liveStick = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+  el.classList.toggle("scrolled", el.scrollTop > 4);
+}, { passive:true });
 
 async function analyze(){
   clearErr();
   if(!lens){ showErr("Choose a lens first."); return }
   $("paywall").classList.add("hide");
   if(!session || !session.token){ await loadSession(); if(!session) return }
+  let payload;
+  try{ payload = JSON.stringify(buildPayload()) }catch(e){ showErr(esc(e.message)); return }
   const btn = $("go");
   btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Reading';
   $("out").innerHTML = "";
-  $("live").innerHTML = ""; $("liveWrap").classList.add("hide");
   $("working").classList.remove("hide");
-  showStats();
-  $("working").scrollIntoView({behavior:"smooth",block:"center"});
-  let i = 0;
-  workTimer = setInterval(() => { i=(i+1)%WORK_MSGS.length; $("workMsg").textContent = WORK_MSGS[i] }, 14000);
+  waitStart();
+  $("working").scrollIntoView({behavior:"smooth",block:"start"});
   lastKey = "a" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 
-  const payload = JSON.stringify(buildPayload());
   const headers = { "Content-Type":"application/json", "X-Web-Token": session.token, "X-Device-Id": deviceId() };
 
   try{
@@ -980,6 +1476,7 @@ async function analyze(){
     }catch(streamErr){
       if(streamErr && streamErr.paywall) throw streamErr;
       console.warn("stream failed, falling back:", streamErr && streamErr.message);
+      waitFallback();
       const res = await fetch(API + "/analyze", { method:"POST", headers, body: payload });
       const data = await res.json();
       if(res.status === 402){ const e = new Error("paywall"); e.paywall = true; throw e }
@@ -987,12 +1484,13 @@ async function analyze(){
       if(!res.ok) throw new Error(data.error || ("The service returned " + res.status));
       report = data;
     }
+    waitDone();
     render(report); consumeCredit(); rail(4); offerInstall();
   }catch(e){
     if(e && e.paywall){ $("paywall").classList.remove("hide"); $("paywall").scrollIntoView({behavior:"smooth",block:"center"}) }
     else showErr(e.message === "Failed to fetch" ? "Could not reach the service. Check your connection and try again." : esc(e.message));
   }finally{
-    clearInterval(workTimer);
+    waitStop();
     $("working").classList.add("hide");
     btn.disabled = false; btn.textContent = "Read this conversation";
   }
@@ -1018,11 +1516,10 @@ async function streamAnalyze(payload, headers){
       const dl = (f.match(/^data: ([\s\S]*)$/m) || [])[1];
       if(!ev || !dl) continue;
       let d; try{ d = JSON.parse(dl) }catch(_){ continue }
-      if(ev === "stage"){ clearInterval(workTimer); $("workMsg").textContent = d.label || "" }
+      if(ev === "stage"){ waitStage(d.stage, d.label) }
       else if(ev === "delta"){
         prose += d.t || "";
-        if(prose.length > 40 && $("liveWrap").classList.contains("hide")) $("liveWrap").classList.remove("hide");
-        renderLive(prose);
+        waitProse(prose);
       }
       else if(ev === "report"){ report = d }
       else if(ev === "error"){ failed = d.error || "stream error" }
@@ -1207,7 +1704,9 @@ async function tgLoadChat(){
       if(sid && sid === myId) who = (me.firstName || "Me");
       else if(m.sender && (m.sender.firstName || m.sender.title)) who = m.sender.firstName || m.sender.title;
       else if(d.isUser) who = d.title || d.name || "Them";
-      out.push({ name: who, content: text });
+      const o = { name: who, content: text };
+      if(typeof m.date === "number" && m.date > 0) o.time = m.date * 1000;
+      out.push(o);
     }
     if(out.length < 4){ showErr("That conversation only has " + out.length + " text messages. Pick one with more, or load more messages."); return }
     tgSay("");
