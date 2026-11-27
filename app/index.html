@@ -126,6 +126,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .rep-hero .lenstag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
 .rep-hero .lenstag img{width:18px;height:18px}
 .rep-hero h2{color:#fff;margin:0 0 8px;font-size:clamp(21px,4.4vw,27px);line-height:1.25;hyphens:none}
+.rep-hero h2.long{font-size:clamp(17px,3.3vw,21px);line-height:1.35}
 .rep-hero .hero-rest{color:rgba(255,255,255,.86);font-size:15px;line-height:1.6;margin:0 0 14px}
 .rep-hero .who{color:rgba(255,255,255,.62);font-size:13px;margin:0}
 .hero-row{display:flex;gap:20px;align-items:center;margin-top:20px;flex-wrap:wrap}
@@ -173,7 +174,7 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 .kvrow b{font-weight:600;color:var(--ink)}
 .kvrow span{color:var(--text-2);text-align:right}
 .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
-.repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:20px 0 12px;background:linear-gradient(to top,var(--cream) 0%,var(--cream) 72%,rgba(244,241,236,0) 100%);margin-top:18px;z-index:5}
+.repbar{position:sticky;bottom:0;display:flex;gap:10px;padding:14px 0 12px;background:var(--cream);box-shadow:0 -14px 18px -10px var(--cream);margin-top:18px;z-index:5}
 #out{padding-bottom:6px}
 .repbar .btn{flex:1}
 .live{background:var(--elevated);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;max-height:290px;overflow:auto;font-size:15px;line-height:1.62;color:var(--text-2)}
@@ -1354,14 +1355,18 @@ function render(data){
   const trend = String(scoreHost.trend || "").toUpperCase();
   const trendCls = /DECLIN|FALL|WORSEN|COOL/.test(trend) ? "down" : /IMPROV|RIS|WARM|GROW/.test(trend) ? "up" : "";
 
-  // the first sentence is the verdict, the rest is the explanation
+  // The first sentence is the verdict, the rest is the explanation. Models do
+  // not respect our length preference, so fall back to the first sentence at
+  // any length rather than dropping a whole paragraph into the headline.
   let headline = hero, rest = "";
-  const cut = String(hero).match(/^([\s\S]{20,150}?[.!?])\s+(.*)$/s);
+  const cut = String(hero).match(/^([\s\S]{20,150}?[.!?])\s+(.*)$/s)
+           || String(hero).match(/^([\s\S]{20,260}?[.!?])\s+(.*)$/s);
   if(cut){ headline = cut[1]; rest = cut[2] }
+  const headCls = headline.length > 150 ? " long" : "";
 
   let html = `<div class="rep-hero">
       <span class="lenstag"><img src="/assets/${lens ? lens.icon : "appicon.png"}" alt="">${esc(lens ? lens.name : "")} Lens</span>
-      ${headline ? `<h2>${esc(headline)}</h2>` : ""}
+      ${headline ? `<h2 class="${headCls.trim()}">${esc(headline)}</h2>` : ""}
       ${rest ? `<p class="hero-rest">${esc(rest)}</p>` : ""}
       <p class="who">${esc(targetName)} &middot; ${parsedMsgs.length.toLocaleString()} messages read</p>
       ${typeof scoreHost.overall_score === "number" ? `<div class="hero-row">
