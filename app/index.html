@@ -31,6 +31,7 @@
 .bal{font-size:13px;color:var(--text-3);background:var(--cream-warm);border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}
 .bal.premium{background:#EEF5F0;border-color:#CADCCF;color:#44705A}
 .code-link{font-size:12.5px;color:var(--text-3);text-decoration:underline;white-space:nowrap}
+.head-links{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
 .privacy-line{font-size:13.5px;color:var(--text-2);margin:14px 0 0;line-height:1.5}
 .privacy-line a{color:var(--text-2)}
 .sample-row{margin-top:14px;text-align:center}
@@ -298,7 +299,10 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
 
   <div class="app-head">
     <h1>Read a conversation</h1>
-    <a href="#" class="code-link" id="codeLink" onclick="openCode();return false">Have a code?</a>
+    <span class="head-links">
+      <a href="#" class="code-link" id="codeLink" onclick="openCode();return false">Have a code?</a>
+      <a href="#" class="code-link" id="restoreLink" onclick="openRestore();return false">Restore a purchase</a>
+    </span>
     <span class="bal" id="bal" onclick="if(!(session&&session.premium))openCode()" style="cursor:pointer"></span>
   </div>
   <p class="lede" style="color:var(--text-2);margin:0 0 4px;font-size:16px">Six lenses, one real conversation, a structured reading in about three minutes. Nothing you paste is stored.</p>
@@ -472,7 +476,9 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
     <div class="plan-grid" id="plans"></div>
     <label style="margin-top:18px">Or pay as you go</label>
     <div class="plan-grid" id="packs"></div>
-    <p style="margin:18px 0 0;text-align:center"><a href="#" onclick="openCode();return false" style="color:var(--text-2);font-size:14px">Have a code?</a></p>
+    <p style="margin:18px 0 0;text-align:center"><a href="#" onclick="openCode();return false" style="color:var(--text-2);font-size:14px">Have a code?</a>
+      <span style="color:var(--text-3);font-size:14px">&nbsp;·&nbsp;</span>
+      <a href="#" onclick="openRestore();return false" style="color:var(--text-2);font-size:14px">Restore a purchase</a></p>
   </section>
 
   <section class="panel hide" id="codeBox">
@@ -482,6 +488,19 @@ ul.bul li{margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--text-2)}
       <button class="btn btn-primary" id="codeBtn" onclick="redeemCode()">Unlock</button>
     </div>
     <p id="codeMsg" style="margin:10px 0 0;font-size:14px;color:var(--text-2)"></p>
+  </section>
+
+  <section class="panel hide" id="restoreBox">
+    <h2 style="margin-top:0;font-size:20px">Restore a purchase</h2>
+    <div id="restoreForm">
+      <p style="margin:0 0 4px;font-size:14px;color:var(--text-2)">Bought on another phone or browser? Send us the email you paid with and we will restore your access on this device after a quick check.</p>
+      <label for="restoreEmail">The email you used at checkout</label>
+      <input id="restoreEmail" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="you@example.com" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px">
+      <label for="restoreNote">Anything we should know? (optional)</label>
+      <textarea id="restoreNote" maxlength="300" rows="2" style="min-height:64px;font-size:16px;font-family:inherit"></textarea>
+      <button class="btn btn-primary" id="restoreBtn" onclick="sendRestore()" style="margin-top:12px">Send</button>
+    </div>
+    <p id="restoreMsg" style="margin:10px 0 0;font-size:15px;color:var(--text-2)"></p>
   </section>
 
   <!-- REPORT -->
@@ -654,6 +673,7 @@ function paintBalance(){
   if(!session) return;
   const b = $("bal");
   $("codeLink").classList.toggle("hide", !!session.premium);
+  $("restoreLink").classList.toggle("hide", !!session.premium);
   if(session.premium){ b.textContent = "Unlimited"; b.classList.add("premium"); return }
   b.classList.remove("premium");
   const c = session.credits || 0;
@@ -684,6 +704,78 @@ async function redeemCode(){
   }catch(e){ $("codeMsg").textContent = "Could not reach Persona Lens. Try again." }
   $("codeBtn").disabled = false;
 }
+// ==restore-ui:start==
+// Restore a purchase: the request goes to the owner, who approves it by email.
+// The flag in localStorage only says "this device asked", so the app knows to
+// check the status when it opens again.
+const RESTORE_SENT_TEXT = "Request sent. We will restore your access, usually within a day. Keep this page as it is: open the app on this device again later.";
+function restoreFlag(v){
+  try{
+    if(v === undefined) return localStorage.getItem("pl_restore");
+    if(v === null) localStorage.removeItem("pl_restore"); else localStorage.setItem("pl_restore", v);
+  }catch(_){ return null }
+}
+function openRestore(){
+  $("restoreBox").classList.remove("hide");
+  if(restoreFlag() === "pending") showRestoreDone(RESTORE_SENT_TEXT);
+  $("restoreBox").scrollIntoView({behavior:"smooth",block:"center"});
+  if(!$("restoreForm").classList.contains("hide")) setTimeout(() => $("restoreEmail").focus(), 300);
+}
+function showRestoreDone(text){
+  $("restoreForm").classList.add("hide");
+  $("restoreMsg").textContent = text;
+}
+async function sendRestore(){
+  const email = $("restoreEmail").value.trim();
+  const note = $("restoreNote").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ $("restoreMsg").textContent = "Please enter the email you used at checkout."; return }
+  if(note.length > 300){ $("restoreMsg").textContent = "Please keep the note under 300 characters."; return }
+  $("restoreBtn").disabled = true; $("restoreMsg").textContent = "Sending…";
+  try{
+    const r = await fetch(`${API}/web/restore/request`, {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({deviceId: deviceId(), email, note})});
+    const d = await r.json().catch(() => ({}));
+    if(r.ok && d.ok){
+      restoreFlag("pending");
+      track("restore_requested", {}, { flush:true });
+      showRestoreDone(RESTORE_SENT_TEXT);
+    } else if(r.status === 429){
+      $("restoreMsg").textContent = "Too many requests from this device or connection today. Please try again tomorrow.";
+    } else if(d.error === "invalid_email"){
+      $("restoreMsg").textContent = "Please enter the email you used at checkout.";
+    } else {
+      $("restoreMsg").textContent = "Could not send the request. Check your connection and try again.";
+    }
+  }catch(e){ $("restoreMsg").textContent = "Could not reach Persona Lens. Try again." }
+  $("restoreBtn").disabled = false;
+}
+let restoreCheckedAt = 0;
+async function checkRestore(){
+  if(restoreFlag() !== "pending") return;
+  restoreCheckedAt = Date.now();
+  try{
+    const r = await fetch(`${API}/web/restore/status?deviceId=${encodeURIComponent(deviceId())}`);
+    const d = await r.json();
+    if(d.pending) return;
+    restoreFlag(null);
+    if(d.lastStatus === "approved"){
+      await loadSession();
+      $("restoreBox").classList.remove("hide");
+      const what = session && session.premium ? "This device now has unlimited readings."
+        : session && session.credits ? `This device now has ${session.credits === 1 ? "1 reading" : session.credits + " readings"}.` : "";
+      showRestoreDone(("Your purchase has been restored. " + what).trim());
+      if(session && (session.premium || session.credits)) $("paywall").classList.add("hide");
+    } else if(d.lastStatus === "rejected"){
+      $("restoreBox").classList.remove("hide");
+      $("restoreForm").classList.remove("hide");
+      $("restoreMsg").textContent = "We could not match a purchase to your request. If you paid with a different email, you can send a new request with that one.";
+    }
+  }catch(_){}
+}
+document.addEventListener("visibilitychange", () => {
+  if(document.visibilityState === "visible" && Date.now() - restoreCheckedAt > 60000) checkRestore();
+});
+// ==restore-ui:end==
 function paintPlans(){
   if(!session) return;
   if(session.plans) $("plans").innerHTML = session.plans.map((p,i) =>
@@ -2188,6 +2280,7 @@ $("lang").addEventListener("change", () => { $("privacyLink").href = SAFE_GUIDE[
   let opened = false;
   try{ opened = !!sessionStorage.getItem("pl_opened"); sessionStorage.setItem("pl_opened", "1") }catch(_){}
   if(!opened) track("app_open", Object.assign({ src: attribution() }, dl.lensId ? { lens: slugOf(dl.lensId) } : {}, dl.langCode ? { lang: dl.langCode } : {}));
+  checkRestore();
   if(new URLSearchParams(location.search).get("paid") === "1"){
     for(let i=0;i<6 && (!session || (!session.credits && !session.premium));i++){
       await new Promise(r=>setTimeout(r,1500)); await loadSession();
